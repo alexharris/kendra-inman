@@ -2,58 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  /* Brand colors */
+  --color-beige: #EFEBD9;
+  --color-red: #E05537;
+  --color-purple: #D6C0DA;
+  --color-blue: #5CA4E9;
+  --color-yellow: #F2EB85;
+  --color-taupe: #B8B6A3;
+  --color-green: #558877;
+  --color-black: #1F1D1D
+
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --background: #0a0a0a;
+    --foreground: #ededed; */
   }
 }
 
 body {
-  background: black;
-  color: white;
+  background-color: var(--color-beige);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/* KENDRA INMAN Header Animation */
-.kendra-header {
-  
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-  background: black;
-  animation: headerAnimation 3s ease-in-out forwards;
-}
-
-@keyframes headerAnimation {
-  0% {
-    /* Start: Full screen, very large text, centered */
-    height: 100vh;
-    font-size: 9rem;
-    background: black;
-    transform: translateY(0);
-  }
-  50% {
-    /* Middle: Still centered but smaller text */
-    height: 100vh;
-    font-size: 3rem;
-    background: black;
-    transform: translateY(0);
-  }
-  100% {
-    /* End: Small header at top with transparent background */
-    height: 4rem;
-    font-size: 1.5rem;
-    background: transparent;
-    transform: translateY(0);
-  }
+  margin: 0;
 }
 
