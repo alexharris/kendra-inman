@@ -55,8 +55,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`p-8 transition-colors duration-500 ${brandColors[currentSection]}`}>
-      <BigText className="text-white fixed z-10">Creative Direction that breaks through.</BigText>
+    <>
+    <div className={`p-8 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
+      <BigText className="text-white sticky top-24 z-10">Creative Direction that breaks through.</BigText>
       <div 
         ref={el => sectionRefs.current[0] = el}
         className="h-screen w-full relative"
@@ -121,5 +122,7 @@ export default function Home() {
         </div>
       </div>
     </div>
+    <div id="footer-extension" className="bg-black h-screen"></div>
+    </>
   );
 }
