@@ -73,7 +73,6 @@ body {
 }
 
 .big-paragraph {
-  font-family: var(--font-futura-medium);
   font-weight: 500;
   font-style: Medium;
   font-size: 36px;
