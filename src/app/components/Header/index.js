@@ -1,5 +1,7 @@
 'use client';
+import './Header.css';
 import { usePathname } from 'next/navigation';
+
 import { useEffect, useState } from 'react';
 import Menu from '../Menu';
 
@@ -33,7 +35,8 @@ export default function Header() {
 
   return (
     <div
-      className={`kendra-header justify-between items-center flex px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
+      id="site-header"
+      className={`mheader justify-between items-center flex px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
