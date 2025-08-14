@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <>
     <div className="h-screen w-full relative bg-gray-200 flex flex-col items-center justify-center">Intro screen</div>
-    <div className={`p-8 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
+    <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
       <BigText className="text-beige sticky top-24 z-10">Creative Direction that breaks through.</BigText>
       <div 
         ref={el => sectionRefs.current[0] = el}
