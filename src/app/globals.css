@@ -11,12 +11,15 @@
   --color-green: #558877;
   --color-black: #1F1D1D;
   --basic-padding: 16px;
+  --font-sans: "futura-pt", sans-serif;
 
 }
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-futura-medium: "futura-pt", sans-serif;
+  --font-futura-bold: "futura-pt-bold", sans-serif;
 }
 
 
@@ -29,7 +32,7 @@
 }
 
 body {
-  font-family: Avenir, Helvetica, sans-serif;
+  /* font-family: var(--font-futura-medium); */
   margin: 0;
   padding: 0;
 }
@@ -38,8 +41,22 @@ body {
   padding-top: 64px;
 }
 
+.futura {
+  font-family: var(--font-futura-medium);
+}
+
+.futura-medium {
+  font-family: var(--font-futura-medium);
+  font-weight: 500;
+}
+
+.futura-bold {
+  font-family: var(--font-futura-bold);
+  font-weight: 700;
+}
+
 .big-paragraph {
-  font-family: Futura;
+  font-family: var(--font-futura-medium);
   font-weight: 500;
   font-style: Medium;
   font-size: 36px;

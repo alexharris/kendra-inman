@@ -18,15 +18,18 @@ export default function Home() {
     'bg-taupe',   // Section 5
     'bg-green',   // Section 6
     'bg-black',   // Section 7
-    'bg-red'      // Section 8 (back to red)
+    'bg-red',      // Section 8 (back to red)
+    'bg-black'     // Section 9 (footer extension)
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
+      const lastSectionIndex = brandColors.length - 1;
       
       sectionRefs.current.forEach((section, index) => {
+        console.log(`Checking section ${index} at scrollY: ${scrollY}`);
         if (section) {
           const imageElement = section.querySelector('.section-image');
           
@@ -42,6 +45,15 @@ export default function Home() {
             if (imageTop >= viewportTop && imageBottom <= viewportBottom) {
               console.log(`Section ${index} image is fully visible`);
               setCurrentSection(index);
+            } 
+          } else if (index === lastSectionIndex) {
+            // For the last section (footer), check if it's in view
+            const sectionRect = section.getBoundingClientRect();
+            const sectionTop = scrollY + sectionRect.top;
+            
+            if (sectionTop <= scrollY + windowHeight * 0.5) {
+              console.log(`Last section ${index} is in view`);
+              setCurrentSection(lastSectionIndex);
             }
           }
         }
@@ -56,73 +68,75 @@ export default function Home() {
 
   return (
     <>
+    <div className="h-screen w-full relative bg-gray-200 flex flex-col items-center justify-center">Intro screen</div>
     <div className={`p-8 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
-      <BigText className="text-white sticky top-24 z-10">Creative Direction that breaks through.</BigText>
+      <BigText className="text-beige sticky top-24 z-10">Creative Direction that breaks through.</BigText>
       <div 
         ref={el => sectionRefs.current[0] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[1] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[2] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[3] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[4] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[5] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[6] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[7] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
       <div 
         ref={el => sectionRefs.current[8] = el}
         className="h-screen w-full relative"
       >
-        <div className="section-image w-64 h-48 bg-gray-200 absolute top-24 right-24">
+        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
         </div>
       </div>
+      <div id="footer-extension" ref={el => sectionRefs.current[9] = el} className="h-[50vh] w-full relative"></div>      
     </div>
-    <div id="footer-extension" className="bg-black h-screen"></div>
+    
     </>
   );
 }

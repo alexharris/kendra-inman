@@ -37,7 +37,7 @@ export default function Header() {
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <span></span>
-      <a href="/">KENDRA INMAN</a>
+      <a href="/" className="futura-bold text">KENDRA INMAN</a>
       <Menu />
     </div>
   );

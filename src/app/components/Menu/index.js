@@ -13,7 +13,7 @@ export default function Menu() {
     <div>
       {/* Hamburger Button */}
       <button
-        className={`menu-button ${isOpen ? 'open' : ''}`}
+        className={`uppercase menu-button futura-medium ${isOpen ? 'open' : ''}`}
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >

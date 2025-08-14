@@ -7,7 +7,6 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Avenir', 'system-ui', 'sans-serif'],
       },
     },
   },
