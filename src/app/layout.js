@@ -9,8 +9,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/yiy0lvp.css" />
       </head>
-      <body className="futura-pt">
-        <Header />
+      <body className="futura-pt"><Header />
         <div id="wrapper">{children}</div>
         <Footer />
       </body>

@@ -33,9 +33,11 @@ export default function Header() {
   }, [lastScrollY]);
 
   return (
-    <div className={`justify-between items-center flex h-16 px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
-      isVisible ? 'translate-y-0' : '-translate-y-full'
-    }`}>
+    <div
+      className={`justify-between items-center flex px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <span></span>
       <a href="/" className="futura-bold text">KENDRA INMAN</a>
       <Menu />
