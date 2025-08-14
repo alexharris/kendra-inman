@@ -1,10 +1,14 @@
 
 import './Work.scss';
+import HeaderWithTag from '../components/HeaderWithTag';
 
 export default function Page() {
   return (
     <div className="bg-red min-h-screen flex flex-col text-white ">
-      <h2 className="py-24 text-center text-3xl">Work that works</h2>
+      <HeaderWithTag
+        title="Work that works"
+        tag="12"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         <div className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center">Grid item 1</div>
         <div className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center">Grid item 2</div>
@@ -18,7 +22,6 @@ export default function Page() {
         <div className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center">Grid item 10</div>
         <div className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center">Grid item 11</div>
         <div className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center">Grid item 12</div>
-      
       </div>
     </div>
   )
