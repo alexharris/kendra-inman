@@ -42,7 +42,7 @@ body {
 }
 
 #wrapper > * {
-  padding-top: 64px;
+  padding-top: var(--header-height)
 }
 
 .futura {
