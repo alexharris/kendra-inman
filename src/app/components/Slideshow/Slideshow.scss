@@ -1,0 +1,77 @@
+.embla {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  height: 100%; // Set a default height, adjust as needed
+  --slide-spacing: 40px;
+  --slide-size: 90%;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.embla__container {
+  display: flex;
+  height: 100%;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  padding-left: var(--slide-spacing);
+  min-width: 0;
+  height: 100%;
+  position: relative;
+}
+
+.embla__slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 10;
+}
+
+.embla__slide:last-child {
+  margin-right: 0;
+}
+
+.embla__nav-area {
+  position: absolute;
+  top: 0;
+  width: 33.333%; // One third of the slideshow width
+  height: 100%;
+  z-index: 30;
+  background: transparent;
+}
+
+.embla__nav-area--prev {
+  left: 0;
+  cursor: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.046 15.52L0.916016 9.31V7.81L15.046 0.759999V3.1L3.73602 8.44L15.046 13.18V15.52Z" fill="%23EFEBD9"/></svg>') 16 16, pointer;
+
+  &.embla__nav-area--disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.embla__nav-area--next {
+  right: 0;
+  cursor: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.916016 13.18L12.226 8.47L0.916016 3.1V0.759999L15.046 7.81V9.31L0.916016 15.52V13.18Z" fill="%23EFEBD9"/></svg>') 16 16, pointer;
+
+  &.embla__nav-area--disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+
+// Responsive adjustments for mobile
+@media (max-width: 640px) {
+  .embla__nav-area {
+    width: 25%; // Slightly smaller clickable areas on mobile
+  }
+}
