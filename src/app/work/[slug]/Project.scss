@@ -1,10 +1,16 @@
+:root {
+  --intro-bar-height: 140px
+}
+
+
 /* Project page styles */
 .project-container {
   padding-top: var(--header-height);
 }
 
-/* Project overview section */
-#project-overview {
-  /* Adjust height to account for header */
-  height: calc(100vh - var(--header-height));
+#project-slideshow {
+  position: sticky;
+  top: calc(var(--header-height));
+  height: calc(100vh - var(--header-height) - var(--intro-bar-height));
 }
+
