@@ -4,7 +4,7 @@ import HeaderWithTag from '../components/HeaderWithTag';
 
 export default function Page() {
   return (
-    <div className="bg-red min-h-screen flex flex-col text-white ">
+    <div className="min-h-screen flex flex-col ">
       <HeaderWithTag
         title="Work that works"
         tag="12"
