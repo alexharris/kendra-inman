@@ -41,7 +41,7 @@ body {
   padding: 0;
 }
 
-#wrapper > * {
+#wrapper.not-studio > * {
   padding-top: var(--header-height)
 }
 

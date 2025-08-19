@@ -1,6 +1,5 @@
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import ConditionalLayout from "./components/ConditionalLayout";
 
 
 export default function RootLayout({ children }) {
@@ -36,9 +35,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://use.typekit.net/yiy0lvp.css" />
       </head>
       <body className={`futura-pt ${backgroundColor} ${textColor}`}>
-        <Header />
-        <div id="wrapper">{children}</div>
-        <Footer />
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );
