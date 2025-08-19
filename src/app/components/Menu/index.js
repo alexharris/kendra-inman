@@ -10,7 +10,7 @@ export default function Menu() {
   };
 
   return (
-    <div>
+    <div className="absolute top-4 right-6 z-50">
       {/* Hamburger Button */}
       <button
         className={`uppercase menu-button futura-medium ${isOpen ? 'open' : ''}`}
@@ -30,8 +30,9 @@ export default function Menu() {
         >
           ×
         </button>
-        
+        <a href="/" className="futura-bold text text-white absolute top-6">KENDRA INMAN</a>
         <nav className="menu-nav">
+          <h2 className="menu-title big-serif-header">Work</h2>
           <ul className="menu-list">
             <li className="menu-item">
               <a href="/" className="menu-link" onClick={toggleMenu}>
@@ -54,7 +55,9 @@ export default function Menu() {
               </a>
             </li>
           </ul>
+          <h2 className="menu-title big-serif-header">About</h2>
         </nav>
+        <a href="#" className="text-white">Let's Work Together</a>
       </div>
     </div>
   );

@@ -48,13 +48,13 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.95);
   z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   &.open {
     opacity: 1;
     visibility: visible;
@@ -76,6 +76,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   transition: all 0.3s ease;
   
   &:hover {
@@ -87,12 +88,28 @@
 /* Menu Navigation */
 .menu-nav {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }
 
 .menu-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: .5rem;
+  width: 50%;
+  justify-content: center;
+}
+
+.menu-title {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .menu-item {
@@ -100,7 +117,7 @@
   transform: translateY(2rem);
   opacity: 0;
   transition: all 0.3s ease;
-  
+
   .menu-overlay.open & {
     transform: translateY(0);
     opacity: 1;
@@ -115,8 +132,9 @@
 .menu-link {
   color: white;
   text-decoration: none;
+  font-family: var(--font-apris);
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;

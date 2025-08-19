@@ -72,6 +72,15 @@ body {
   font-family: var(--font-apris);
 }
 
+.big-serif-header {
+  font-weight: 300;
+  font-style: Light;
+  font-size: 90px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  font-family: var(--font-apris);
+}
+
 .big-paragraph {
   font-weight: 500;
   font-style: Medium;

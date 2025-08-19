@@ -36,11 +36,11 @@ export default function Header() {
   return (
     <div
       id="site-header"
-      className={`mheader justify-between items-center flex px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
+      className={`mheader justify-center items-center flex px-4 fixed w-full bg-transparent z-40 transition-transform duration-300 ease-in-out ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
-      <span></span>
+     
       <a href="/" className="futura-bold text">KENDRA INMAN</a>
       <Menu />
     </div>
