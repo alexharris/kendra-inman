@@ -4,17 +4,22 @@ import { useEffect, useState } from 'react';
 import Slideshow from '../../components/Slideshow';
 
 export default function ProjectContent({ project }) {
-  const [bgClassState, setBgClassState] = useState('');
+
 
   useEffect(() => {
-    // This runs only on the client side
-    const bodyClasses = document.body.classList;
-    const classArray = Array.from(bodyClasses);
-    const bgClass = classArray.find(cls => cls.startsWith('bg-'));
-    if (bgClass) {
-      setBgClassState(bgClass);
-    } 
-  }, []);
+    // Store the original body background color
+    const originalBodyBg = document.body.style.backgroundColor;
+    
+    // Apply the project color to the body
+    if (project.color?.hex) {
+      document.body.style.backgroundColor = project.color.hex;
+    }
+
+    // Cleanup function to restore original background when component unmounts
+    return () => {
+      document.body.style.backgroundColor = originalBodyBg;
+    };
+  }, [project.color?.hex]);
 
   return (
     <>
@@ -23,7 +28,7 @@ export default function ProjectContent({ project }) {
         <div id="project-slideshow" className="w-full z-10">
           <Slideshow />
         </div>
-        <div className={` pb-16 z-20 ${bgClassState} px-4`}>
+        <div className={` pb-16 z-20 px-4`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
           <div id="project-intro" className="z-20 flex flex-row items-center justify-between h-36 py-6 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div id="project-tagline-1" className="uppercase flex flex-row items-center gap-2">

@@ -15,11 +15,12 @@ export default function RootLayout({ children }) {
     'bg-green',   // Section 6
     'bg-black',   // Section 7
     'bg-red',      // Section 8 (back to red)
-    'bg-black'     // Section 9 (footer extension)
+    'bg-black',     // Section 9 (footer extension)
+    'bg-white',   // Section 10 (footer)
   ];
 
 
-  var backgroundColor = brandColors[3]; // Default to yellow for the body background
+  var backgroundColor = brandColors[10]; // Default to yellow for the body background
 
   if (backgroundColor === 'bg-black') {
     // If the background color is black, set text color to white

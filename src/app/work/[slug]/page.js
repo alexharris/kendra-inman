@@ -10,7 +10,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
   // Fetch the project data using the slug from params
-  const project = await getProjectBySlug(params.slug);
+
+  const projectParams = await params
+  const project = await getProjectBySlug(projectParams.slug);
 
   if (!project) {
     return (

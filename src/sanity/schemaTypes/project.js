@@ -57,6 +57,13 @@ export default {
       type: 'array',
       of: [{ type: 'string' }],
     }
+    ,
+    {
+      name: 'color',
+      title: 'Color',
+      type: 'reference',
+      to: [{ type: 'siteColors' }],
+    }
   
   ],
   preview: {

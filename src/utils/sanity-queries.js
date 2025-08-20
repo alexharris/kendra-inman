@@ -38,6 +38,11 @@ export async function getAllProjects(options = {}) {
     repositoryUrl,
     featured,
     publishedAt,
+    color->{
+      _id,
+      name,
+      hex
+    },
     _createdAt,
     _updatedAt
   }`;
@@ -64,6 +69,11 @@ export async function getProjectBySlug(slug, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
@@ -91,6 +101,11 @@ export async function getProjectById(id, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
@@ -118,6 +133,11 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
@@ -144,6 +164,11 @@ export async function searchProjects(searchTerm, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
@@ -192,6 +217,11 @@ export async function getFeaturedProjects(options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
@@ -218,6 +248,11 @@ export async function getProjectsByExpertise(expertise, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    color->{
+      _id,
+      name,
+      hex
+    },
     publishedAt,
     _createdAt,
     _updatedAt
