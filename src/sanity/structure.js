@@ -2,4 +2,23 @@
 export const structure = (S) =>
   S.list()
     .title('Content')
-    .items(S.documentTypeListItems())
+    .items([
+      S.listItem()
+        .title('Site Settings')
+        .child(
+          S.list()
+            // Sets a title for our new list
+            .title('Settings Documents')
+            // Add items to the array
+            // Each will pull one of our new singletons
+            .items([
+              S.listItem()
+                .title('Global Settings')
+                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+              S.listItem()
+                .title('Site Colors')
+                .child(S.documentTypeList('siteColors').title('Colors').filter('_type == "siteColors"')),
+            ]),          
+        ),
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors'].includes(listItem.getId()))
+    ])
