@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Slideshow from '../../components/Slideshow';
 
 export default function ProjectContent({ project }) {
-
+  const [isBackgroundReady, setIsBackgroundReady] = useState(false);
 
   useEffect(() => {
     // Store the original body background color
@@ -15,14 +15,34 @@ export default function ProjectContent({ project }) {
       document.body.style.backgroundColor = project.color.hex;
     }
 
+    if (project.color?.name == 'Black') {
+      document.body.classList.add('text-beige');
+      document.body.classList.remove('text-black');
+    } else {
+      document.body.classList.remove('text-beige');
+      document.body.classList.add('text-black');
+    }
+
+    // Mark background as ready after applying the color
+    setIsBackgroundReady(true);
+
     // Cleanup function to restore original background when component unmounts
     return () => {
       document.body.style.backgroundColor = originalBodyBg;
     };
   }, [project.color?.hex]);
 
+  // Don't render content until background is ready
+  if (!isBackgroundReady) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-gray-100 border-t-gray-200 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
-    <>
+    <div className="">
       {/* Desktop */}
       <div className="project-container hidden md:flex flex-col px-4">
         <div id="project-slideshow" className="w-full z-10">
@@ -120,6 +140,6 @@ export default function ProjectContent({ project }) {
         <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
         <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
       </div>
-    </>
+    </div>
   );
 }
