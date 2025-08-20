@@ -1,0 +1,69 @@
+export default {
+  name: 'project',
+  title: 'Project',
+  type: 'document',
+  fields: [
+    {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'tagline',
+      title: 'Tagline',
+      type: 'string',
+    },
+    {
+      name: 'description',
+      title: 'Description',
+      type: 'array',
+      of: [{ type: 'block' }],
+    },
+    {
+      name: 'featuredImage',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
+      name: 'gallery',
+      title: 'Project Gallery',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    },
+    {
+      name: 'expertise',
+      title: 'Expertise Used',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }
+  
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'tagline',
+      media: 'featuredImage',
+    },
+  },
+}
