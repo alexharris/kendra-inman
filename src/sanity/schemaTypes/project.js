@@ -63,8 +63,18 @@ export default {
       title: 'Color',
       type: 'reference',
       to: [{ type: 'siteColors' }],
-    }
-  
+    },
+    {
+      name: 'category',
+      title: 'Category',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'siteCategories' }],
+        },
+      ],
+    },
   ],
   preview: {
     select: {

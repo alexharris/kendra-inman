@@ -18,7 +18,10 @@ export const structure = (S) =>
               S.listItem()
                 .title('Site Colors')
                 .child(S.documentTypeList('siteColors').title('Colors').filter('_type == "siteColors"')),
+              S.listItem()
+                .title('Site Categories')
+                .child(S.documentTypeList('siteCategories').title('Categories').filter('_type == "siteCategories"')),
             ]),          
         ),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors'].includes(listItem.getId()))
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories'].includes(listItem.getId()))
     ])

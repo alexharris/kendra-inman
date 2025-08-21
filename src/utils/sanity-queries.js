@@ -38,6 +38,11 @@ export async function getAllProjects(options = {}) {
     repositoryUrl,
     featured,
     publishedAt,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -69,6 +74,11 @@ export async function getProjectBySlug(slug, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -101,6 +111,11 @@ export async function getProjectById(id, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -133,6 +148,11 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -164,6 +184,11 @@ export async function searchProjects(searchTerm, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -217,6 +242,11 @@ export async function getFeaturedProjects(options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -248,6 +278,11 @@ export async function getProjectsByExpertise(expertise, options = {}) {
     projectUrl,
     repositoryUrl,
     featured,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
     color->{
       _id,
       name,
@@ -268,5 +303,92 @@ export async function getProjectsByExpertise(expertise, options = {}) {
  */
 export async function getAllExpertise(options = {}) {
   const query = `array::unique(*[_type == "project" && defined(expertise)].expertise[])`;
+  return fetchSanityData(query, {}, options);
+}
+
+/**
+ * Fetch all categories
+ * @param {Object} options - Query options
+ * @returns {Promise<Array>} - Array of category documents
+ */
+export async function getAllCategories(options = {}) {
+  const query = `*[_type == "siteCategories"] | order(_createdAt desc) {
+    _id,
+    name,
+    header,
+    slug,
+    color->{
+      _id,
+      name,
+      hex
+    },
+  }`;
+
+  return fetchSanityData(query, {}, options);
+}
+
+export async function getProjectsByCategory(categorySlug, options = {}) {
+  const query = `*[_type == "project" && $categorySlug in category[]->slug.current] | order(publishedAt desc, _createdAt desc) {
+    _id,
+    title,
+    tagline,
+    description,
+    slug,
+    featuredImage,
+    expertise,
+    projectUrl,
+    repositoryUrl,
+    featured,
+    publishedAt,
+    category[]->{
+      _id,
+      name,
+      slug
+    },
+    color->{
+      _id,
+      name,
+      hex
+    },
+    _createdAt,
+    _updatedAt
+  }`;
+  
+  return fetchSanityData(query, { categorySlug }, options);
+}
+
+/**
+ * Get category by slug
+ * @param {string} slug - Category slug
+ * @param {Object} options - Query options
+ * @returns {Promise<Object|null>} - Category document or null
+ */
+export async function getCategoryBySlug(slug, options = {}) {
+  
+  const query = `*[_type == "siteCategories" && slug.current == $slug][0] {
+    _id,
+    name,
+    header,
+    slug,
+    color->{
+      _id,
+      name,
+      hex
+    }
+  }`;
+  console.log('Query:', query);
+  return fetchSanityData(query, { slug }, options);
+}
+
+/**
+ * Fetch category slugs (useful for static generation)
+ * @param {Object} options - Query options
+ * @returns {Promise<Array>} - Array of slug objects
+ */
+export async function getCategorySlugs(options = {}) {
+  const query = `*[_type == "siteCategories" && defined(slug.current)] {
+    "slug": slug.current
+  }`;
+  
   return fetchSanityData(query, {}, options);
 }

@@ -1,13 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Menu.scss';
+import { getAllCategories } from '../../../utils/sanity-queries';
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const categoriesData = await getAllCategories();
+        setCategories(categoriesData || []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
 
   return (
     <div className="absolute top-4 right-6 z-50">
@@ -34,30 +55,26 @@ export default function Menu() {
         <nav className="menu-nav">
           <h2 className="menu-title big-serif-header">Work</h2>
           <ul className="menu-list">
-            <li className="menu-item">
-              <a href="/" className="menu-link" onClick={toggleMenu}>
-                Home
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="/work" className="menu-link" onClick={toggleMenu}>
-                Work
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="/work/project" className="menu-link" onClick={toggleMenu}>
-                Project
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="/connect" className="menu-link" onClick={toggleMenu}>
-                Connect
-              </a>
-            </li>
+            {loading ? (
+              <p>Loading...</p>
+            ) : categories.length > 0 ? (
+              categories.map((category) => (
+                <a
+                  href={`/work/${category.slug.current}`}
+                  key={category._id}
+                  className="text-white"
+                  style={{ textDecoration: 'none' }}
+                >
+                  {category.name}
+                </a>
+              ))
+            ) : (
+              <p>No projects found.</p>
+            )}
           </ul>
           <h2 className="menu-title big-serif-header">About</h2>
         </nav>
-        <a href="#" className="text-white">Let's Work Together</a>
+       <a href="/connect" className="text-white">Let's Work Together</a>
       </div>
     </div>
   );
