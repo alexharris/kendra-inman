@@ -1,5 +1,5 @@
 import './Project.scss';
-import { getProjectBySlug, getProjectSlugs } from '../../../utils/sanity-queries';
+import { getProjectBySlug, getProjectSlugs } from '../../../../utils/sanity-queries';
 import ProjectContent from './ProjectContent';
 
 // Generate static params for all project slugs

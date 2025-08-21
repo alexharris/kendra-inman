@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Slideshow from '../../components/Slideshow';
+import Slideshow from '../../../components/Slideshow';
 
 export default function ProjectContent({ project }) {
   const [isBackgroundReady, setIsBackgroundReady] = useState(false);

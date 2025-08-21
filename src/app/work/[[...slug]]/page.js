@@ -33,7 +33,7 @@ export default async function Page({ params }) {
         {projects.length > 0 ? (
           projects.map((project) => (
             <a
-              href={`/work/${project.slug.current}`}
+              href={`/work/project/${project.slug.current}`}
               key={project._id}
               className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center p-4 hover:bg-gray-300 transition-colors"
               style={{ textDecoration: 'none' }}
