@@ -322,6 +322,7 @@ export async function getAllCategories(options = {}) {
       name,
       hex
     },
+    "projectCount": count(*[_type == "project" && ^._id in category[]._ref])
   }`;
 
   return fetchSanityData(query, {}, options);

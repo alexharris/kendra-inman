@@ -25,10 +25,13 @@ export default async function Page({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <HeaderWithTag
-        title={title}
-        tag={projects.length.toString()}
-      />
+      <div className={`my-24 text-center serif-header px-8`}>
+        <HeaderWithTag
+          title={title}
+          tag={projects.length.toString()}
+          size=""
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {projects.length > 0 ? (
           projects.map((project) => (
