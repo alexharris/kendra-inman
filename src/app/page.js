@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import BigText from "./components/big-text";
+import ScrollSection from "./components/ScrollSection";
 import { useEffect, useState, useRef } from "react";
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
   const [animationPhase, setAnimationPhase] = useState('initial'); // 'initial', 'shrinking', 'moving', 'complete'
+  const [isBigTextSticky, setIsBigTextSticky] = useState(true);
   const sectionRefs = useRef([]);
   
   // Brand colors corresponding to each section
@@ -70,6 +72,20 @@ export default function Home() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const lastSectionIndex = brandColors.length - 1;
+      
+      // Check if footer-extension is in view to make BigText unsticky
+      // const footerExtension = document.getElementById('footer-extension');
+      // if (footerExtension) {
+      //   const footerRect = footerExtension.getBoundingClientRect();
+      //   const footerTop = scrollY + footerRect.top;
+        
+      //   // Make BigText unsticky when footer-extension starts coming into view
+      //   if (footerTop <= scrollY + windowHeight) {
+      //     setIsBigTextSticky(false);
+      //   } else {
+      //     setIsBigTextSticky(true);
+      //   }
+      // }
       
       sectionRefs.current.forEach((section, index) => {
         console.log(`Checking section ${index} at scrollY: ${scrollY}`);
@@ -137,76 +153,29 @@ export default function Home() {
         </div>
       </div>
     )}
-
-    <div className="h-screen w-full relative bg-gray-200 flex flex-col items-center justify-center">Intro screen</div>
-    <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
-      <BigText className="text-beige sticky top-24 z-10">Creative Direction that breaks through.</BigText>
-      <div 
-        ref={el => sectionRefs.current[0] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24 z-20">
-        </div>
+    <div id="main-scroll">
+      {/* Intro Screen  */}
+      <div className="h-screen w-full relative bg-gray-200 flex flex-col items-center justify-center">
+        Intro screen
       </div>
-      <div 
-        ref={el => sectionRefs.current[1] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[2] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[3] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[4] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[5] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[6] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[7] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div 
-        ref={el => sectionRefs.current[8] = el}
-        className="h-screen w-full relative"
-      >
-        <div className="section-image w-1/2 h-1/4 bg-gray-200 absolute top-24 right-24">
-        </div>
-      </div>
-      <div id="footer-extension" ref={el => sectionRefs.current[9] = el} className="h-[50vh] w-full relative"></div>      
+      {/* Sections  */}
+      <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
+        <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
+        <ScrollSection index={0} sectionRefs={sectionRefs} />
+        <ScrollSection index={1} sectionRefs={sectionRefs} />
+        <ScrollSection index={2} sectionRefs={sectionRefs} />
+        <ScrollSection index={3} sectionRefs={sectionRefs} />
+        <ScrollSection index={4} sectionRefs={sectionRefs} />
+        <ScrollSection index={5} sectionRefs={sectionRefs} />
+        <ScrollSection index={6} sectionRefs={sectionRefs} />
+        <ScrollSection index={7} sectionRefs={sectionRefs} />
+        <ScrollSection index={8} sectionRefs={sectionRefs} />
+      </div>      
+      <div id="footer-extension" className="min-h-[60vh] w-full relative bg-black">
+        <p>Last scroll: background to black and summary scrolls up from bottom to land after the word “through.” and then locks parallax and back to regular scroll until hit footer.</p>
+        <p>Footer scrolls into position below summary.</p>
+      </div>      
     </div>
-    
     </>
   );
 }

@@ -103,6 +103,11 @@ body {
   font-family: var(--font-apris);
 }
 
+.big-text {
+  font-size: 243px;
+  line-height: 193px
+}
+
 .big-serif-header {
   font-weight: 300;
   font-style: Light;
