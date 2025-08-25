@@ -155,7 +155,7 @@ export default function Home() {
     )}
     <div id="main-scroll">
       {/* Intro Screen  */}
-      <div className="h-screen w-full relative bg-gray-200 flex flex-col items-center justify-center">
+      <div className="h-screen w-full bg-gray-200 flex flex-col items-center justify-center">
         Intro screen
       </div>
       {/* Sections  */}
