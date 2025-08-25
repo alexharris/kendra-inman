@@ -1,5 +1,22 @@
 @import 'tailwindcss';
 
+/* Font declarations */
+@font-face {
+  font-family: "apris";
+  src: url("/fonts/Apris-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Founders Grotesk";
+  src: url("/fonts/founders-grotesk-mono-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Brand colors */
   --color-beige: #EFEBD9;
@@ -21,7 +38,7 @@
   --foreground: #171717;
   --font-futura-medium: "futura-pt", sans-serif;
   --font-futura-bold: "futura-pt-bold", sans-serif;
-  --font-apris: serif;
+  --font-apris: "apris", serif;
   --font-founders-grotesk: "Founders Grotesk", monospace;
   --header-height: 75px;
 }

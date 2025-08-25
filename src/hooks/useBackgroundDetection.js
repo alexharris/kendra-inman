@@ -25,9 +25,9 @@ export const useBackgroundDetection = (options = {}) => {
   } = options;
 
   const [backgroundColor, setBackgroundColor] = useState('rgb(255, 255, 255)');
-  const [isLight, setIsLight] = useState(true);
-  const [contrastColor, setContrastColor] = useState(colorScheme.light);
-  const [contrastClasses, setContrastClasses] = useState(classMap.light);
+  const [isLight, setIsLight] = useState(false);
+  const [contrastColor, setContrastColor] = useState(colorScheme.dark);
+  const [contrastClasses, setContrastClasses] = useState(classMap.dark);
 
   // Function to update all color-related state
   const updateColorState = () => {
