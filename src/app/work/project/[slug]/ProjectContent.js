@@ -2,9 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import Slideshow from '../../../components/Slideshow';
+import { urlFor } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
   const [isBackgroundReady, setIsBackgroundReady] = useState(false);
+
+  // Helper function to get gallery images (filter out videos for now)
+  const getGalleryImages = () => {
+    if (!project.gallery) return [];
+    return project.gallery.filter(item => item._type === 'image');
+  };
+
+  const galleryImages = getGalleryImages();
 
   useEffect(() => {
     // Store the original body background color
@@ -46,7 +55,7 @@ export default function ProjectContent({ project }) {
       {/* Desktop */}
       <div className="project-container hidden md:flex flex-col px-4">
         <div id="project-slideshow" className="w-full z-10">
-          <Slideshow />
+          <Slideshow gallery={project.gallery} />
         </div>
         <div className={` pb-16 z-20 px-4`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
           <div id="project-intro" className="z-20 flex flex-row items-center justify-between h-36 py-6 flex-shrink-0">
@@ -101,7 +110,14 @@ export default function ProjectContent({ project }) {
       </div>
       {/* Mobile */}
       <div className="md:hidden min-h-screen flex flex-col px-4 gap-8 pb-16">
-        <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+        {galleryImages.length > 0 ? (
+          <img 
+            src={urlFor(galleryImages[0]).auto('format').url()} 
+            alt="Project featured image" 
+          />
+        ) : (
+          <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+        )}
         <h1 id="project-title" className="serif-header">{project.title}</h1>
         <div id="project-tagline-1" className="uppercase flex flex-row items-center gap-2">
           {project.tagline} 
@@ -135,10 +151,20 @@ export default function ProjectContent({ project }) {
                 </ul>
               </div>
             )}
-        <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-        <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-        <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-        <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+        {galleryImages.slice(1).map((image, index) => (
+          <img 
+            key={index}
+            src={urlFor(image).auto('format').url()} 
+            alt={`Gallery image ${index + 2}`} 
+          />
+        ))}
+        {galleryImages.length === 0 && (
+          <>
+            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+          </>
+        )}
       </div>
     </div>
   );

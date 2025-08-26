@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import { urlFor } from '../../../sanity/lib/image'
 import './Slideshow.scss'
 
-export default function Slideshow() {
+export default function Slideshow({ gallery = [] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel()
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false)
@@ -34,15 +35,27 @@ export default function Slideshow() {
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container text-black">
-          <div className="embla__slide">
-            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-          </div>
-          <div className="embla__slide">
-            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-          </div>
-          <div className="embla__slide">
-            <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
-          </div>
+          {gallery.length > 0 ? (
+            gallery.map((item, index) => {
+              // Only render images for now, skip videos
+              if (item._type === 'image') {
+                return (
+                  <div key={index} className="embla__slide">
+                    <img 
+                      src={urlFor(item).auto('format').url()} 
+                      alt={`Gallery image ${index + 1}`} 
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })
+          ) : (
+            // Fallback to dummy image if no gallery items
+            <div className="embla__slide">
+              <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
+            </div>
+          )}
         </div>
       </div>
       <div 

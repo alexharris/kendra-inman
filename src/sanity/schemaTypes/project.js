@@ -51,8 +51,11 @@ export default {
       of: [
         {
           type: 'image',
+        },
+        {
+          type: 'file',
           options: {
-            hotspot: true,
+            accept: 'video/*',
           },
         },
       ],
