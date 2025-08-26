@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { urlFor } from '../../../sanity/lib/image'
+import { urlFor, getAssetUrl } from '../../../sanity/lib/image'
 import './Slideshow.scss'
 
 export default function Slideshow({ gallery = [] }) {
@@ -37,7 +37,6 @@ export default function Slideshow({ gallery = [] }) {
         <div className="embla__container text-black">
           {gallery.length > 0 ? (
             gallery.map((item, index) => {
-              // Only render images for now, skip videos
               if (item._type === 'image') {
                 return (
                   <div key={index} className="embla__slide">
@@ -45,6 +44,21 @@ export default function Slideshow({ gallery = [] }) {
                       src={urlFor(item).auto('format').url()} 
                       alt={`Gallery image ${index + 1}`} 
                     />
+                  </div>
+                );
+              } else if (item._type === 'file' && item.asset) {
+                // Handle video files
+                console.log('Video item:', item);
+                return (
+                  <div key={index} className="embla__slide">
+                    <video 
+                      controls
+                      preload="metadata"
+                      src={`${item.asset.url}#t=0.1`}
+                    >
+                      <source src={item.asset.url} type={item.asset.mimeType} />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 );
               }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Slideshow from '../../../components/Slideshow';
-import { urlFor } from '../../../../sanity/lib/image';
+import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
   const [isBackgroundReady, setIsBackgroundReady] = useState(false);
@@ -13,7 +13,15 @@ export default function ProjectContent({ project }) {
     return project.gallery.filter(item => item._type === 'image');
   };
 
+  // Helper function to get gallery videos
+  const getGalleryVideos = () => {
+    if (!project.gallery) return [];
+    return project.gallery.filter(item => item._type === 'file' && item.asset);
+  };
+
   const galleryImages = getGalleryImages();
+  const galleryVideos = getGalleryVideos();
+  const allGalleryItems = project.gallery || [];
 
   useEffect(() => {
     // Store the original body background color
@@ -110,11 +118,22 @@ export default function ProjectContent({ project }) {
       </div>
       {/* Mobile */}
       <div className="md:hidden min-h-screen flex flex-col px-4 gap-8 pb-16">
-        {galleryImages.length > 0 ? (
-          <img 
-            src={urlFor(galleryImages[0]).auto('format').url()} 
-            alt="Project featured image" 
-          />
+        {allGalleryItems.length > 0 ? (
+          allGalleryItems[0]._type === 'image' ? (
+            <img 
+              src={urlFor(allGalleryItems[0]).auto('format').url()} 
+              alt="Project featured image" 
+            />
+          ) : allGalleryItems[0]._type === 'file' && allGalleryItems[0].asset ? (
+            <video 
+              controls
+              preload="metadata"
+              src={`${allGalleryItems[0].asset.url}#t=0.1`}
+            >
+              <source src={allGalleryItems[0].asset.url} type={allGalleryItems[0].asset.mimeType} />
+              Your browser does not support the video tag.
+            </video>
+          ) : null
         ) : (
           <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
         )}
@@ -151,14 +170,31 @@ export default function ProjectContent({ project }) {
                 </ul>
               </div>
             )}
-        {galleryImages.slice(1).map((image, index) => (
-          <img 
-            key={index}
-            src={urlFor(image).auto('format').url()} 
-            alt={`Gallery image ${index + 2}`} 
-          />
-        ))}
-        {galleryImages.length === 0 && (
+        {allGalleryItems.slice(1).map((item, index) => {
+          if (item._type === 'image') {
+            return (
+              <img 
+                key={index}
+                src={urlFor(item).auto('format').url()} 
+                alt={`Gallery image ${index + 2}`} 
+              />
+            );
+          } else if (item._type === 'file' && item.asset) {
+            return (
+              <video 
+                key={index}
+                controls
+                preload="metadata"
+                src={`${item.asset.url}#t=0.1`}
+              >
+                <source src={item.asset.url} type={item.asset.mimeType} />
+                Your browser does not support the video tag.
+              </video>
+            );
+          }
+          return null;
+        })}
+        {allGalleryItems.length === 0 && (
           <>
             <img src="/images/project-dummy.jpg" alt="Project Slideshow" />
             <img src="/images/project-dummy.jpg" alt="Project Slideshow" />

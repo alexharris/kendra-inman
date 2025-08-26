@@ -71,7 +71,20 @@ export async function getProjectBySlug(slug, options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    gallery,
+    gallery[]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->{
+          _id,
+          url,
+          mimeType,
+          originalFilename
+        }
+      }
+    },
     expertise,
     projectUrl,
     repositoryUrl,
