@@ -93,6 +93,24 @@ export async function getProjectBySlug(slug, options = {}) {
 }
 
 /**
+ * Fetch homepage content
+ * @param {Object} options - Query options
+ * @returns {Promise<Object|null>} - Homepage document or null
+ */
+export async function getHomepageContent(options = {}) {
+  const query = `*[_type == "homepage"][0] {
+    _id,
+    title,
+    content,
+    images,
+    _createdAt,
+    _updatedAt
+  }`;
+  
+  return fetchSanityData(query, {}, options);
+}
+
+/**
  * Fetch a single project by ID
  * @param {string} id - Project ID
  * @param {Object} options - Query options

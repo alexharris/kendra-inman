@@ -25,4 +25,28 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
   ],
+  document: {
+    // Filter out singleton types from the global "New document" menu
+    newDocumentOptions: (prev, {creationContext}) => {
+      if (creationContext.type === 'global') {
+        return prev.filter(
+          (templateItem) => !['homepage', 'siteSettings'].includes(templateItem.templateId)
+        )
+      }
+      return prev
+    },
+    // Restrict actions for singleton documents
+    actions: (prev, {schemaType}) => {
+      const singletonTypes = ['homepage', 'siteSettings']
+      
+      if (singletonTypes.includes(schemaType)) {
+        // For singletons, only allow publish and discard changes
+        return prev.filter(({action}) => 
+          ['publish', 'discardChanges'].includes(action)
+        )
+      }
+      
+      return prev
+    },
+  },
 })

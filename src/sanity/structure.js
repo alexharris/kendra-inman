@@ -23,5 +23,10 @@ export const structure = (S) =>
                 .child(S.documentTypeList('siteCategories').title('Categories').filter('_type == "siteCategories"')),
             ]),          
         ),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories'].includes(listItem.getId()))
+      S.listItem()
+        .title('Homepage')
+        .child(
+          S.document().schemaType('homepage').documentId('homepage')
+        ),
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories', 'homepage'].includes(listItem.getId()))
     ])
