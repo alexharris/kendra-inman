@@ -37,6 +37,12 @@ export default {
       of: [{ type: 'block' }],
     },
     {
+      name: 'projectResults',
+      title: 'Project Results',
+      type: 'array',
+      of: [{ type: 'block' }],
+    },
+    {
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'image',
