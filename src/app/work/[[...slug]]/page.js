@@ -1,6 +1,8 @@
 import '../Work.scss';
 import HeaderWithTag from '../../components/HeaderWithTag';
+import { PortableText } from '@portabletext/react';
 import { getAllProjects, getProjectsByCategory, getCategoryBySlug } from '../../../utils/sanity-queries';
+import { urlFor } from '../../../sanity/lib/image';
 
 export default async function Page({ params }) {
   const slug = params?.slug?.[0]; // Get the first slug segment
@@ -34,43 +36,40 @@ export default async function Page({ params }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {projects.length > 0 ? (
-          projects.map((project) => (
-            <a
-              href={`/work/project/${project.slug.current}`}
-              key={project._id}
-              className="bg-gray-200 h-64 text-black flex flex-col justify-center items-center p-4 hover:bg-gray-300 transition-colors"
-              style={{ textDecoration: 'none' }}
-            >
-              <h3 className="text-lg font-bold mb-2">{project.title}</h3>
-              {project.tagline && (
-                <p className="text-sm text-gray-600 mb-2">{project.tagline}</p>
-              )}
-              {project.category && project.category.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {project.category.map((cat, index) => (
-                    <span
-                      key={index}
-                      className="text-xs bg-blue-200 px-2 py-1 rounded"
-                    >
-                      {cat.name}
-                    </span>
-                  ))}
+          projects.map((project) => {
+            const backgroundImageUrl = project.featuredImage 
+              ? urlFor(project.featuredImage).width(720).height(400).url()
+              : null;
+            
+            return (
+              <a
+                href={`/work/project/${project.slug.current}`}
+                key={project._id}
+                className="relative aspect-700/400 text-white flex flex-col justify-center items-center p-4 overflow-hidden group"
+              >
+                {backgroundImageUrl && (
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300"
+                    style={{ 
+                      backgroundImage: `url(${backgroundImageUrl})`,
+                    }}
+                  />
+                )}
+                
+                {/* Hover overlay with gradient and blurb */}
+                <div className="absolute inset-0 bg-gradient-to-t from-beige to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+                
+                {/* Content that appears on hover */}
+                <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
+                  {project.workBlurb && (
+                    <div className="text-sm text-black mb-2 px-2">
+                      <PortableText value={project.workBlurb} />
+                    </div>
+                  )}
                 </div>
-              )}
-              {project.expertise && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {project.expertise.slice(0, 3).map((exp, index) => (
-                    <span
-                      key={index}
-                      className="text-xs bg-gray-300 px-2 py-1 rounded"
-                    >
-                      {exp}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </a>
-          ))
+              </a>
+            );
+          })
         ) : (
           // Fallback grid items when no projects are available
           Array.from({ length: 12 }, (_, index) => (

@@ -72,7 +72,7 @@ export default function Menu() {
           </svg>          
         </a>
         <nav className="menu-nav">
-          <h2 className="menu-title big-serif-header"><HeaderWithTag title="Work" tag="2" size="text-8xl" /></h2>
+          <h2 className="menu-title big-serif-header"><a href="/work"><HeaderWithTag title="Work" tag="2" size="text-8xl" /></a></h2>
           <ul className="menu-list">
             {loading ? (
               <p className="pulse">...</p>
