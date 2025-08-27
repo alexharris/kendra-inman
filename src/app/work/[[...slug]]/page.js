@@ -3,18 +3,20 @@ import HeaderWithTag from '../../components/HeaderWithTag';
 import { PortableText } from '@portabletext/react';
 import { getAllProjects, getProjectsByCategory, getCategoryBySlug } from '../../../utils/sanity-queries';
 import { urlFor } from '../../../sanity/lib/image';
+import CategoryBackground from '../components/CategoryBackground';
 
 export default async function Page({ params }) {
   const slug = params?.slug?.[0]; // Get the first slug segment
   console.log('Slug:', slug);
   let projects;
   let title;
+  let categoryInfo = null;
   let isCategory = false;
 
   if (slug) {
     // This is a category page
     projects = await getProjectsByCategory(slug);
-    const categoryInfo = await getCategoryBySlug(slug);
+    categoryInfo = await getCategoryBySlug(slug);
     console.log('Category Info:', categoryInfo);
     title = categoryInfo ? `${categoryInfo.header}` : `${slug.charAt(0).toUpperCase() + slug.slice(1)} Work`;
     console.log('Category Info:', categoryInfo);
@@ -27,6 +29,7 @@ export default async function Page({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <CategoryBackground categoryInfo={categoryInfo} isCategory={isCategory} />
       <div className={`my-24 text-center serif-header px-8`}>
         <HeaderWithTag
           title={title}
@@ -45,7 +48,7 @@ export default async function Page({ params }) {
               <a
                 href={`/work/project/${project.slug.current}`}
                 key={project._id}
-                className="relative aspect-700/400 text-white flex flex-col justify-center items-center p-4 overflow-hidden group"
+                className="relative aspect-720/400 text-white flex flex-col justify-center items-center p-4 overflow-hidden group"
               >
                 {backgroundImageUrl && (
                   <div 
