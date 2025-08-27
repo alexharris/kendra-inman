@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Slideshow from '../../../components/Slideshow';
+import MobileProjectGallery from '../../../components/MobileProjectGallery';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
@@ -185,8 +186,8 @@ export default function ProjectContent({ project }) {
 
             <div className="w-1/4">  
               {project.expertise && (
-                <div>
-                  <h3 className="font-mono uppercase text-xs mb-4">( Expertise )</h3>
+                <div className="font-mono text-xs">
+                  <h3 className="uppercase mb-4">( Expertise )</h3>
                   <ul className="flex flex-col gap-2 uppercase">
                     {project.expertise.map((exp, index) => (
                       <li key={index} className="">
@@ -197,7 +198,8 @@ export default function ProjectContent({ project }) {
                 </div>
               )}
             </div>            
-          </div>         
+          </div>
+          <MobileProjectGallery gallery={project.gallery} />         
         </div>
       </div>
 
