@@ -14,19 +14,39 @@ export default function Home() {
   const [isBigTextSticky, setIsBigTextSticky] = useState(true);
   const sectionRefs = useRef([]);
   
-  // Brand colors corresponding to each section
-  const brandColors = [
-    'bg-red',     // Section 0
-    'bg-beige',   // Section 1  
-    'bg-purple',  // Section 2
-    'bg-blue',    // Section 3
-    'bg-yellow',  // Section 4
-    'bg-taupe',   // Section 5
-    'bg-green',   // Section 6
-    'bg-black',   // Section 7
-    'bg-red',      // Section 8 (back to red)
-    'bg-black'     // Section 9 (footer extension)
-  ];
+  // Fetch homepage content from Sanity (Portable Text and Sections)
+  const [homepageData, setHomepageData] = useState(null);
+  const [homepageContent, setHomepageContent] = useState(null);
+  const [homepageSections, setHomepageSections] = useState([]);
+  const [brandColors, setBrandColors] = useState([
+    'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
+    'bg-taupe', 'bg-green', 'bg-black', 'bg-red', 'bg-black'
+  ]);
+
+  // Dynamic brand colors from Sanity sections
+  const getBrandColors = () => {
+    if (!homepageSections.length) {
+      // Fallback colors while loading
+      return [
+        'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
+        'bg-taupe', 'bg-green', 'bg-black', 'bg-red', 'bg-black'
+      ];
+    }
+    
+    const sectionColors = homepageSections.map(section => {
+      // Map color reference to CSS class
+      const colorValue = section.colorReference?.value || section.colorReference?.name;
+      if (colorValue) {
+        return `bg-${colorValue.toLowerCase()}`;
+      }
+      return 'bg-gray-500'; // fallback
+    });
+    
+    // Add footer color
+    sectionColors.push('bg-black');
+    
+    return sectionColors;
+  };
 
 
 
@@ -73,21 +93,7 @@ export default function Home() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const lastSectionIndex = brandColors.length - 1;
-      
-      // Check if footer-extension is in view to make BigText unsticky
-      // const footerExtension = document.getElementById('footer-extension');
-      // if (footerExtension) {
-      //   const footerRect = footerExtension.getBoundingClientRect();
-      //   const footerTop = scrollY + footerRect.top;
-        
-      //   // Make BigText unsticky when footer-extension starts coming into view
-      //   if (footerTop <= scrollY + windowHeight) {
-      //     setIsBigTextSticky(false);
-      //   } else {
-      //     setIsBigTextSticky(true);
-      //   }
-      // }
+      const lastSectionIndex = Math.max(homepageSections.length - 1, 0);
       
       sectionRefs.current.forEach((section, index) => {
         console.log(`Checking section ${index} at scrollY: ${scrollY}`);
@@ -125,16 +131,24 @@ export default function Home() {
     handleScroll(); // Initial check
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Fetch homepage content from Sanity (Portable Text)
-  const [homepageContent, setHomepageContent] = useState(null);
+  }, [homepageSections.length]); // Add dependency on sections length
 
   useEffect(() => {
     getHomepageContent()
-      .then((data) => setHomepageContent(data?.content))
+      .then((data) => {
+        setHomepageData(data);
+        setHomepageContent(data?.content);
+        setHomepageSections(data?.sections || []);
+      })
       .catch(console.error);
   }, []);
+
+  // Update brand colors when sections change
+  useEffect(() => {
+    if (homepageSections.length > 0) {
+      setBrandColors(getBrandColors());
+    }
+  }, [homepageSections]);
 
   return (
     <>
@@ -172,15 +186,14 @@ intro screen
         {/* Sections  */}
         <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
           <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
-          <ScrollSection index={0} sectionRefs={sectionRefs} />
-          <ScrollSection index={1} sectionRefs={sectionRefs} />
-          <ScrollSection index={2} sectionRefs={sectionRefs} />
-          <ScrollSection index={3} sectionRefs={sectionRefs} />
-          <ScrollSection index={4} sectionRefs={sectionRefs} />
-          <ScrollSection index={5} sectionRefs={sectionRefs} />
-          <ScrollSection index={6} sectionRefs={sectionRefs} />
-          <ScrollSection index={7} sectionRefs={sectionRefs} />
-          <ScrollSection index={8} sectionRefs={sectionRefs} />
+          {homepageSections.map((section, index) => (
+            <ScrollSection 
+              key={index}
+              index={index} 
+              sectionRefs={sectionRefs}
+              section={section}
+            />
+          ))}
         </div>      
         <div id="footer-extension" className="min-h-[60vh] w-full relative bg-black text-white p-8 md:p-16">
           {console.log('Rendering footer extension with homepageContent:', homepageContent)}

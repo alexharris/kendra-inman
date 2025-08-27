@@ -119,7 +119,34 @@ export async function getHomepageContent(options = {}) {
     _id,
     title,
     content,
-    images,
+    sections[]{
+      title,
+      colorReference->{
+        _id,
+        name,
+        value
+      },
+      media[]{
+        _type,
+        _type == "image" => {
+          asset->{
+            _id,
+            url
+          },
+          alt,
+          caption
+        },
+        _type == "file" => {
+          asset->{
+            _id,
+            url,
+            mimeType
+          },
+          alt,
+          caption
+        }
+      }
+    },
     _createdAt,
     _updatedAt
   }`;
