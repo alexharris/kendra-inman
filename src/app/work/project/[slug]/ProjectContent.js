@@ -111,7 +111,7 @@ export default function ProjectContent({ project }) {
               />
             ) : project.gallery[0]._type === 'file' && project.gallery[0].asset ? (
               <video
-                src={getAssetUrl(project.gallery[0].asset)}
+                src={project.gallery[0].asset.url}
                 controls
                 className="w-full h-auto object-contain"
               />
@@ -121,7 +121,6 @@ export default function ProjectContent({ project }) {
               <img src="/images/project-dummy.jpg" alt="Project placeholder" className="max-w-full max-h-full object-contain" />
             </div>
           )}
-
         </div>
         <div className={` pb-16 z-20 md:px-4`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
           <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 py-6 flex-shrink-0">
@@ -184,7 +183,7 @@ export default function ProjectContent({ project }) {
               )}
             </div>
 
-            <div className="w-1/4">  
+            <div className="md:w-1/4">  
               {project.expertise && (
                 <div className="font-mono text-xs">
                   <h3 className="uppercase mb-4">( Expertise )</h3>
