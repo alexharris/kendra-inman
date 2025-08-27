@@ -144,7 +144,16 @@ export async function getHomepageContent(options = {}) {
           },
           alt,
           caption
-        }
+        },
+        _type == "video" => {
+          asset->{
+            _id,
+            url,
+            mimeType
+          },
+          alt,
+          caption
+        }        
       }
     },
     _createdAt,

@@ -20,7 +20,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   const renderMedia = () => {
     if (!section?.media?.length) {
       return (
-        <div className="section-image w-3/5 h-2/5 bg-gray-200 absolute top-24 right-24 z-20">
+        <div className="section-image aspect-720/400 w-1/2 bg-gray-200 absolute top-24 right-24 z-20">
           {section?.title && (
             <div className="p-4 text-black">
               <h3 className="text-lg font-semibold">{section.title}</h3>
@@ -31,36 +31,36 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     }
 
     // If there's only one media item, render it without slideshow
-    if (section.media.length === 1) {
-      const mediaItem = section.media[0];
-      if (mediaItem._type === 'image' && mediaItem.asset?.url) {
-        return (
-          <div className="section-image w-3/5 h-2/5 absolute top-24 right-24 z-20 overflow-hidden">
-            <Image
-              src={mediaItem.asset.url}
-              alt={mediaItem.alt || `Section ${index + 1} image`}
-              fill
-              className="object-cover"
-            />
-          </div>
-        );
-      } else if (mediaItem._type === 'file' && mediaItem.asset?.url && mediaItem.asset?.mimeType?.startsWith('video/')) {
-        return (
-          <div className="section-image w-3/5 h-2/5 absolute top-24 right-24 z-20 overflow-hidden">
-            <video
-              src={mediaItem.asset.url}
-              controls
-              className="w-full h-full object-cover"
-              aria-label={mediaItem.alt || `Section ${index + 1} video`}
-            />
-          </div>
-        );
-      }
-    }
+    // if (section.media.length === 1) {
+    //   const mediaItem = section.media[0];
+    //   if (mediaItem._type === 'image' && mediaItem.asset?.url) {
+    //     return (
+    //       <div className="section-image aspect-720/400 w-1/2 absolute top-24 right-24 z-20 overflow-hidden">
+    //         <Image
+    //           src={mediaItem.asset.url}
+    //           alt={mediaItem.alt || `Section ${index + 1} image`}
+    //           fill
+    //           className="object-cover"
+    //         />
+    //       </div>
+    //     );
+    //   } else if (mediaItem._type === 'file' && mediaItem.asset?.url && mediaItem.asset?.mimeType?.startsWith('video/')) {
+    //     return (
+    //       <div className="section-image w-3/5 h-2/5 absolute top-24 right-24 z-20 overflow-hidden">
+    //         <video
+    //           src={mediaItem.asset.url}
+    //           controls
+    //           className="w-full h-full object-cover"
+    //           aria-label={mediaItem.alt || `Section ${index + 1} video`}
+    //         />
+    //       </div>
+    //     );
+    //   }
+    // }
 
     // Multiple media items - use slideshow
     return (
-      <div className="section-image w-3/5 h-2/5 absolute top-24 right-24 z-20 overflow-hidden">
+      <div className="section-image aspect-720/400 w-1/2 absolute top-24 right-24 z-20 overflow-hidden">
         <div className="embla h-full w-full">
           <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
             <div className="embla__container h-full flex">
@@ -76,15 +76,22 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
                       />
                     </div>
                   );
-                } else if (mediaItem._type === 'file' && mediaItem.asset?.url && mediaItem.asset?.mimeType?.startsWith('video/')) {
+                } else if ((mediaItem._type === 'file' || mediaItem._type === 'video') && mediaItem.asset?.url) {
                   return (
                     <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative flex items-center justify-center">
                       <video
-                        src={mediaItem.asset.url}
-                        controls
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        src={`${mediaItem.asset.url}#t=0.1`}
                         className="max-w-full max-h-full object-cover"
                         aria-label={mediaItem.alt || `Section ${index + 1} video ${mediaIndex + 1}`}
-                      />
+                      >
+                        <source src={mediaItem.asset.url} type={mediaItem.asset.mimeType || 'video/mp4'} />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                   );
                 }

@@ -186,6 +186,7 @@ intro screen
         {/* Sections  */}
         <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
           <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
+          {console.log('Rendering homepage sections:', homepageSections)}
           {homepageSections.map((section, index) => (
             <ScrollSection 
               key={index}
