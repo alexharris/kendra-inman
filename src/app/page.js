@@ -7,6 +7,31 @@ import { useEffect, useState, useRef } from "react";
 import { PortableText } from '@portabletext/react';
 import { getHomepageContent } from '../utils/sanity-queries';
 
+// Animation Timing Configuration - Easy to modify animation speeds
+const ANIMATION_TIMINGS = {
+  // Initial Page Load Animation
+  pageLoad: {
+    startShrinking: 50,          // Delay before shrinking starts
+    shrinkingDuration: 800,     // Logo shrinking duration (ms)
+    startMoving: 700,     // When shrinking completes and moving begins  
+    movingDuration: 1200, // Overlay slide duration (ms)
+    endAnimation: 3000,    // When entire animation completes    
+  },
+  
+  // Slideshow Animation
+  slideshow: {
+    autoAdvanceInterval: 3000, // Time between slide changes (ms)
+  },
+  
+  // Background Color Transitions
+  background: {
+    colorTransition: 500,     // Background color change duration (ms)
+    detectionDelay: 100,      // Delay for initial background detection
+  },
+};
+
+
+
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
@@ -52,22 +77,14 @@ export default function Home() {
 
   // Page load animation effect
   useEffect(() => {
-    // Hide the header during animation
-    const header = document.getElementById('site-header');
-    if (header) {
-      header.style.opacity = '0';
-      header.style.pointerEvents = 'none';
-      header.style.transition = 'opacity 0.5s ease-in-out';
-    }
-
     // Start the animation sequence after component mounts
     const timer1 = setTimeout(() => {
       setAnimationPhase('shrinking');
-    }, 800); // Wait 800ms before starting shrink
+    }, ANIMATION_TIMINGS.pageLoad.startShrinking);
 
     const timer2 = setTimeout(() => {
       setAnimationPhase('moving');
-    }, 2800); // Start moving after 1.8s
+    }, ANIMATION_TIMINGS.pageLoad.startMoving);
 
     const timer3 = setTimeout(() => {
       setAnimationPhase('complete');
@@ -79,8 +96,8 @@ export default function Home() {
           header.style.opacity = '1';
           header.style.pointerEvents = 'auto';
         }
-      }, 100); // Small delay to ensure smooth transition
-    }, 6000); // Complete animation after 3s
+      }, ANIMATION_TIMINGS.pageLoad.headerShowDelay);
+    }, ANIMATION_TIMINGS.pageLoad.endAnimation);
 
     return () => {
       clearTimeout(timer1);
@@ -154,16 +171,18 @@ export default function Home() {
     <>
       {/* Page Load Animation Overlay */}
       {showLoader && (
+        // Moving up
         <div 
-          className={`fixed inset-0 bg-black z-50 transition-all duration-3200 ease-out ${
+          className={`fixed inset-0 bg-black z-50 transition-all duration-[${ANIMATION_TIMINGS.pageLoad.movingDuration}ms] ease-out ${
             animationPhase === 'moving' ? 'translate-y-[-100vh]' : ''
           }`}
         >
           <div className={`w-full h-full flex items-center justify-center ${
             animationPhase === 'moving' ? 'fixed top-0 left-0' : ''
           }`}>
+            {/* Shrinking */}
             <svg 
-              className={`transition-all duration-2000 ease-out ${
+              className={`transition-all duration-[${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms] ease-out ${
                 animationPhase === 'initial' ? 'w-[100vw] px-8' : 
                 animationPhase === 'shrinking' ? 'w-48' : 
                 'w-48'
@@ -184,7 +203,8 @@ export default function Home() {
 intro screen
         </div>
         {/* Sections  */}
-        <div className={`p-4 md:p-12 transition-colors duration-500 relative ${brandColors[currentSection]}`}>
+        
+        <div className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
           <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
           {console.log('Rendering homepage sections:', homepageSections)}
           {homepageSections.map((section, index) => (

@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+
+// Background detection timing
+const BACKGROUND_DETECTION_DELAY = 100; // milliseconds
 import { getBackgroundColor, getContrastColor, getContrastClasses } from '../utils/backgroundColorDetection';
 
 /**
@@ -46,7 +49,7 @@ export const useBackgroundDetection = (options = {}) => {
   useEffect(() => {
     // Initial detection with delay for page load
     const detectOnLoad = () => {
-      setTimeout(updateColorState, 100);
+      setTimeout(updateColorState, BACKGROUND_DETECTION_DELAY);
     };
 
     if (document.readyState === 'complete') {

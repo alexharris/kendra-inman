@@ -4,15 +4,18 @@ import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
+// Slideshow timing - matches main page configuration
+const SLIDESHOW_AUTO_ADVANCE_INTERVAL = 3000; // milliseconds
+
 export default function ScrollSection({ index, sectionRefs, section, children, className = "" }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  // Auto-advance slides every 2 seconds
+  // Auto-advance slides using centralized timing
   useEffect(() => {
     if (!emblaApi) return;
 
     const autoAdvance = setInterval(() => {
       emblaApi.scrollNext();
-    }, 3000);
+    }, SLIDESHOW_AUTO_ADVANCE_INTERVAL);
 
     return () => clearInterval(autoAdvance);
   }, [emblaApi]);
@@ -20,7 +23,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   const renderMedia = () => {
     if (!section?.media?.length) {
       return (
-        <div className="section-image aspect-720/400 w-1/2 bg-gray-200 absolute top-24 right-24 z-20">
+        <div className="section-image aspect-720/400 w-3/4 md:w-1/2 bg-gray-200 absolute top-24 right-24 z-20">
           {section?.title && (
             <div className="p-4 text-black">
               <h3 className="text-lg font-semibold">{section.title}</h3>
@@ -29,34 +32,6 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
         </div>
       );
     }
-
-    // If there's only one media item, render it without slideshow
-    // if (section.media.length === 1) {
-    //   const mediaItem = section.media[0];
-    //   if (mediaItem._type === 'image' && mediaItem.asset?.url) {
-    //     return (
-    //       <div className="section-image aspect-720/400 w-1/2 absolute top-24 right-24 z-20 overflow-hidden">
-    //         <Image
-    //           src={mediaItem.asset.url}
-    //           alt={mediaItem.alt || `Section ${index + 1} image`}
-    //           fill
-    //           className="object-cover"
-    //         />
-    //       </div>
-    //     );
-    //   } else if (mediaItem._type === 'file' && mediaItem.asset?.url && mediaItem.asset?.mimeType?.startsWith('video/')) {
-    //     return (
-    //       <div className="section-image w-3/5 h-2/5 absolute top-24 right-24 z-20 overflow-hidden">
-    //         <video
-    //           src={mediaItem.asset.url}
-    //           controls
-    //           className="w-full h-full object-cover"
-    //           aria-label={mediaItem.alt || `Section ${index + 1} video`}
-    //         />
-    //       </div>
-    //     );
-    //   }
-    // }
 
     // Multiple media items - use slideshow
     return (
