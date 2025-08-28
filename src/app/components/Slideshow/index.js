@@ -52,7 +52,10 @@ export default function Slideshow({ gallery = [] }) {
                 return (
                   <div key={index} className="embla__slide">
                     <video 
-                      controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
                       preload="metadata"
                       src={`${item.asset.url}#t=0.1`}
                     >

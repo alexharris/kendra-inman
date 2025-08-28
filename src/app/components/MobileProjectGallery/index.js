@@ -22,7 +22,10 @@ export default function MobileProjectGallery({ gallery }) {
             ) : item._type === 'file' && item.asset ? (
               <video
                 src={item.asset.url}
-                controls
+                autoPlay
+                muted
+                loop
+                playsInline
                 className="w-full h-auto object-cover"
                 poster={item.poster ? urlFor(item.poster).url() : undefined}
               >

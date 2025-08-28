@@ -17,9 +17,7 @@ export default async function Page({ params }) {
     // This is a category page
     projects = await getProjectsByCategory(slug);
     categoryInfo = await getCategoryBySlug(slug);
-    console.log('Category Info:', categoryInfo);
     title = categoryInfo ? `${categoryInfo.header}` : `${slug.charAt(0).toUpperCase() + slug.slice(1)} Work`;
-    console.log('Category Info:', categoryInfo);
     isCategory = true;
   } else {
     // This is the main work page - show all projects

@@ -112,7 +112,10 @@ export default function ProjectContent({ project }) {
             ) : project.gallery[0]._type === 'file' && project.gallery[0].asset ? (
               <video
                 src={project.gallery[0].asset.url}
-                controls
+                autoPlay
+                muted
+                loop
+                playsInline
                 className="w-full h-auto object-contain"
               />
             ) : null
