@@ -35,7 +35,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
 
     // Multiple media items - use slideshow
     return (
-      <div className="section-image aspect-720/400 w-1/2 absolute top-24 right-24 z-20 overflow-hidden">
+      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-12 md:right-24 z-20 overflow-hidden">
         <div className="embla h-full w-full">
           <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
             <div className="embla__container h-full flex">

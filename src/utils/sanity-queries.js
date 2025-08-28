@@ -119,6 +119,37 @@ export async function getHomepageContent(options = {}) {
     _id,
     title,
     content,
+    heroSlideshow{
+      media[]{
+        _type,
+        _type == "image" => {
+          asset->{
+            _id,
+            url
+          },
+          alt,
+          caption
+        },
+        _type == "file" => {
+          asset->{
+            _id,
+            url,
+            mimeType
+          },
+          alt,
+          caption
+        },
+        _type == "video" => {
+          asset->{
+            _id,
+            url,
+            mimeType
+          },
+          alt,
+          caption
+        }        
+      }
+    },
     sections[]{
       title,
       colorReference->{

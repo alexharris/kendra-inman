@@ -3,6 +3,7 @@
 import Image from "next/image";
 import BigText from "./components/big-text";
 import ScrollSection from "./components/ScrollSection";
+import HeroSlideshow from "./components/HeroSlideshow";
 import { useEffect, useState, useRef } from "react";
 import { PortableText } from '@portabletext/react';
 import { getHomepageContent } from '../utils/sanity-queries';
@@ -43,6 +44,7 @@ export default function Home() {
   const [homepageData, setHomepageData] = useState(null);
   const [homepageContent, setHomepageContent] = useState(null);
   const [homepageSections, setHomepageSections] = useState([]);
+  const [heroSlideshow, setHeroSlideshow] = useState(null);
   const [brandColors, setBrandColors] = useState([
     'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
     'bg-taupe', 'bg-green', 'bg-black', 'bg-red', 'bg-black'
@@ -90,13 +92,7 @@ export default function Home() {
       setAnimationPhase('complete');
       setShowLoader(false);
       
-      // Show the header after animation completes
-      setTimeout(() => {
-        if (header) {
-          header.style.opacity = '1';
-          header.style.pointerEvents = 'auto';
-        }
-      }, ANIMATION_TIMINGS.pageLoad.headerShowDelay);
+
     }, ANIMATION_TIMINGS.pageLoad.endAnimation);
 
     return () => {
@@ -156,6 +152,7 @@ export default function Home() {
         setHomepageData(data);
         setHomepageContent(data?.content);
         setHomepageSections(data?.sections || []);
+        setHeroSlideshow(data?.heroSlideshow);
       })
       .catch(console.error);
   }, []);
@@ -198,15 +195,13 @@ export default function Home() {
         </div>
       )}
       <div id="main-scroll">
-        {/* Intro Screen  */}
-        <div className="h-screen w-full bg-gray-200 flex flex-col items-center justify-center">
-intro screen
-        </div>
+        {/* Hero Slideshow */}
+        <HeroSlideshow heroSlideshow={heroSlideshow} />
+        
         {/* Sections  */}
         
         <div className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
           <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
-          {console.log('Rendering homepage sections:', homepageSections)}
           {homepageSections.map((section, index) => (
             <ScrollSection 
               key={index}
@@ -217,7 +212,6 @@ intro screen
           ))}
         </div>      
         <div id="footer-extension" className="min-h-[60vh] w-full relative bg-black text-white p-8 md:p-16">
-          {console.log('Rendering footer extension with homepageContent:', homepageContent)}
           {homepageContent ? (
             <PortableText value={homepageContent} />
           ) : (

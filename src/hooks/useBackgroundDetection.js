@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 // Background detection timing
-const BACKGROUND_DETECTION_DELAY = 100; // milliseconds
+const BACKGROUND_DETECTION_DELAY = 1000; // milliseconds
 import { getBackgroundColor, getContrastColor, getContrastClasses } from '../utils/backgroundColorDetection';
 
 /**
@@ -34,6 +34,7 @@ export const useBackgroundDetection = (options = {}) => {
 
   // Function to update all color-related state
   const updateColorState = () => {
+    console.log('Updating background color state...');
     const bgColor = getBackgroundColor(sampleHeight, sampleWidth, offsetY);
     const contrast = getContrastColor(bgColor, colorScheme);
     const classes = getContrastClasses(bgColor, classMap);
