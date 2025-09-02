@@ -62,12 +62,7 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
                     )}
                   </div>
                 </div>
-                
-                <div className="related-projects__content">
-                  <h3 className="related-projects__project-title font-serif">
-                    {project.title}
-                  </h3>
-                </div>
+              
               </Link>
             );
           })}
