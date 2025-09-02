@@ -101,6 +101,18 @@ export async function getProjectBySlug(slug, options = {}) {
       name,
       hex
     },
+    relatedProjects[]->{
+      _id,
+      title,
+      slug,
+      featuredImage,
+      workBlurb,
+      color->{
+        _id,
+        name,
+        hex
+      }
+    },
     publishedAt,
     _createdAt,
     _updatedAt

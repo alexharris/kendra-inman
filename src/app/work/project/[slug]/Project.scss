@@ -2,9 +2,11 @@
   --intro-bar-height: 140px
 }
 
+@import '../../../components/RelatedProjects/RelatedProjects.scss';
 
 /* Project page styles */
 .project-container {
+  position: relative;
   // padding-top: var(--header-height);
 }
 

@@ -90,6 +90,17 @@ export default {
         },
       ],
     },
+    {
+      name: 'relatedProjects',
+      title: 'Related Projects',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'project' }],
+        },
+      ],
+    },
   ],
   preview: {
     select: {

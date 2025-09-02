@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Slideshow from '../../../components/Slideshow';
 import MobileProjectGallery from '../../../components/MobileProjectGallery';
+import RelatedProjects from '../../../components/RelatedProjects';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
@@ -125,7 +126,7 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className={` pb-16 z-20 md:px-4`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
+        <div className={` pb-16 z-20`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
           <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 py-6 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
@@ -204,6 +205,14 @@ export default function ProjectContent({ project }) {
           <MobileProjectGallery gallery={project.gallery} />         
         </div>
       </div>
+
+      {/* Related Projects Section */}
+      {project.relatedProjects && project.relatedProjects.length > 0 && (
+        <RelatedProjects 
+          relatedProjects={project.relatedProjects} 
+          currentProjectColor={project.color?.hex || '#fff'}
+        />
+      )}
 
     </div>
   );
