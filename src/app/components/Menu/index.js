@@ -91,7 +91,7 @@ export default function Menu() {
               <p>No projects found.</p>
             )}
           </ul>
-          <h2 className="menu-title text-8xl apris pt-30">About</h2>
+          <h2 className="menu-title text-8xl apris pt-30"><a href="/about">About</a></h2>
         </nav>
        <a href="/connect" className="pt-30">Let's Work Together</a>
       </div>
