@@ -1,12 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import './Menu.scss';
-import { getAllCategories } from '../../../utils/sanity-queries';
+import { getAllCategories, getProjectsCount } from '../../../utils/sanity-queries';
 import HeaderWithTag from "../HeaderWithTag";
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [totalProjectCount, setTotalProjectCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const toggleMenu = () => {
@@ -17,11 +18,16 @@ export default function Menu() {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const categoriesData = await getAllCategories();
+        const [categoriesData, projectCount] = await Promise.all([
+          getAllCategories(),
+          getProjectsCount()
+        ]);
         setCategories(categoriesData || []);
+        setTotalProjectCount(projectCount || 0);
       } catch (error) {
         console.error('Error fetching categories:', error);
         setCategories([]);
+        setTotalProjectCount(0);
       } finally {
         setLoading(false);
       }
@@ -72,7 +78,7 @@ export default function Menu() {
           </svg>          
         </a>
         <nav className="menu-nav">
-          <h2 className="menu-title big-serif-header"><a href="/work"><HeaderWithTag title="Work" tag="2" size="text-8xl" /></a></h2>
+          <h2 className="menu-title big-serif-header"><a href="/work"><HeaderWithTag title="Work" tag={totalProjectCount.toString()} size="text-8xl" /></a></h2>
           <ul className="menu-list">
             {loading ? (
               <p className="pulse">...</p>
