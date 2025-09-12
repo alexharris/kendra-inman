@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Slideshow from '../../../components/Slideshow';
 import MobileProjectGallery from '../../../components/MobileProjectGallery';
 import RelatedProjects from '../../../components/RelatedProjects';
+import Expertise from '../../../components/Expertise';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
@@ -188,18 +189,7 @@ export default function ProjectContent({ project }) {
             </div>
 
             <div className="md:w-1/4">  
-              {project.expertise && (
-                <div className="font-mono text-xs">
-                  <h3 className="uppercase mb-4">( Expertise )</h3>
-                  <ul className="flex flex-col gap-2 uppercase">
-                    {project.expertise.map((exp, index) => (
-                      <li key={index} className="">
-                        {exp}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <Expertise expertise={project.expertise} />
             </div>            
           </div>
           <MobileProjectGallery gallery={project.gallery} />         

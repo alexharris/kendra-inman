@@ -29,8 +29,6 @@ import {
 
 - `getFeaturedProjects(options)` - Fetch only featured projects
 - `searchProjects(searchTerm, options)` - Search projects by title or tagline
-- `getProjectsByExpertise(expertise, options)` - Filter projects by expertise
-- `getAllExpertise(options)` - Get all unique expertise used
 
 ### Generic Query Function
 

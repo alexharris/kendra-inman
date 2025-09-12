@@ -68,11 +68,10 @@ export default {
     },
     {
       name: 'expertise',
-      title: 'Expertise Used',
+      title: 'Expertise',
       type: 'array',
-      of: [{ type: 'string' }],
-    }
-    ,
+      of: [{ type: 'reference', to: [{ type: 'siteExpertise' }] }],
+    },
     {
       name: 'color',
       title: 'Color',

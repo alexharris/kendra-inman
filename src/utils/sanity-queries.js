@@ -35,7 +35,10 @@ export async function getAllProjects(options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    expertise,
+    expertise[]->{
+      _id,
+      name
+    },
     projectUrl,
     repositoryUrl,
     featured,
@@ -87,7 +90,10 @@ export async function getProjectBySlug(slug, options = {}) {
         }
       }
     },
-    expertise,
+    expertise[]->{
+      _id,
+      title
+    },
     projectUrl,
     repositoryUrl,
     featured,
@@ -223,7 +229,6 @@ export async function getProjectById(id, options = {}) {
     slug,
     featuredImage,
     gallery,
-    expertise,
     projectUrl,
     repositoryUrl,
     featured,
@@ -231,6 +236,10 @@ export async function getProjectById(id, options = {}) {
       _id,
       name,
       slug
+    },
+    expertise[]->{
+      _id,
+      name
     },
     color->{
       _id,
@@ -262,7 +271,10 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    expertise,
+    expertise[]->{
+      _id,
+      name
+    },
     projectUrl,
     repositoryUrl,
     featured,
@@ -300,7 +312,6 @@ export async function searchProjects(searchTerm, options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    expertise,
     projectUrl,
     repositoryUrl,
     featured,
@@ -314,6 +325,10 @@ export async function searchProjects(searchTerm, options = {}) {
       name,
       hex
     },
+    expertise[]->{
+      _id,
+      name
+    },    
     publishedAt,
     _createdAt,
     _updatedAt
@@ -360,7 +375,10 @@ export async function getFeaturedProjects(options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    expertise,
+    expertise[]->{
+      _id,
+      name
+    },
     projectUrl,
     repositoryUrl,
     featured,
@@ -379,54 +397,6 @@ export async function getFeaturedProjects(options = {}) {
     _updatedAt
   }`;
   
-  return fetchSanityData(query, {}, options);
-}
-
-/**
- * Fetch projects by expertise
- * @param {string} expertise - Expertise to filter by
- * @param {Object} options - Query options
- * @returns {Promise<Array>} - Array of project documents
- */
-export async function getProjectsByExpertise(expertise, options = {}) {
-  const query = `*[_type == "project" && $expertise in expertise] | order(publishedAt desc, _createdAt desc) {
-    _id,
-    title,
-    tagline,
-    description,
-    projectResults,
-    workBlurb,
-    slug,
-    featuredImage,
-    expertise,
-    projectUrl,
-    repositoryUrl,
-    featured,
-    category[]->{
-      _id,
-      name,
-      slug
-    },
-    color->{
-      _id,
-      name,
-      hex
-    },
-    publishedAt,
-    _createdAt,
-    _updatedAt
-  }`;
-  
-  return fetchSanityData(query, { expertise }, options);
-}
-
-/**
- * Get all unique expertise used across projects
- * @param {Object} options - Query options
- * @returns {Promise<Array>} - Array of unique expertise strings
- */
-export async function getAllExpertise(options = {}) {
-  const query = `array::unique(*[_type == "project" && defined(expertise)].expertise[])`;
   return fetchSanityData(query, {}, options);
 }
 
@@ -462,7 +432,10 @@ export async function getProjectsByCategory(categorySlug, options = {}) {
     workBlurb,
     slug,
     featuredImage,
-    expertise,
+    expertise[]->{
+      _id,
+      name
+    },
     projectUrl,
     repositoryUrl,
     featured,
