@@ -28,31 +28,43 @@ export default function ProjectContent({ project }) {
   const galleryVideos = getGalleryVideos();
   const allGalleryItems = project.gallery || [];
 
-  useEffect(() => {
-    // Store the original body background color
-    const originalBodyBg = document.body.style.backgroundColor;
+  // This is all from when the backgorund color was set on the project page
+  // Keeping it here in case we want to reintroduce this effect later
+  // useEffect(() => {
+  //   // Store the original body background color
+  //   const originalBodyBg = document.body.style.backgroundColor;
     
-    // Apply the project color to the body
-    if (project.color?.hex) {
-      document.body.style.backgroundColor = project.color.hex;
-    }
+  //   // Apply the project color to the body
+  //   if (project.color?.hex) {
+  //     document.body.style.backgroundColor = project.color.hex;
+  //   }
 
-    if (project.color?.name == 'Black') {
-      document.body.classList.add('text-beige');
-      document.body.classList.remove('text-black');
-    } else {
-      document.body.classList.remove('text-beige');
-      document.body.classList.add('text-black');
-    }
+  //   if (project.color?.name == 'Black') {
+  //     document.body.classList.add('text-beige');
+  //     document.body.classList.remove('text-black');
+  //   } else {
+  //     document.body.classList.remove('text-beige');
+  //     document.body.classList.add('text-black');
+  //   }
 
-    // Mark background as ready after applying the color
-    setIsBackgroundReady(true);
+  //   // Mark background as ready after applying the color
+  //   setIsBackgroundReady(true);
 
-    // Cleanup function to restore original background when component unmounts
-    return () => {
-      document.body.style.backgroundColor = originalBodyBg;
-    };
-  }, [project.color?.hex]);
+  //   // Cleanup function to restore original background when component unmounts
+  //   return () => {
+  //     document.body.style.backgroundColor = originalBodyBg;
+  //   };
+  // }, [project.color?.hex]);
+
+    useEffect(() => {
+      // Mark background as ready after applying the color
+      document.body.classList.remove('bg-white');
+      document.body.classList.add('bg-black');
+      setIsBackgroundReady(true);
+    }, []);
+
+
+
 
   // Handle scroll effect for tagline fade
   useEffect(() => {
@@ -92,7 +104,7 @@ export default function ProjectContent({ project }) {
   }
 
   return (
-    <div className="">
+    <div className="text-beige">
       <div className="project-container flex flex-col px-4">
         <div id="project-slideshow" className="hidden md:block w-full z-10">
           {allGalleryItems.length > 0 ? (
@@ -127,7 +139,7 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className={` pb-16 z-20`} style={{ backgroundColor: project.color?.hex || '#fff' }}>
+        <div className={` pb-16 z-20 bg-black`}>
           <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 py-6 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
@@ -200,7 +212,6 @@ export default function ProjectContent({ project }) {
       {project.relatedProjects && project.relatedProjects.length > 0 && (
         <RelatedProjects 
           relatedProjects={project.relatedProjects} 
-          currentProjectColor={project.color?.hex || '#fff'}
         />
       )}
 
