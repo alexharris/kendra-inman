@@ -78,7 +78,11 @@ export default function Menu() {
           </svg>          
         </a>
         <nav className="menu-nav">
-          <h2 className="menu-title big-serif-header"><a href="/work"><HeaderWithTag title="Work" tag={totalProjectCount.toString()} size="text-8xl" /></a></h2>
+          <h2 className="menu-title">
+            <a href="/work">
+              <HeaderWithTag title="Work" tag={totalProjectCount.toString()} size="text-6xl md:text-8xl" />
+            </a>
+          </h2>
           <ul className="menu-list">
             {loading ? (
               <p className="pulse">...</p>
@@ -90,16 +94,16 @@ export default function Menu() {
                  
                   style={{ textDecoration: 'none' }}
                 >
-                  <HeaderWithTag title={category.name} tag={category.projectCount.toString()} size="text-5xl" />
+                  <HeaderWithTag title={category.name} tag={category.projectCount.toString()} size="text-4xl md:text-5xl" />
                 </a>
               ))
             ) : (
               <p>No projects found.</p>
             )}
           </ul>
-          <h2 className="menu-title text-8xl apris pt-30"><a href="/about">About</a></h2>
+          <h2 className="menu-title text-6xl md:text-8xl apris pt-16 md:pt-30"><a href="/about">About</a></h2>
         </nav>
-       <a href="/connect" className="pt-30">Let's Work Together</a>
+       <a href="/connect" className="pt-16 md:pt-30">Let's Work Together</a>
       </div>
     </div>
   );

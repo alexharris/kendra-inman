@@ -117,6 +117,12 @@ body {
   font-family: var(--font-apris);
 }
 
+@media (max-width: 768px) {
+  .big-serif-header {
+    font-size: 60px;
+  }
+}
+
 .big-paragraph {
   font-weight: 500;
   font-style: Medium;
