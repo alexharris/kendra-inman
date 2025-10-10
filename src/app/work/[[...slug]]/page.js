@@ -39,14 +39,28 @@ export default async function Page({ params }) {
         {projects.length > 0 ? (
           projects.map((project) => {
 
-            // Use featured image if available, otherwise use first gallery image
+            // Use featured image/video if available, otherwise use first gallery image
             let backgroundImageUrl = null;
+            let backgroundVideoUrl = null;
+            let isVideo = false;
             
             if (project.featuredImage) {
-              backgroundImageUrl = urlFor(project.featuredImage).width(720).height(400).url();
+              // Check if featuredImage is a video
+              if (project.featuredImage._type === 'file' && project.featuredImage.asset?.mimeType?.startsWith('video/')) {
+                backgroundVideoUrl = project.featuredImage.asset.url;
+                isVideo = true;
+              } else if (project.featuredImage._type === 'image') {
+                // It's an image
+                backgroundImageUrl = urlFor(project.featuredImage).width(720).height(400).url();
+              }
             } else if (project.gallery) {
-              console.log(project.gallery.asset);
-              backgroundImageUrl = project.gallery.asset?.url
+              // Use first gallery item as fallback
+              if (project.gallery._type === 'file' && project.gallery.asset?.mimeType?.startsWith('video/')) {
+                backgroundVideoUrl = project.gallery.asset.url;
+                isVideo = true;
+              } else if (project.gallery._type === 'image' && project.gallery.asset) {
+                backgroundImageUrl = urlFor(project.gallery).width(720).height(400).url();
+              }
             }
 
 
@@ -57,7 +71,21 @@ export default async function Page({ params }) {
                 key={project._id}
                 className="relative aspect-720/400 text-white flex flex-col justify-center items-center p-4 overflow-hidden group"
               >
-                {backgroundImageUrl && (
+                {/* Video background */}
+                {isVideo && backgroundVideoUrl && (
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={backgroundVideoUrl} type="video/mp4" />
+                  </video>
+                )}
+
+                {/* Image background */}
+                {!isVideo && backgroundImageUrl && (
                   <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300"
                     style={{ 

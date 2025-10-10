@@ -34,11 +34,27 @@ export async function getAllProjects(options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     gallery[0]{
       _type,
       _type == "image" => {
         asset->
+      },
+      _type == "file" => {
+        asset->{
+          _id,
+          url,
+          mimeType,
+          originalFilename
+        }
       }
     },
     expertise[]->{
@@ -81,7 +97,15 @@ export async function getProjectBySlug(slug, options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     gallery[]{
       _type,
       _type == "image" => {
@@ -117,7 +141,15 @@ export async function getProjectBySlug(slug, options = {}) {
       _id,
       title,
       slug,
-      featuredImage,
+      featuredImage[0]{
+        _type,
+        _type == "image" => {
+          asset->
+        },
+        _type == "file" => {
+          asset->
+        }
+      },
       workBlurb,
       color->{
         _id,
@@ -233,7 +265,15 @@ export async function getProjectById(id, options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     gallery,
     projectUrl,
     repositoryUrl,
@@ -276,7 +316,15 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     expertise[]->{
       _id,
       name
@@ -317,7 +365,15 @@ export async function searchProjects(searchTerm, options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     projectUrl,
     repositoryUrl,
     featured,
@@ -380,7 +436,15 @@ export async function getFeaturedProjects(options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
     expertise[]->{
       _id,
       name
@@ -437,8 +501,29 @@ export async function getProjectsByCategory(categorySlug, options = {}) {
     projectResults,
     workBlurb,
     slug,
-    featuredImage,
-    gallery[0],
+    featuredImage[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->
+      }
+    },
+    gallery[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      },
+      _type == "file" => {
+        asset->{
+          _id,
+          url,
+          mimeType,
+          originalFilename
+        }
+      }
+    },
     expertise[]->{
       _id,
       name

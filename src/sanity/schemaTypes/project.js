@@ -44,11 +44,23 @@ export default {
     },
     {
       name: 'featuredImage',
-      title: 'Featured Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      title: 'Featured Media (Image or Video)',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+        {
+          type: 'file',
+          options: {
+            accept: 'video/*',
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(1),
     },
     {
       name: 'gallery',

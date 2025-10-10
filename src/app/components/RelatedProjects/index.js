@@ -19,9 +19,20 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
         
         <div className="related-projects__grid">
           {relatedProjects.slice(0, 3).map((project) => {
-            const backgroundImageUrl = project.featuredImage 
-              ? urlFor(project.featuredImage).width(400).height(300).fit('crop').url()
-              : null;
+            let backgroundImageUrl = null;
+            let backgroundVideoUrl = null;
+            let isVideo = false;
+            
+            if (project.featuredImage) {
+              // Check if featuredImage is a video
+              if (project.featuredImage._type === 'file' && project.featuredImage.asset?.mimeType?.startsWith('video/')) {
+                backgroundVideoUrl = project.featuredImage.asset.url;
+                isVideo = true;
+              } else if (project.featuredImage._type === 'image') {
+                // It's an image
+                backgroundImageUrl = urlFor(project.featuredImage).width(400).height(300).fit('crop').url();
+              }
+            }
               
             return (
               <Link 
@@ -33,7 +44,17 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
                   className="related-projects__image-container"
                   style={{ backgroundColor: project.color?.hex || '#f5f5f5' }}
                 >
-                  {backgroundImageUrl ? (
+                  {isVideo && backgroundVideoUrl ? (
+                    <video
+                      className="related-projects__video"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src={backgroundVideoUrl} type="video/mp4" />
+                    </video>
+                  ) : backgroundImageUrl ? (
                     <div
                       className="related-projects__image"
                       style={{ 
