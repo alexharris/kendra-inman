@@ -35,6 +35,12 @@ export async function getAllProjects(options = {}) {
     workBlurb,
     slug,
     featuredImage,
+    gallery[0]{
+      _type,
+      _type == "image" => {
+        asset->
+      }
+    },
     expertise[]->{
       _id,
       name
@@ -432,6 +438,7 @@ export async function getProjectsByCategory(categorySlug, options = {}) {
     workBlurb,
     slug,
     featuredImage,
+    gallery[0],
     expertise[]->{
       _id,
       name

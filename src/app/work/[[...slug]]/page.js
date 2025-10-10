@@ -38,10 +38,19 @@ export default async function Page({ params }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {projects.length > 0 ? (
           projects.map((project) => {
-            const backgroundImageUrl = project.featuredImage 
-              ? urlFor(project.featuredImage).width(720).height(400).url()
-              : null;
+
+            // Use featured image if available, otherwise use first gallery image
+            let backgroundImageUrl = null;
             
+            if (project.featuredImage) {
+              backgroundImageUrl = urlFor(project.featuredImage).width(720).height(400).url();
+            } else if (project.gallery) {
+              console.log(project.gallery.asset);
+              backgroundImageUrl = project.gallery.asset?.url
+            }
+
+
+
             return (
               <a
                 href={`/work/project/${project.slug.current}`}
