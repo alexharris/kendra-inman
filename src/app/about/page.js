@@ -167,7 +167,7 @@ export default function Home() {
   return (
     <>
 
-      <div id="main-scroll bg-beige text-black">
+      <div id="main-scroll" className="bg-beige text-black p-4 md:p-8">
 
         {/* Sections  */}
         
@@ -176,11 +176,11 @@ export default function Home() {
           <div className="">
           Kendra Inman is a leading creative director known for building some of the most emotionally resonant and category-defining brands of today, from start-ups to global icons. She helped scale Dollar Shave Club from disruptive startup to $1B acquisition and led the rebrand for a nationwide retail launch. She built ByHeart's in-house creative organization and brand ecosystem from the ground up to be named to 2025's insurgent brand list by Bain & Co. The formative years of her career were spent shaping the beloved surf brand, Roxy, and developing sustainable design practices as the first employee at the green design studio, Celery Design Collaborative. She also had success as an entrepreneur, co-founding One Love Organics, a pioneer in clean beauty. She's been an advisor and fractional CCO to founders of innovative CPG brands in skincare, wellness, food & beverage, and the disruptive non-alcohol markets. Her work blends brand storytelling with business performance, driving rapid growth across DTC, retail, and omnichannel platforms.
           </div>
-
         </div>      
-        <div id="about-image" className="z-30 absolute right-24 bottom-12"><img src="/images/kendra.jpg" /></div>
-
-        <div id="footer-extension" className="pb-[100vh]">
+        <div id="about-image" className="z-30 absolute right-24 -bottom-24">
+          <img src="/images/kendra.jpg" />
+        </div>
+        <div id="footer-extension" className="pb-[200vh]">
           Kendra Inman is a leading creative director known for building some of the most emotionally resonant and category-defining brands of today, from start-ups to global icons. She helped scale Dollar Shave Club from disruptive startup to $1B acquisition and led the rebrand for a nationwide retail launch. She built ByHeart's in-house creative organization and brand ecosystem from the ground up to be named to 2025's insurgent brand list by Bain & Co. The formative years of her career were spent shaping the beloved surf brand, Roxy, and developing sustainable design practices as the first employee at the green design studio, Celery Design Collaborative. She also had success as an entrepreneur, co-founding One Love Organics, a pioneer in clean beauty. She's been an advisor and fractional CCO to founders of innovative CPG brands in skincare, wellness, food & beverage, and the disruptive non-alcohol markets. Her work blends brand storytelling with business performance, driving rapid growth across DTC, retail, and omnichannel platforms.
         </div>      
       </div>
