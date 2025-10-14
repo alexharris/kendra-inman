@@ -95,7 +95,7 @@ export default async function Page({ params }) {
                 )}
                 
                 {/* Hover overlay with gradient and blurb */}
-                <div className="absolute inset-0 bg-gradient-to-t from-beige to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-beige via-beige to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
                 
                 {/* Content that appears on hover */}
                 <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
