@@ -22,7 +22,11 @@ export default function Menu() {
           getAllCategories(),
           getProjectsCount()
         ]);
-        setCategories(categoriesData || []);
+        // Filter categories to only include those with projectCount > 0
+        const categoriesWithProjects = (categoriesData || []).filter(category => 
+          category.projectCount && category.projectCount > 0
+        );
+        setCategories(categoriesWithProjects);
         setTotalProjectCount(projectCount || 0);
       } catch (error) {
         console.error('Error fetching categories:', error);
