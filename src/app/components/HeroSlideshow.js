@@ -21,14 +21,11 @@ export default function HeroSlideshow({ heroSlideshow }) {
     return () => clearInterval(autoAdvance);
   }, [emblaApi]);
 
-  // If no media items, show placeholder
+  // If no media items, show spinner
   if (!heroSlideshow?.media?.length) {
     return (
       <div className="h-screen w-full bg-beige flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-600">Hero Slideshow</h1>
-          <p className="text-gray-500 mt-4">No media items to display</p>
-        </div>
+        <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
