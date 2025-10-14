@@ -1,5 +1,7 @@
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure = (S) =>
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
+
+export const structure = (S, context) =>
   S.list()
     .title('Content')
     .items([
@@ -31,5 +33,12 @@ export const structure = (S) =>
         .child(
           S.document().schemaType('homepage').documentId('homepage')
         ),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories', 'siteExpertise', 'homepage'].includes(listItem.getId()))
+      // Add orderable project list
+      orderableDocumentListDeskItem({
+        type: 'project',
+        S,
+        context,
+        title: 'Projects',
+      }),
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories', 'siteExpertise', 'homepage', 'project'].includes(listItem.getId()))
     ])

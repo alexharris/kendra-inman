@@ -26,7 +26,7 @@ export async function fetchSanityData(query, params = {}, options = {}) {
  * @returns {Promise<Array>} - Array of project documents
  */
 export async function getAllProjects(options = {}) {
-  const query = `*[_type == "project"] | order(publishedAt desc, _createdAt desc) {
+  const query = `*[_type == "project" && !(_id in path("drafts.**"))] | order(orderRank asc, publishedAt desc, _createdAt desc) {
     _id,
     title,
     tagline,
@@ -34,6 +34,7 @@ export async function getAllProjects(options = {}) {
     projectResults,
     workBlurb,
     slug,
+    orderRank,
     featuredImage[0]{
       _type,
       _type == "image" => {
@@ -89,7 +90,7 @@ export async function getAllProjects(options = {}) {
  * @returns {Promise<Object|null>} - Project document or null
  */
 export async function getProjectBySlug(slug, options = {}) {
-  const query = `*[_type == "project" && slug.current == $slug][0] {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && slug.current == $slug][0] {
     _id,
     title,
     tagline,
@@ -257,7 +258,7 @@ export async function getHomepageContent(options = {}) {
  * @returns {Promise<Object|null>} - Project document or null
  */
 export async function getProjectById(id, options = {}) {
-  const query = `*[_type == "project" && _id == $id][0] {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && _id == $id][0] {
     _id,
     title,
     tagline,
@@ -308,7 +309,7 @@ export async function getProjectById(id, options = {}) {
  * @returns {Promise<Array>} - Array of project documents
  */
 export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
-  const query = `*[_type == "project"] | order(publishedAt desc, _createdAt desc) [$start...$end] {
+  const query = `*[_type == "project" && !(_id in path("drafts.**"))] | order(orderRank asc, publishedAt desc, _createdAt desc) [$start...$end] {
     _id,
     title,
     tagline,
@@ -316,6 +317,7 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
     projectResults,
     workBlurb,
     slug,
+    orderRank,
     featuredImage[0]{
       _type,
       _type == "image" => {
@@ -357,7 +359,7 @@ export async function getProjectsPaginated(start = 0, end = 10, options = {}) {
  * @returns {Promise<Array>} - Array of matching project documents
  */
 export async function searchProjects(searchTerm, options = {}) {
-  const query = `*[_type == "project" && (title match $searchTerm || tagline match $searchTerm)] | order(publishedAt desc, _createdAt desc) {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && (title match $searchTerm || tagline match $searchTerm)] | order(orderRank asc, publishedAt desc, _createdAt desc) {
     _id,
     title,
     tagline,
@@ -365,6 +367,7 @@ export async function searchProjects(searchTerm, options = {}) {
     projectResults,
     workBlurb,
     slug,
+    orderRank,
     featuredImage[0]{
       _type,
       _type == "image" => {
@@ -405,7 +408,7 @@ export async function searchProjects(searchTerm, options = {}) {
  * @returns {Promise<number>} - Total count of projects
  */
 export async function getProjectsCount(options = {}) {
-  const query = `count(*[_type == "project"])`;
+  const query = `count(*[_type == "project" && !(_id in path("drafts.**"))])`;
   return fetchSanityData(query, {}, options);
 }
 
@@ -415,7 +418,7 @@ export async function getProjectsCount(options = {}) {
  * @returns {Promise<Array>} - Array of slug objects
  */
 export async function getProjectSlugs(options = {}) {
-  const query = `*[_type == "project" && defined(slug.current)] {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && defined(slug.current)] {
     "slug": slug.current
   }`;
   
@@ -428,7 +431,7 @@ export async function getProjectSlugs(options = {}) {
  * @returns {Promise<Array>} - Array of featured project documents
  */
 export async function getFeaturedProjects(options = {}) {
-  const query = `*[_type == "project" && featured == true] | order(publishedAt desc, _createdAt desc) {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && featured == true] | order(orderRank asc, publishedAt desc, _createdAt desc) {
     _id,
     title,
     tagline,
@@ -436,6 +439,7 @@ export async function getFeaturedProjects(options = {}) {
     projectResults,
     workBlurb,
     slug,
+    orderRank,
     featuredImage[0]{
       _type,
       _type == "image" => {
@@ -493,7 +497,7 @@ export async function getAllCategories(options = {}) {
 }
 
 export async function getProjectsByCategory(categorySlug, options = {}) {
-  const query = `*[_type == "project" && $categorySlug in category[]->slug.current] | order(publishedAt desc, _createdAt desc) {
+  const query = `*[_type == "project" && !(_id in path("drafts.**")) && $categorySlug in category[]->slug.current] | order(orderRank asc, publishedAt desc, _createdAt desc) {
     _id,
     title,
     tagline,
@@ -501,6 +505,7 @@ export async function getProjectsByCategory(categorySlug, options = {}) {
     projectResults,
     workBlurb,
     slug,
+    orderRank,
     featuredImage[0]{
       _type,
       _type == "image" => {
