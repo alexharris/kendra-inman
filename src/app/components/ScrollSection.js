@@ -26,7 +26,14 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
         <div className="section-image aspect-720/400 w-3/4 md:w-1/2 bg-gray-200 absolute top-24 right-24 z-20">
           {section?.title && (
             <div className="p-4 text-black">
-              <h3 className="text-lg font-semibold">{section.title}</h3>
+              <h3 className="text-lg font-semibold">
+                {section.title}
+                {section.categoryReference?.projectCount !== undefined && (
+                  <span className="text-sm font-normal ml-2">
+                    • {section.categoryReference.projectCount} {section.categoryReference.projectCount === 1 ? 'project' : 'projects'}
+                  </span>
+                )}
+              </h3>
             </div>
           )}
         </div>
@@ -35,7 +42,11 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
 
     // Multiple media items - use slideshow
     return (
-      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-12 md:right-24 z-20 overflow-hidden">
+      <>
+      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-12 md:right-24 z-20">
+        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-2 mr-12">
+          {section.categoryReference?.projectCount !== undefined && `${section.categoryReference.projectCount}`}
+        </div>
         <div className="embla h-full w-full">
           <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
             <div className="embla__container h-full flex">
@@ -75,7 +86,13 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
             </div>
           </div>
         </div>
-      </div>
+        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm">
+          ( {section.title} )
+        </div>
+        </div>
+   
+      
+      </>
     );
   };
 

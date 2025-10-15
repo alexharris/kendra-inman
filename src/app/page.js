@@ -61,8 +61,8 @@ export default function Home() {
     }
     
     const sectionColors = homepageSections.map(section => {
-      // Map color reference to CSS class
-      const colorValue = section.colorReference?.value || section.colorReference?.name;
+      // Map category reference to CSS class via the category's color
+      const colorValue = section.categoryReference?.color?.value || section.categoryReference?.color?.name;
       if (colorValue) {
         return `bg-${colorValue.toLowerCase()}`;
       }

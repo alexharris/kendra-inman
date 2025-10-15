@@ -75,16 +75,14 @@ export default {
       ],
       preview: {
         select: {
-          title: 'title',
-          colorTitle: 'colorReference.title',
           mediaCount: 'media'
         },
         prepare(selection) {
-          const {title, colorTitle, mediaCount} = selection
+          const {mediaCount} = selection
           const count = mediaCount ? mediaCount.length : 0
           return {
-            title: title || 'Hero Slideshow',
-            subtitle: `${colorTitle ? `Color: ${colorTitle} • ` : ''}${count} media item${count !== 1 ? 's' : ''}`
+            title: 'Hero Slideshow',
+            subtitle: `${count} media item${count !== 1 ? 's' : ''}`
           }
         }
       }
@@ -107,11 +105,11 @@ export default {
               description: 'Title for this homepage section'
             },
             {
-              name: 'colorReference',
-              title: 'Color Reference',
+              name: 'categoryReference',
+              title: 'Category Reference',
               type: 'reference',
-              to: [{type: 'siteColors'}],
-              description: 'Choose a color theme for this section'
+              to: [{type: 'siteCategories'}],
+              description: 'Choose a category for this section'
             },
             {
               name: 'media',
@@ -166,15 +164,15 @@ export default {
           preview: {
             select: {
               title: 'title',
-              colorTitle: 'colorReference.title',
+              categoryName: 'categoryReference.name',
               mediaCount: 'media'
             },
             prepare(selection) {
-              const {title, colorTitle, mediaCount} = selection
+              const {title, categoryName, mediaCount} = selection
               const count = mediaCount ? mediaCount.length : 0
               return {
                 title: title || 'Untitled Section',
-                subtitle: `${colorTitle ? `Color: ${colorTitle} • ` : ''}${count} media item${count !== 1 ? 's' : ''}`
+                subtitle: `${categoryName ? `Category: ${categoryName} • ` : ''}${count} media item${count !== 1 ? 's' : ''}`
               }
             }
           }

@@ -209,10 +209,16 @@ export async function getHomepageContent(options = {}) {
     },
     sections[]{
       title,
-      colorReference->{
+      categoryReference->{
         _id,
         name,
-        value
+        slug,
+        color->{
+          _id,
+          name,
+          value
+        },
+        "projectCount": count(*[_type == "project" && references(^._id)])
       },
       media[]{
         _type,
