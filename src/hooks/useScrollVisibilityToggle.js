@@ -27,7 +27,7 @@ export const useScrollVisibilityToggle = (referenceElementId, targetElementId) =
 
     // Toggle visibility based on whether the target has reached or passed the reference position
     // When footer-extension top reaches the top-about-text position, switch visibility
-    const shouldShowTarget = targetTop <= referenceTop + 20;
+    const shouldShowTarget = targetTop <= referenceTop + 80;
     const shouldShowReference = !shouldShowTarget;
 
     setShowReference(shouldShowReference);

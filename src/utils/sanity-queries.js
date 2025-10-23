@@ -258,6 +258,23 @@ export async function getHomepageContent(options = {}) {
 }
 
 /**
+ * Fetch about page content
+ * @param {Object} options - Query options
+ * @returns {Promise<Object|null>} - About page document or null
+ */
+export async function getAboutContent(options = {}) {
+  const query = `*[_type == "about"][0] {
+    _id,
+    title,
+    content,
+    _createdAt,
+    _updatedAt
+  }`;
+  
+  return fetchSanityData(query, {}, options);
+}
+
+/**
  * Fetch a single project by ID
  * @param {string} id - Project ID
  * @param {Object} options - Query options
