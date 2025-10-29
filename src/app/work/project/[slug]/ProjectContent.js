@@ -27,6 +27,15 @@ export default function ProjectContent({ project }) {
   const galleryImages = getGalleryImages();
   const galleryVideos = getGalleryVideos();
   const allGalleryItems = project.gallery || [];
+  
+  // Format gallery count with leading zero for single digits
+  const galleryCount = project.gallery?.length 
+    ? project.gallery.length < 10 
+      ? `0${project.gallery.length}` 
+      : project.gallery.length.toString()
+    : '00';
+
+
 
   // This is all from when the backgorund color was set on the project page
   // Keeping it here in case we want to reintroduce this effect later
@@ -139,17 +148,17 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className={` pb-16 z-20 bg-black`}>
-          <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 py-6 flex-shrink-0">
+        <div className={` z-20 bg-black`}>
+          <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 pt-6 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
               className="uppercase hidden md:flex flex-row items-center gap-2 transition-opacity duration-300"
               style={{ opacity: taglineOpacity }}
             >
-              {project.tagline} 
+              {project.tagline} <span className="mono-tag">{galleryCount}</span>
             </div>
-            <div id="project-information-below" className="hidden md:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>Project Information Below</div>
+            <div id="project-information-below" className="hidden md:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
           </div>    
           <div className="flex flex-col md:flex-row gap-4 justify-between">
             <div className="w-full md:w-2/3 flex flex-col gap-6 md:gap-10">
@@ -158,10 +167,10 @@ export default function ProjectContent({ project }) {
                 className="uppercase hidden md:flex flex-row items-center gap-2 transition-opacity duration-300"
                 style={{ opacity: tagline2Opacity }}
               >
-                {project.tagline} 
+                {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
               <div className="uppercase md:hidden flex flex-row items-center gap-2">
-                {project.tagline} 
+                {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
               <div className="big-paragraph font-serif ">
                 {project.description && (
