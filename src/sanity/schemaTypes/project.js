@@ -90,6 +90,13 @@ export default {
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'siteExpertise' }] }],
     },
+
+    {
+      name: 'color',
+      title: 'Color',
+      type: 'reference',
+      to: [{ type: 'siteColors' }],
+    },
     {
       name: 'category',
       title: 'Category',
