@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import ParenthesesText from './ParenthesesText';
 
 // Slideshow timing - matches main page configuration
 const SLIDESHOW_AUTO_ADVANCE_INTERVAL = 3000; // milliseconds
@@ -44,7 +45,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     return (
       <>
       <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-12 md:right-24 z-20">
-        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-2 mr-12">
+        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-4 mr-12">
           {section.categoryReference?.projectCount !== undefined && `${section.categoryReference.projectCount}`}
         </div>
         <div className="embla h-full w-full">
@@ -86,9 +87,12 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
             </div>
           </div>
         </div>
-        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm">
-          ( {section.title} )
+        <div className="text-right">
+          <ParenthesesText>
+            {section.title}
+          </ParenthesesText>
         </div>
+
         </div>
    
       

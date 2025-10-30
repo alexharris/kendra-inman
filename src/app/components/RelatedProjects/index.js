@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 import { urlFor } from '../../../sanity/lib/image';
 import './RelatedProjects.scss';
+import ParenthesesText from '../ParenthesesText';
 
 export default function RelatedProjects({ relatedProjects, currentProjectColor }) {
   if (!relatedProjects || relatedProjects.length === 0) {
@@ -13,8 +14,10 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
   return (
     <section className="related-projects" style={{ backgroundColor: currentProjectColor }}>
       <div className="related-projects__container">
-        <h2 className="related-projects__title font-mono uppercase text-xs mb-8">
-          ( Related Work )
+        <h2 className="related-projects__title font-mono mb-8">
+          <ParenthesesText>
+            Related Work
+          </ParenthesesText>
         </h2>
         
         <div className="related-projects__grid">

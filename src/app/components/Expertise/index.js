@@ -1,4 +1,5 @@
 'use client';
+import ParenthesesText from '../ParenthesesText';
 
 export default function Expertise({ expertise }) {
   if (!expertise || expertise.length === 0) {
@@ -7,9 +8,11 @@ export default function Expertise({ expertise }) {
 
   return (
     <div className="font-mono text-xs">
-      <h3 className="uppercase mb-4">( Expertise )</h3>
+      <h3 className="mb-4">
+        <ParenthesesText>Expertise</ParenthesesText>
+      </h3>
       <ul className="flex flex-col gap-2 uppercase">
-        {console.log(expertise)}
+
         {expertise.map((exp) => (
           <li key={exp._id} className="">
             {exp.title}
