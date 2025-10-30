@@ -56,7 +56,7 @@ export default function Menu() {
 
 
   return (
-    <div className="absolute top-4 right-6 z-50">
+    <div className="absolute top-4 right-5 z-50">
       {/* Hamburger Button */}
       <button
         className={`uppercase menu-button futura-medium ${isOpen ? 'open' : ''}`}
@@ -74,7 +74,7 @@ export default function Menu() {
           onClick={toggleMenu}
           aria-label="Close menu"
         >
-          ×
+          <svg className="fill-beige stroke-beige mb-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="square" strokeLinejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
         <a href="/" className="futura-bold text text-beige absolute top-7 mt-[1px]">
           <svg className="w-48 fill-beige" viewBox="0 0 1330 124" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +107,7 @@ export default function Menu() {
           </ul>
           <h2 className="menu-title text-6xl md:text-8xl apris pt-16 md:pt-30"><a href="/about">About</a></h2>
         </nav>
-       <a href="/connect" className="pt-16 md:pt-30">Let's Work Together</a>
+       <a href="/connect" className="pt-16 md:pt-30 uppercase underline tracking-wide underline-offset-2">Let's Work Together</a>
       </div>
     </div>
   );
