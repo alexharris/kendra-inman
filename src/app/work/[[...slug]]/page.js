@@ -7,7 +7,7 @@ import CategoryBackground from '../components/CategoryBackground';
 
 export default async function Page({ params }) {
   const slug = params?.slug?.[0]; // Get the first slug segment
-  console.log('Slug:', slug);
+  // console.log('Slug:', slug);
   let projects;
   let title;
   let categoryInfo = null;

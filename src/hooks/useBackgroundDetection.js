@@ -14,6 +14,7 @@ import { getBackgroundColor, getContrastColor, getContrastClasses } from '../uti
  * @param {Object} options.classMap - CSS classes for light/dark backgrounds
  * @param {boolean} options.trackScroll - Whether to update on scroll (default: true)
  * @param {boolean} options.trackResize - Whether to update on resize (default: false)
+ * @param {boolean} options.enabled - Whether the hook is enabled (default: true)
  * @returns {Object} Background detection state and utilities
  */
 export const useBackgroundDetection = (options = {}) => {
@@ -24,7 +25,8 @@ export const useBackgroundDetection = (options = {}) => {
     colorScheme = { light: 'black', dark: '#F5F5DC' },
     classMap = { light: 'text-black fill-black', dark: 'text-beige fill-beige' },
     trackScroll = true,
-    trackResize = false
+    trackResize = false,
+    enabled = true
   } = options;
 
   const [backgroundColor, setBackgroundColor] = useState('rgb(255, 255, 255)');
@@ -34,7 +36,7 @@ export const useBackgroundDetection = (options = {}) => {
 
   // Function to update all color-related state
   const updateColorState = () => {
-    console.log('Updating background color state...');
+    // console.log('Updating background color state...');
     const bgColor = getBackgroundColor(sampleHeight, sampleWidth, offsetY);
     const contrast = getContrastColor(bgColor, colorScheme);
     const classes = getContrastClasses(bgColor, classMap);
@@ -48,6 +50,8 @@ export const useBackgroundDetection = (options = {}) => {
 
   // Effect for initial detection and scroll/resize tracking
   useEffect(() => {
+    if (!enabled) return;
+
     // Initial detection with delay for page load
     const detectOnLoad = () => {
       setTimeout(updateColorState, BACKGROUND_DETECTION_DELAY);
@@ -81,7 +85,7 @@ export const useBackgroundDetection = (options = {}) => {
         window.removeEventListener('resize', handleResize);
       }
     };
-  }, [sampleHeight, sampleWidth, offsetY, trackScroll, trackResize]);
+  }, [sampleHeight, sampleWidth, offsetY, trackScroll, trackResize, enabled]);
 
   return {
     backgroundColor,

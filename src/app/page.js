@@ -109,7 +109,7 @@ export default function Home() {
       const lastSectionIndex = Math.max(homepageSections.length - 1, 0);
       
       sectionRefs.current.forEach((section, index) => {
-        console.log(`Checking section ${index} at scrollY: ${scrollY}`);
+        // console.log(`Checking section ${index} at scrollY: ${scrollY}`);
         if (section) {
           const imageElement = section.querySelector('.section-image');
           
@@ -123,7 +123,7 @@ export default function Home() {
             const viewportBottom = scrollY + windowHeight;
             
             if (imageTop >= viewportTop && imageBottom <= viewportBottom) {
-              console.log(`Section ${index} image is fully visible`);
+              // console.log(`Section ${index} image is fully visible`);
               setCurrentSection(index);
             } 
           } else if (index === lastSectionIndex) {
@@ -132,7 +132,7 @@ export default function Home() {
             const sectionTop = scrollY + sectionRect.top;
             
             if (sectionTop <= scrollY + windowHeight * 0.5) {
-              console.log(`Last section ${index} is in view`);
+              // console.log(`Last section ${index} is in view`);
               setCurrentSection(lastSectionIndex);
             }
           }

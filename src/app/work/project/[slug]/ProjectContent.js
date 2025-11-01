@@ -8,7 +8,6 @@ import Expertise from '../../../components/Expertise';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 
 export default function ProjectContent({ project }) {
-  const [isBackgroundReady, setIsBackgroundReady] = useState(false);
   const [taglineOpacity, setTaglineOpacity] = useState(1);
   const [tagline2Opacity, setTagline2Opacity] = useState(0);
 
@@ -36,43 +35,27 @@ export default function ProjectContent({ project }) {
     : '00';
 
 
-
-  // This is all from when the backgorund color was set on the project page
-  // Keeping it here in case we want to reintroduce this effect later
+  // Set the background color from the project page
   useEffect(() => {
-    // Store the original body background color
-    const originalBodyBg = document.body.style.backgroundColor;
     
     // Apply the project color to the body
-    if (project.color?.hex) {
-      document.body.style.backgroundColor = project.color.hex;
-    }
-
-    if (project.color?.name == 'Black') {
-      document.body.classList.add('text-beige');
+    if(project.color?.name==="Black") {
+      
       document.body.classList.remove('text-black');
+      document.body.classList.add('text-beige');
+      document.body.classList.remove('bg-beige');
+      document.body.classList.add('bg-black');
+      
     } else {
       document.body.classList.remove('text-beige');
       document.body.classList.add('text-black');
+      document.body.classList.add('bg-' + project.color?.name?.substring(0).toLowerCase());
     }
 
-    // Mark background as ready after applying the color
-    setIsBackgroundReady(true);
-
-    // Cleanup function to restore original background when component unmounts
-    return () => {
-      document.body.style.backgroundColor = originalBodyBg;
-    };
   }, [project.color?.hex]);
 
-    useEffect(() => {
-      // Mark background as ready after applying the color
-      // document.body.classList.remove('bg-white');
-      // document.body.classList.add('bg-black');
-      setIsBackgroundReady(true);
-    }, []);
 
-
+  
 
 
   // Handle scroll effect for tagline fade
@@ -103,17 +86,9 @@ export default function ProjectContent({ project }) {
     };
   }, []);
 
-  // Don't render content until background is ready
-  if (!isBackgroundReady) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-gray-100 border-t-gray-200 rounded-full animate-spin"></div>
-      </div>
-    );
-  }
 
   return (
-    <div className="text-beige">
+    <div>
       <div className="project-container flex flex-col px-4">
         <div id="project-slideshow" className="hidden md:block w-full z-10">
           {allGalleryItems.length > 0 ? (
@@ -148,7 +123,7 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className="z-20" style={{ backgroundColor: project.color?.hex || '#fff' }}>
+        <div className="z-20" style={{ backgroundColor: project.color?.hex || '#efebd9' }}>
           <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 pt-6 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 

@@ -33,16 +33,16 @@ export const useScrollVisibilityToggle = (topElementId, bottomElementId) => {
 
     setShowTop(shouldShowTop);
     setShowBottom(shouldShowBottom);
-    console.log('Scroll Check:', {
-      shouldShowTop,
-      shouldShowBottom,
-      topPosition,
-      bottomPosition,
-      topRect: topRect.top,
-      bottomRect: bottomRect.top,
-      scrollY: window.scrollY,
-      difference: bottomPosition - topPosition
-    });
+    // console.log('Scroll Check:', {
+    //   shouldShowTop,
+    //   shouldShowBottom,
+    //   topPosition,
+    //   bottomPosition,
+    //   topRect: topRect.top,
+    //   bottomRect: bottomRect.top,
+    //   scrollY: window.scrollY,
+    //   difference: bottomPosition - topPosition
+    // });
   }, [topElementId, bottomElementId]);
 
   useEffect(() => {

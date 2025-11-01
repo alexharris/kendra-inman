@@ -12,7 +12,7 @@ export default function MobileProjectGallery({ gallery }) {
       <div className="flex flex-col gap-4 ">
         {gallery.map((item, index) => (
           <div key={index} className="overflow-hidden">
-            {console.log(item.asset)}
+            {/* {console.log(item.asset)} */}
             {item._type === 'image' ? (
               <img 
                 src={urlFor(item).url()} 

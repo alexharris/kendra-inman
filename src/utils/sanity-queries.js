@@ -596,7 +596,7 @@ export async function getCategoryBySlug(slug, options = {}) {
       hex
     }
   }`;
-  console.log('Query:', query);
+  // console.log('Query:', query);
   return fetchSanityData(query, { slug }, options);
 }
 

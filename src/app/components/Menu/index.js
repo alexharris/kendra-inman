@@ -74,7 +74,7 @@ export default function Menu() {
           onClick={toggleMenu}
           aria-label="Close menu"
         >
-          <svg className="fill-beige stroke-beige mb-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="square" strokeLinejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg className="fill-beige stroke-beige mb-1 feather feather-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="square" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
         <a href="/" className="futura-bold text text-beige absolute top-7 mt-[1px]">
           <svg className="w-48 fill-beige" viewBox="0 0 1330 124" fill="none" xmlns="http://www.w3.org/2000/svg">

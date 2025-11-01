@@ -104,7 +104,6 @@ export default function Slideshow({ gallery = [] }) {
                 );
               } else if (item._type === 'file' && item.asset) {
                 // Handle video files
-                console.log('Video item:', item);
                 return (
                   <div key={index} className="embla__slide">
                     <video 
