@@ -3,7 +3,7 @@ import HeaderWithTag from '../../components/HeaderWithTag';
 import { PortableText } from '@portabletext/react';
 import { getAllProjects, getProjectsByCategory, getCategoryBySlug } from '../../../utils/sanity-queries';
 import { urlFor } from '../../../sanity/lib/image';
-import CategoryBackground from '../components/CategoryBackground';
+import CategoryColorManager from '../components/CategoryColorManager';
 
 export default async function Page({ params }) {
   const slug = params?.slug?.[0]; // Get the first slug segment
@@ -27,7 +27,7 @@ export default async function Page({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <CategoryBackground categoryInfo={categoryInfo} isCategory={isCategory} />
+      <CategoryColorManager categoryInfo={categoryInfo} isCategory={isCategory} />
       <div className={`my-24 text-center serif-header px-8`}>
         <HeaderWithTag
           title={title}

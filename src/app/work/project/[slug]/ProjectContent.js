@@ -6,6 +6,7 @@ import MobileProjectGallery from '../../../components/MobileProjectGallery';
 import RelatedProjects from '../../../components/RelatedProjects';
 import Expertise from '../../../components/Expertise';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
+import { setPageColorsFromProject, resetPageColors } from '../../../../utils/pageColors';
 
 export default function ProjectContent({ project }) {
   const [taglineOpacity, setTaglineOpacity] = useState(1);
@@ -37,22 +38,13 @@ export default function ProjectContent({ project }) {
 
   // Set the background color from the project page
   useEffect(() => {
-    
-    // Apply the project color to the body
-    if(project.color?.name==="Black") {
-      
-      document.body.classList.remove('text-black');
-      document.body.classList.add('text-beige');
-      document.body.classList.remove('bg-beige');
-      document.body.classList.add('bg-black');
-      
-    } else {
-      document.body.classList.remove('text-beige');
-      document.body.classList.add('text-black');
-      document.body.classList.add('bg-' + project.color?.name?.substring(0).toLowerCase());
-    }
+    setPageColorsFromProject(project);
 
-  }, [project.color?.hex]);
+    // Cleanup: reset colors when component unmounts
+    return () => {
+      resetPageColors();
+    };
+  }, [project]);
 
 
   

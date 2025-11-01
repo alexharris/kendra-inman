@@ -10,10 +10,8 @@ export default function CategoryBackground({ categoryInfo, isCategory }) {
 
     // Apply the category color to the body if it exists, otherwise default to black for work pages
     if (categoryInfo?.color?.hex) {
-
       document.body.classList.remove('bg-transparent', 'bg-black', 'text-beige', 'fill-beige');
       document.body.classList.add(`bg-${categoryInfo.color.name.toLowerCase()}`, 'text-black', 'fill-black');
-
       footer.classList.remove('bg-transparent', 'bg-black', 'text-beige', 'fill-beige');
       footer.classList.add(`bg-${categoryInfo.color.name.toLowerCase()}`, 'text-black', 'fill-black');
 

@@ -83,6 +83,8 @@ export default function Home() {
 
 
 
+
+
   // Page load animation effect
   useEffect(() => {
     // Start the animation sequence after component mounts
@@ -197,8 +199,26 @@ export default function Home() {
   useEffect(() => {
     if (homepageSections.length > 0) {
       setBrandColors(getBrandColors());
+
     }
   }, [homepageSections]);
+
+  // Watch background color changes of scroll sections
+  // useEffect(() => {
+  //   const currentBgColor = brandColors[currentSection];
+  //   console.log('Current background color:', currentBgColor);
+
+  //   const header = document.querySelector('#site-header');
+
+  //   if (currentBgColor === 'bg-black' || currentBgColor === 'bg-beige') {
+  //     header.classList.add('text-beige', 'fill-beige');
+  //     header.classList.remove('text-black', 'fill-black');
+  //   } else {
+  //     header.classList.remove('text-beige', 'fill-beige');
+  //     header.classList.add('text-black', 'fill-black');
+  //   }
+              
+  // }, [currentSection, brandColors]);   
 
   return (
     <>
