@@ -202,6 +202,7 @@ export default function Home() {
         
         <div className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
           <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
+          
           {homepageSections.map((section, index) => (
             <ScrollSection 
               key={index}

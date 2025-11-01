@@ -8,6 +8,9 @@ module.exports = {
     extend: {
       fontFamily: {
       },
+      colors: {
+        beige: '#F5F5DC',
+      },
     },
   },
 }
