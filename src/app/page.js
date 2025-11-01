@@ -161,17 +161,13 @@ export default function Home() {
           
           if (imageElement) {
             const imageRect = imageElement.getBoundingClientRect();
-            const imageTop = scrollY + imageRect.top;
-            const imageBottom = imageTop + imageRect.height;
             
-            // Check if image is fully visible in viewport
-            const viewportTop = scrollY;
-            const viewportBottom = scrollY + windowHeight;
-            
-            if (imageTop >= viewportTop && imageBottom <= viewportBottom) {
-              // console.log(`Section ${index} image is fully visible`);
+            // Check if image is entering the viewport (top of image crosses bottom of viewport)
+            // Switch color as soon as any part of the image becomes visible
+            if (imageRect.top <= windowHeight && imageRect.bottom >= 0) {
+              // console.log(`Section ${index} image is visible in viewport`);
               setCurrentSection(index + 1); // +1 to account for manual first section
-            } 
+            }
           }
         }
       });
