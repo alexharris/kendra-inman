@@ -503,7 +503,7 @@ export async function getFeaturedProjects(options = {}) {
  * @returns {Promise<Array>} - Array of category documents
  */
 export async function getAllCategories(options = {}) {
-  const query = `*[_type == "siteCategories"] | order(_createdAt desc) {
+  const query = `*[_type == "siteCategories"] | order(orderRank asc, _createdAt desc) {
     _id,
     name,
     header,

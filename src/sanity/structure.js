@@ -21,9 +21,12 @@ export const structure = (S, context) =>
               S.listItem()
                 .title('Site Colors')
                 .child(S.documentTypeList('siteColors').title('Colors').filter('_type == "siteColors"')),
-              S.listItem()
-                .title('Site Categories')
-                .child(S.documentTypeList('siteCategories').title('Categories').filter('_type == "siteCategories"')),
+              orderableDocumentListDeskItem({
+                type: 'siteCategories',
+                S,
+                context,
+                title: 'Site Categories',
+              }),
               S.listItem()
                 .title('Site Expertise')
                 .child(S.documentTypeList('siteExpertise').title('Expertise').filter('_type == "siteExpertise"')),

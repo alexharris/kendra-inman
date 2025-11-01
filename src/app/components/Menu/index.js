@@ -105,9 +105,9 @@ export default function Menu() {
               <p>No projects found.</p>
             )}
           </ul>
-          <h2 className="menu-title text-6xl md:text-8xl apris pt-16 md:pt-30"><a href="/about">About</a></h2>
+          <h2 className="menu-title text-6xl md:text-8xl apris pt-12"><a href="/about">About</a></h2>
         </nav>
-       <a href="/connect" className="pt-16 md:pt-30 uppercase underline tracking-wide underline-offset-2">Let's Work Together</a>
+       <a href="/connect" className="pt-12 uppercase underline tracking-wide underline-offset-2">Let's Work Together</a>
       </div>
     </div>
   );
