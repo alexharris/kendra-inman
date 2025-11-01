@@ -56,7 +56,7 @@ export default function Menu() {
 
 
   return (
-    <div className="absolute top-4 right-5 z-50">
+    <div className="absolute top-4 right-5 z-50 bg-black">
       {/* Hamburger Button */}
       <button
         className={`uppercase menu-button futura-medium ${isOpen ? 'open' : ''}`}
@@ -67,7 +67,7 @@ export default function Menu() {
       </button>
 
       {/* Full Screen Menu Overlay */}
-      <div className={`menu-overlay text-beige ${isOpen ? 'open' : ''}`}>
+      <div className={`menu-overlay bg-black text-beige ${isOpen ? 'open' : ''}`}>
         {/* Close X Button */}
         <button
           className="close-button"

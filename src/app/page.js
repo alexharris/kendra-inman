@@ -7,6 +7,7 @@ import HeroSlideshow from "./components/HeroSlideshow";
 import { useEffect, useState, useRef } from "react";
 import { PortableText } from '@portabletext/react';
 import { getHomepageContent } from '../utils/sanity-queries';
+import { setPageColors, resetPageColors } from '../utils/pageColors';
 
 // Animation Timing Configuration - Easy to modify animation speeds
 const ANIMATION_TIMINGS = {
@@ -30,8 +31,6 @@ const ANIMATION_TIMINGS = {
     detectionDelay: 100,      // Delay for initial background detection
   },
 };
-
-
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -181,7 +180,10 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
     
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      resetPageColors(); // Clean up page colors on unmount
+    };
   }, [homepageSections.length]); // Add dependency on sections length
 
   useEffect(() => {
@@ -199,26 +201,28 @@ export default function Home() {
   useEffect(() => {
     if (homepageSections.length > 0) {
       setBrandColors(getBrandColors());
-
     }
   }, [homepageSections]);
 
-  // Watch background color changes of scroll sections
-  // useEffect(() => {
-  //   const currentBgColor = brandColors[currentSection];
-  //   console.log('Current background color:', currentBgColor);
-
-  //   const header = document.querySelector('#site-header');
-
-  //   if (currentBgColor === 'bg-black' || currentBgColor === 'bg-beige') {
-  //     header.classList.add('text-beige', 'fill-beige');
-  //     header.classList.remove('text-black', 'fill-black');
-  //   } else {
-  //     header.classList.remove('text-beige', 'fill-beige');
-  //     header.classList.add('text-black', 'fill-black');
-  //   }
-              
-  // }, [currentSection, brandColors]);   
+  // Update page colors when current section changes
+  useEffect(() => {
+    const currentBgColor = brandColors[currentSection];
+    
+    // Determine text and fill colors based on background
+    const text = (currentBgColor === 'bg-black' || currentBgColor === 'bg-beige') 
+      ? 'text-beige' 
+      : 'text-black';
+    const fill = (currentBgColor === 'bg-black' || currentBgColor === 'bg-beige') 
+      ? 'fill-beige' 
+      : 'fill-black';
+    
+    setPageColors({
+      background: currentBgColor,
+      text,
+      fill,
+      applyToFooter: false, // Don't override footer colors
+    });
+  }, [currentSection, brandColors]);   
 
   return (
     <>
@@ -256,7 +260,7 @@ export default function Home() {
         
         {/* Sections  */}
 
-        <div id="scroll-sections" className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
+        <div id="scroll-sections" className="p-4 md:p-12 relative">
           <div className="z-10 sticky top-0 h-screen flex justify-center items-start md:items-center pointer-events-none pt-24 md:pt-0">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>Creative Direction that breaks through.</BigText>
           </div>

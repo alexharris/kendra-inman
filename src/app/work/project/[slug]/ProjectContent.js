@@ -49,7 +49,6 @@ export default function ProjectContent({ project }) {
 
   
 
-
   // Handle scroll effect for tagline fade
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +81,7 @@ export default function ProjectContent({ project }) {
   return (
     <div>
       <div className="project-container flex flex-col px-4">
-        <div id="project-slideshow" className="hidden md:block w-full z-10">
+        <div id="project-slideshow" className="hidden lg:block w-full z-10">
           {allGalleryItems.length > 0 ? (
             <Slideshow gallery={project.gallery} />
           ) : (
@@ -91,7 +90,7 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className="md:hidden">
+        <div className="lg:hidden">
           {project.gallery && project.gallery.length > 0 ? (
             project.gallery[0]._type === 'image' ? (
               <img
@@ -115,28 +114,28 @@ export default function ProjectContent({ project }) {
             </div>
           )}
         </div>
-        <div className="z-20" style={{ backgroundColor: project.color?.hex || '#efebd9' }}>
-          <div id="project-intro" className="z-20 flex flex-col md:flex-row md:items-center justify-between md:h-36 pt-6 pb-2 flex-shrink-0">
+        <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between lg:h-36 pt-6 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
-              className="uppercase hidden md:flex flex-row items-center gap-2 transition-opacity duration-300"
+              className="uppercase hidden lg:flex flex-row items-center gap-2 transition-opacity duration-300"
               style={{ opacity: taglineOpacity }}
             >
               {project.tagline} <span className="mono-tag">{galleryCount}</span>
             </div>
-            <div id="project-information-below" className="hidden md:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
+            <div id="project-information-below" className="hidden lg:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
           </div>    
-          <div className="flex flex-col md:flex-row gap-4 justify-between">
-            <div className="w-full md:w-2/3 flex flex-col gap-6 md:gap-10">
+          <div className="flex flex-col lg:flex-row gap-4 justify-between">
+            <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-10">
               <div 
                 id="project-tagline-2" 
-                className="uppercase hidden md:flex flex-row items-center gap-2 transition-opacity duration-300"
+                className="uppercase hidden lg:flex flex-row items-center gap-2 transition-opacity duration-300"
                 style={{ opacity: tagline2Opacity }}
               >
                 {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
-              <div className="uppercase md:hidden flex flex-row items-center gap-2">
+              <div className="uppercase lg:hidden flex flex-row items-center gap-2">
                 {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
               <div className="big-paragraph font-serif ">
@@ -176,7 +175,7 @@ export default function ProjectContent({ project }) {
               )}
             </div>
 
-            <div className="md:w-1/4">  
+            <div className="lg:w-1/4">  
               <Expertise expertise={project.expertise} />
             </div>            
           </div>
