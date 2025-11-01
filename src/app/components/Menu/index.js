@@ -56,7 +56,7 @@ export default function Menu() {
 
 
   return (
-    <div className="absolute top-4 right-5 z-50 bg-black">
+    <div className="absolute top-4 right-5 z-50">
       {/* Hamburger Button */}
       <button
         className={`uppercase menu-button futura-medium ${isOpen ? 'open' : ''}`}
