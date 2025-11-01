@@ -103,7 +103,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   return (
     <div 
       ref={el => sectionRefs.current[index] = el}
-      className={`h-screen w-full relative ${className}`}
+      className={`h-screen w-full relative ${className} max-w-[1600px]`}
     >
       {children || renderMedia()}
     </div>
