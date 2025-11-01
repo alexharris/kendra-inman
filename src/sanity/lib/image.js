@@ -6,6 +6,14 @@ import { dataset, projectId } from '../env'
 const builder = createImageUrlBuilder({ projectId, dataset })
 
 export const urlFor = (source) => {
+  if (!source || !source.asset) {
+    console.warn('urlFor called with invalid source:', source);
+    // Return a builder with a placeholder to prevent crashes
+    return {
+      auto: () => ({ url: () => '/images/project-dummy.jpg' }),
+      url: () => '/images/project-dummy.jpg'
+    };
+  }
   return builder.image(source)
 }
 

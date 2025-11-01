@@ -87,6 +87,8 @@ export default function Slideshow({ gallery = [] }) {
         <div className="embla__container text-black">
           {gallery.length > 0 ? (
             gallery.map((item, index) => {
+              if (!item) return null; // Skip if item is null/undefined
+              
               if (item._type === 'image') {
                 return (
                   <div key={index} className="embla__slide">
