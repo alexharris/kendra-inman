@@ -6,23 +6,17 @@ export default function CategoryBackground({ categoryInfo, isCategory }) {
   useEffect(() => {
     // Store the original body background color
     const originalBodyBg = document.body.style.backgroundColor;
-    
+    const footer = document.querySelector('#footer');
+
     // Apply the category color to the body if it exists, otherwise default to black for work pages
     if (categoryInfo?.color?.hex) {
-      document.body.style.backgroundColor = categoryInfo.color.hex;
-    } else {
-      // Default to black background for work pages
-      document.body.style.backgroundColor = '#000000';
-    }
 
-    // Handle text color based on background
-    if (categoryInfo?.color?.name === 'Black' || !categoryInfo?.color) {
-      // If it's black or no category color (default black), use beige text
-      document.body.classList.add('text-beige');
-      document.body.classList.remove('text-black');
-    } else {
-      document.body.classList.remove('text-beige');
-      document.body.classList.add('text-black');
+      document.body.classList.remove('bg-transparent', 'bg-black', 'text-beige', 'fill-beige');
+      document.body.classList.add(`bg-${categoryInfo.color.name.toLowerCase()}`, 'text-black', 'fill-black');
+
+      footer.classList.remove('bg-transparent', 'bg-black', 'text-beige', 'fill-beige');
+      footer.classList.add(`bg-${categoryInfo.color.name.toLowerCase()}`, 'text-black', 'fill-black');
+
     }
 
     // Cleanup function to restore original background when component unmounts

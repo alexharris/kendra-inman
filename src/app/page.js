@@ -55,7 +55,7 @@ export default function Home() {
     if (!homepageSections.length) {
       // Fallback colors while loading
       return [
-        'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
+        'bg-black', 'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
         'bg-taupe', 'bg-green', 'bg-black', 'bg-red', 'bg-black'
       ];
     }
@@ -68,6 +68,12 @@ export default function Home() {
       }
       return 'bg-gray-500'; // fallback
     });
+    
+    // Add manual first section color (black) at the beginning
+    sectionColors.unshift('bg-black');
+    
+    // Add manual last section color (black) before footer
+    sectionColors.push('bg-black');
     
     // Add footer color
     sectionColors.push('bg-black');
@@ -106,7 +112,46 @@ export default function Home() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const lastSectionIndex = Math.max(homepageSections.length - 1, 0);
+      const manualLastSectionIndex = homepageSections.length + 1; // +1 for manual first section, then the last manual section
+      const footerSectionIndex = homepageSections.length + 2; // +2 for both manual sections
+      
+      // Check if we're in the manual first section
+      const manualSection = document.querySelector('#manual-first-section');
+      if (manualSection) {
+        const manualRect = manualSection.getBoundingClientRect();
+        const manualTop = scrollY + manualRect.top;
+        const manualBottom = manualTop + manualRect.height;
+        
+        if (scrollY < manualBottom - windowHeight * 0.3) {
+          setCurrentSection(0);
+          return;
+        }
+      }
+      
+      // Check if we're in the manual last section
+      const manualLastSection = document.querySelector('#manual-last-section');
+      if (manualLastSection) {
+        const manualLastRect = manualLastSection.getBoundingClientRect();
+        const manualLastTop = scrollY + manualLastRect.top;
+        const manualLastBottom = manualLastTop + manualLastRect.height;
+        
+        if (scrollY >= manualLastTop - windowHeight * 0.3 && scrollY < manualLastBottom) {
+          setCurrentSection(manualLastSectionIndex);
+          return;
+        }
+      }
+      
+      // Check if we're in the footer
+      const footer = document.querySelector('#footer-extension');
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const footerTop = scrollY + footerRect.top;
+        
+        if (scrollY >= footerTop - windowHeight * 0.3) {
+          setCurrentSection(footerSectionIndex);
+          return;
+        }
+      }
       
       sectionRefs.current.forEach((section, index) => {
         // console.log(`Checking section ${index} at scrollY: ${scrollY}`);
@@ -124,17 +169,8 @@ export default function Home() {
             
             if (imageTop >= viewportTop && imageBottom <= viewportBottom) {
               // console.log(`Section ${index} image is fully visible`);
-              setCurrentSection(index);
+              setCurrentSection(index + 1); // +1 to account for manual first section
             } 
-          } else if (index === lastSectionIndex) {
-            // For the last section (footer), check if it's in view
-            const sectionRect = section.getBoundingClientRect();
-            const sectionTop = scrollY + sectionRect.top;
-            
-            if (sectionTop <= scrollY + windowHeight * 0.5) {
-              // console.log(`Last section ${index} is in view`);
-              setCurrentSection(lastSectionIndex);
-            }
           }
         }
       });
@@ -199,10 +235,12 @@ export default function Home() {
         <HeroSlideshow heroSlideshow={heroSlideshow} />
         
         {/* Sections  */}
-        
-        <div className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
-          <BigText className="text-beige z-10 sticky top-24">Creative Direction that breaks through.</BigText>                
-          
+
+        <div id="scroll-sections" className={`p-4 md:p-12 transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] relative ${brandColors[currentSection]}`}>
+<BigText className={`z-10 sticky transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] top-12 ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>Creative Direction that breaks through.</BigText>          
+          <div id="manual-first-section" className="h-screen w-full relative">
+            {/* manual first section */}
+          </div>
           {homepageSections.map((section, index) => (
             <ScrollSection 
               key={index}
@@ -211,10 +249,16 @@ export default function Home() {
               section={section}
             />
           ))}
+          
+          <div id="manual-last-section" className="h-screen w-full relative">
+            {/* another manual section */}
+          </div>
         </div>      
-        <div id="footer-extension" className="min-h-[60vh] w-full relative bg-black text-white p-8 md:p-16">
+        <div id="footer-extension" className="min-h-[60vh] w-full relative bg-black text-beige p-8 md:p-16">
           {homepageContent ? (
+            <div className="max-w-[1600px] w-full xl:w-4/5 mx-auto">
             <PortableText value={homepageContent} />
+            </div>
           ) : (
             "Loading..."
           )}
