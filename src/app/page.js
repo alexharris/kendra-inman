@@ -42,6 +42,7 @@ export default function Home() {
   // Fetch homepage content from Sanity (Portable Text and Sections)
   const [homepageData, setHomepageData] = useState(null);
   const [homepageContent, setHomepageContent] = useState(null);
+  const [bigText, setBigText] = useState(null);
   const [homepageSections, setHomepageSections] = useState([]);
   const [heroSlideshow, setHeroSlideshow] = useState(null);
   const [brandColors, setBrandColors] = useState([
@@ -187,6 +188,7 @@ export default function Home() {
       .then((data) => {
         setHomepageData(data);
         setHomepageContent(data?.content);
+        setBigText(data?.bigText);
         setHomepageSections(data?.sections || []);
         setHeroSlideshow(data?.heroSlideshow);
       })
@@ -258,7 +260,9 @@ export default function Home() {
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
           <div className="z-10 sticky top-0 h-screen flex justify-center items-start md:items-center pointer-events-none pt-24 md:pt-0">
-            <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>Creative Direction that breaks through.</BigText>
+            <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
+              {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
+            </BigText>
           </div>
           <div id="manual-first-section" className="h-screen w-full relative">
             {/* manual first section */}

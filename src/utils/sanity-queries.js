@@ -176,6 +176,7 @@ export async function getHomepageContent(options = {}) {
     _id,
     title,
     content,
+    bigText,
     heroSlideshow{
       media[]{
         _type,

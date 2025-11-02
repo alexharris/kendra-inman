@@ -12,11 +12,19 @@ export default {
       hidden: true,
     },
     {
+      name: 'bigText',
+      title: 'Big Text Section',
+      type: 'array',
+      of: [{type: 'block'}],
+      description: 'The large text that appears sticky while scrolling through sections'
+    },    
+    {
       title: 'Content', 
       name: 'content',
       type: 'array', 
       of: [{type: 'block'}]
     },
+
 
     {
       name: 'heroSlideshow',
