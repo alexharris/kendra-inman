@@ -46,7 +46,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     return (
       <>
       <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-12 md:right-24 z-20">
-        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-4 mr-12">
+        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-2 mr-12">
           {section.categoryReference?.projectCount !== undefined && `${section.categoryReference.projectCount}`}
         </div>
         <div className="embla h-full w-full">
