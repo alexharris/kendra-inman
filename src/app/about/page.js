@@ -9,14 +9,16 @@ import { getAboutContent } from '../../utils/sanity-queries';
 
 
 
-export default function Home() {
+export default function About() {
   const { showTop, showBottom } = useScrollVisibilityToggle('top-about-text', 'footer-extension');
   const [aboutContent, setAboutContent] = useState(null);
+  const [bigText, setBigText] = useState(null);
 
   useEffect(() => {
     getAboutContent()
       .then(data => {
         setAboutContent(data);
+        setBigText(data?.bigText);
       })
       .catch(err => console.error('Error loading about content:', err));
   }, []);
@@ -41,7 +43,9 @@ export default function Home() {
         {/* Sections  */}
         
         <div className="sticky top-12">
-          <BigText className="z-10">Kendra is a Creative Director based in NYC</BigText>                
+          <BigText className="z-10">
+            {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
+          </BigText>                
           <div className={`about-text transition-opacity duration-0 ${showTop ? 'opacity-0' : 'opacity-100'}`}>
             <div id="top-about-text"></div>
             {bioContent}

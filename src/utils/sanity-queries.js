@@ -268,6 +268,7 @@ export async function getAboutContent(options = {}) {
     _id,
     title,
     content,
+    bigText,
     _createdAt,
     _updatedAt
   }`;
