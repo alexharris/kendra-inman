@@ -14,10 +14,10 @@ const ANIMATION_TIMINGS = {
   // Initial Page Load Animation
   pageLoad: {
     startShrinking: 50,          // Delay before shrinking starts
-    shrinkingDuration: 800,     // Logo shrinking duration (ms)
-    startMoving: 700,     // When shrinking completes and moving begins  
-    movingDuration: 1200, // Overlay slide duration (ms)
-    endAnimation: 3000,    // When entire animation completes    
+    shrinkingDuration: 1100,     // Logo shrinking duration (ms)
+    startMoving: 1100,     // When shrinking completes and moving begins  
+    movingDuration: 1500, // Overlay slide duration (ms)
+    endAnimation: 3500,    // When entire animation completes    
   },
   
   // Slideshow Animation
