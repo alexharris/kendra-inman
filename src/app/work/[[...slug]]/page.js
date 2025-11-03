@@ -74,7 +74,7 @@ export default async function Page({ params }) {
                 {/* Video background */}
                 {isVideo && backgroundVideoUrl && (
                   <video
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:blur-sm"
                     autoPlay
                     muted
                     loop
@@ -87,7 +87,7 @@ export default async function Page({ params }) {
                 {/* Image background */}
                 {!isVideo && backgroundImageUrl && (
                   <div 
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-300 group-hover:blur-sm"
                     style={{ 
                       backgroundImage: `url(${backgroundImageUrl})`,
                     }}
@@ -95,7 +95,7 @@ export default async function Page({ params }) {
                 )}
                 
                 {/* Hover overlay with gradient and blurb */}
-                <div className="absolute inset-0 bg-gradient-to-t from-beige via-beige to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-beige via-beige to-beige opacity-0 group-hover:opacity-80 transition-opacity duration-300 z-20" />
                 
                 {/* Content that appears on hover */}
                 <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
