@@ -20,7 +20,7 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
           </ParenthesesText>
         </h2>
         
-        <div className="related-projects__grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {relatedProjects.slice(0, 3).map((project) => {
             let backgroundImageUrl = null;
             let backgroundVideoUrl = null;
@@ -33,7 +33,7 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
                 isVideo = true;
               } else if (project.featuredImage._type === 'image') {
                 // It's an image
-                backgroundImageUrl = urlFor(project.featuredImage).width(400).height(300).fit('crop').url();
+                backgroundImageUrl = urlFor(project.featuredImage).width(720).height(400).url();
               }
             }
               
@@ -41,52 +41,42 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
               <Link 
                 key={project._id} 
                 href={`/work/project/${project.slug.current}`}
-                className="related-projects__item group"
+                className="relative aspect-720/400 text-white flex flex-col justify-center items-center p-4 overflow-hidden group"
               >
-                <div 
-                  className="related-projects__image-container"
-                  style={{ backgroundColor: project.color?.hex || '#f5f5f5' }}
-                >
-                  {isVideo && backgroundVideoUrl ? (
-                    <video
-                      className="related-projects__video"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                    >
-                      <source src={backgroundVideoUrl} type="video/mp4" />
-                    </video>
-                  ) : backgroundImageUrl ? (
-                    <div
-                      className="related-projects__image"
-                      style={{ 
-                        backgroundImage: `url(${backgroundImageUrl})`,
-                      }}
-                    />
-                  ) : (
-                    <div className="related-projects__placeholder">
-                      <img 
-                        src="/images/project-dummy.jpg" 
-                        alt={project.title}
-                        className="related-projects__image"
-                      />
+                {/* Video background */}
+                {isVideo && backgroundVideoUrl && (
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:blur-sm"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={backgroundVideoUrl} type="video/mp4" />
+                  </video>
+                )}
+
+                {/* Image background */}
+                {!isVideo && backgroundImageUrl && (
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-300 group-hover:blur-sm"
+                    style={{ 
+                      backgroundImage: `url(${backgroundImageUrl})`,
+                    }}
+                  />
+                )}
+                
+                {/* Hover overlay with gradient and blurb */}
+                <div className="absolute inset-0 bg-gradient-to-t from-beige via-beige to-beige opacity-0 group-hover:opacity-80 transition-opacity duration-300 z-20" />
+                
+                {/* Content that appears on hover */}
+                <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
+                  {project.workBlurb && (
+                    <div className="text-sm text-black mb-2 px-2">
+                      <PortableText value={project.workBlurb} />
                     </div>
                   )}
-                  
-                  {/* Hover overlay with gradient */}
-                  <div className="related-projects__overlay" />
-                  
-                  {/* Content that appears on hover */}
-                  <div className="related-projects__hover-content">
-                    {project.workBlurb && (
-                      <div className="related-projects__blurb">
-                        <PortableText value={project.workBlurb} />
-                      </div>
-                    )}
-                  </div>
                 </div>
-              
               </Link>
             );
           })}
