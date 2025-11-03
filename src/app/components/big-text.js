@@ -1,6 +1,6 @@
 export default function BigText({ children, className = "" }) {
   return (
-    <span className={`big-text w-full xl:w-9/12 font-serif block text-[100px] md:text-[120px] lg:text-[160px] leading-none ${className}`}>
+    <span className={`big-text w-full xl:w-9/12 font-serif block text-[80px] md:text-[120px] lg:text-[160px] leading-none ${className}`}>
       {children}
     </span>
   )

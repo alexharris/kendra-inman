@@ -172,4 +172,10 @@ body {
     }
 }
 
+/* Global PortableText bold styling */
+strong, b {
+    font-family: var(--font-futura-bold);
+    font-weight: 700;
+}
+
 
