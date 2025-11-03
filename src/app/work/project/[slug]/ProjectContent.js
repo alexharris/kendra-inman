@@ -126,12 +126,11 @@ export default function ProjectContent({ project }) {
             </div>
             <div id="project-information-below" className="hidden lg:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
           </div>    
-          <div className="flex flex-col lg:flex-row gap-4 justify-between">
+          <div id="bottomText" className="flex flex-col lg:flex-row gap-4 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
             <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-10">
               <div 
                 id="project-tagline-2" 
-                className="uppercase hidden lg:flex flex-row items-center gap-2 transition-opacity duration-300"
-                style={{ opacity: tagline2Opacity }}
+                className="uppercase hidden lg:flex flex-row items-center gap-2"
               >
                 {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
