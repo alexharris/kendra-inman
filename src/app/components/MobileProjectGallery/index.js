@@ -8,7 +8,7 @@ export default function MobileProjectGallery({ gallery }) {
   }
 
   return (
-    <div className="py-16 md:hidden">
+    <div className="py-16 lg:hidden">
       <div className="flex flex-col gap-4 ">
         {gallery.map((item, index) => (
           <div key={index} className="overflow-hidden">

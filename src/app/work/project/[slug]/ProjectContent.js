@@ -52,6 +52,13 @@ export default function ProjectContent({ project }) {
   // Handle scroll effect for tagline fade
   useEffect(() => {
     const handleScroll = () => {
+      // Only apply opacity effects above lg breakpoint (1024px)
+      if (window.innerWidth < 1024) {
+        setTaglineOpacity(1);
+        setTagline2Opacity(1);
+        return;
+      }
+
       const scrollY = window.scrollY;
       const fadeStartPoint = 0; // Start fading after 0px of scroll
       const fadeEndPoint = 30; // Completely fade by 30px of scroll
@@ -70,10 +77,25 @@ export default function ProjectContent({ project }) {
       }
     };
 
+    // Handle resize to reset opacity when crossing the lg breakpoint
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setTaglineOpacity(1);
+        setTagline2Opacity(1);
+      } else {
+        handleScroll();
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    // Initialize on mount
+    handleScroll();
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -115,7 +137,7 @@ export default function ProjectContent({ project }) {
           )}
         </div>
         <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
-          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between lg:h-36 pt-6 pb-2 flex-shrink-0">
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-2 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
@@ -127,7 +149,7 @@ export default function ProjectContent({ project }) {
             <div id="project-information-below" className="hidden lg:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
           </div>    
           <div id="bottomText" className="flex flex-col lg:flex-row gap-4 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
-            <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-10">
+            <div className="w-full lg:w-2/3 flex flex-col gap-3 lg:gap-6">
               <div 
                 id="project-tagline-2" 
                 className="uppercase hidden lg:flex flex-row items-center gap-2"
