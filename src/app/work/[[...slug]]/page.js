@@ -100,7 +100,7 @@ export default async function Page({ params }) {
                 {/* Content that appears on hover */}
                 <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
                   {project.workBlurb && (
-                    <div className="text-sm text-black mb-2 px-2">
+                    <div className="gridBlurb text-sm text-black mb-2 px-2">
                       <PortableText value={project.workBlurb} />
                     </div>
                   )}

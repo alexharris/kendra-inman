@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: "Founders Grotesk";
-  src: url("/fonts/founders-grotesk-mono-medium.woff2") format("woff2");
+  src: url("/fonts/founders-grotesk-mono-regular.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -164,5 +164,12 @@ body {
 
 }
 
+.gridBlurb {
+    font-weight: 200;
+    strong {
+        font-weight: 800;
+        font-family: var(--font-futura-bold);
+    }
+}
 
 
