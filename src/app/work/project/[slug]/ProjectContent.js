@@ -5,6 +5,7 @@ import Slideshow from '../../../components/Slideshow';
 import MobileProjectGallery from '../../../components/MobileProjectGallery';
 import RelatedProjects from '../../../components/RelatedProjects';
 import Expertise from '../../../components/Expertise';
+import ParenthesesText from '../../../components/ParenthesesText';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 import { setPageColorsFromProject, resetPageColors } from '../../../../utils/pageColors';
 
@@ -146,7 +147,9 @@ export default function ProjectContent({ project }) {
             >
               {project.tagline} <span className="mono-tag">{galleryCount}</span>
             </div>
-            <div id="project-information-below" className="hidden lg:block font-mono uppercase text-xs transition-opacity duration-300" style={{ opacity: taglineOpacity }}>scroll for project information</div>
+            <div id="project-information-below" className="hidden lg:block transition-opacity duration-300" style={{ opacity: taglineOpacity }}>
+              <ParenthesesText>scroll for project information</ParenthesesText>
+            </div>
           </div>    
           <div id="bottomText" className="flex flex-col lg:flex-row gap-4 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
             <div className="w-full lg:w-2/3 flex flex-col gap-3 lg:gap-6">
