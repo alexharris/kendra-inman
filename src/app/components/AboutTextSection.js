@@ -13,7 +13,7 @@ export default function AboutTextSection({ bioContent, column1Title, column1Text
       </div>
       <div className="flex flex-col md:flex-row gap-8 text-sm mt-16 founders-grotesk uppercase w-full">
         {hasColumn1 && (
-          <div className="w-full md:w-1/5">
+          <div className="w-full md:w-1/4">
             {column1Title && <h3 className="text-xs mb-4">( {column1Title} )</h3>}
             {column1Text && (
               <div className="column-text">
@@ -23,7 +23,7 @@ export default function AboutTextSection({ bioContent, column1Title, column1Text
           </div>
         )}
         {hasColumn2 && (
-          <div className="w-full md:w-2/5">
+          <div className="w-full md:w-1/3">
             {column2Title && <h3 className="text-xs mb-4">( {column2Title} )</h3>}
             {column2Text && (
               <div className="column-text">
@@ -32,8 +32,9 @@ export default function AboutTextSection({ bioContent, column1Title, column1Text
             )}
           </div>
         )}
+        <div className="flex-grow"></div>
         {hasColumn3 && (
-          <div className="w-full md:w-3/5">
+          <div className="w-full md:w-1/4">
             {column3Title && <h3 className="text-xs mb-4">( {column3Title} )</h3>}
             {column3Text && (
               <div className="column-text">
