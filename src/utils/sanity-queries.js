@@ -269,6 +269,12 @@ export async function getAboutContent(options = {}) {
     title,
     content,
     bigText,
+    column1Title,
+    column1Text,
+    column2Title,
+    column2Text,
+    column3Title,
+    column3Text,
     _createdAt,
     _updatedAt
   }`;

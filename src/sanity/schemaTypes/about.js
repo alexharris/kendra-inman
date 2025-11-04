@@ -27,6 +27,45 @@ export default {
       type: 'array', 
       of: [{type: 'block'}]
     },
+    {
+      name: 'column1Title',
+      title: 'Column 1 Title',
+      type: 'string',
+      description: 'Title for the first column section'
+    },
+    {
+      name: 'column1Text',
+      title: 'Column 1 Text',
+      type: 'array',
+      of: [{type: 'block'}],
+      description: 'Content for the first column'
+    },
+    {
+      name: 'column2Title',
+      title: 'Column 2 Title',
+      type: 'string',
+      description: 'Title for the second column section'
+    },
+    {
+      name: 'column2Text',
+      title: 'Column 2 Text',
+      type: 'array',
+      of: [{type: 'block'}],
+      description: 'Content for the second column'
+    },
+    {
+      name: 'column3Title',
+      title: 'Column 3 Title',
+      type: 'string',
+      description: 'Title for the third column section'
+    },
+    {
+      name: 'column3Text',
+      title: 'Column 3 Text',
+      type: 'array',
+      of: [{type: 'block'}],
+      description: 'Content for the third column'
+    },
 
   ]
 }

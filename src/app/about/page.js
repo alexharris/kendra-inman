@@ -47,16 +47,32 @@ export default function About() {
           <BigText className="z-10">
             {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
           </BigText>                
-          <div className={`about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity md:border md:border-red-400 duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
+          <div className={`about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
             <div id="top-about-text"></div>
-            <AboutTextSection bioContent={bioContent} />
+            <AboutTextSection 
+              bioContent={bioContent}
+              column1Title={aboutContent?.column1Title}
+              column1Text={aboutContent?.column1Text}
+              column2Title={aboutContent?.column2Title}
+              column2Text={aboutContent?.column2Text}
+              column3Title={aboutContent?.column3Title}
+              column3Text={aboutContent?.column3Text}
+            />
           </div>
         </div>      
         <div id="about-image" className="z-30 w-48 md:w-auto absolute right-12 md:right-24 bottom-0 md:-bottom-72">
           <img src="/images/kendra.jpg" />
         </div>
         <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
-          <AboutTextSection bioContent={bioContent} />
+          <AboutTextSection 
+            bioContent={bioContent}
+            column1Title={aboutContent?.column1Title}
+            column1Text={aboutContent?.column1Text}
+            column2Title={aboutContent?.column2Title}
+            column2Text={aboutContent?.column2Text}
+            column3Title={aboutContent?.column3Title}
+            column3Text={aboutContent?.column3Text}
+          />
         </div>      
       </div>
     </>
