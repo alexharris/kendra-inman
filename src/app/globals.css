@@ -177,4 +177,7 @@ strong, b {
     font-weight: 700;
 }
 
+.big-text {
+  font-size: clamp(4.125rem, 2.031rem + 8.375vw, 12.5rem)
+}
 
