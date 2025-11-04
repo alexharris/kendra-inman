@@ -2,10 +2,12 @@
 
 import BigText from "../components/big-text";
 import AboutTextSection from "../components/AboutTextSection";
+import ParenthesesText from "../components/ParenthesesText";
 import { useScrollVisibilityToggle } from "../../hooks/useScrollVisibilityToggle";
 import { useEffect, useState } from "react";
 import { PortableText } from '@portabletext/react';
 import { getAboutContent } from '../../utils/sanity-queries';
+import { urlFor } from '../../sanity/lib/image';
 
 
 
@@ -47,7 +49,7 @@ export default function About() {
           <BigText className="z-10">
             {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
           </BigText>                
-          <div className={`about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
+          <div className={`about-text text-2xl md:text-4xl w-full md:w-5/6 lg:w-3/4 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
             <div id="top-about-text"></div>
             <AboutTextSection 
               bioContent={bioContent}
@@ -61,7 +63,11 @@ export default function About() {
           </div>
         </div>      
         <div id="about-image" className="z-30 w-48 md:w-auto absolute right-12 md:right-24 bottom-0 md:-bottom-72">
-          <img src="/images/kendra.jpg" />
+          <div className="font-mono text-xs text-right pr-8 mb-4">01</div>
+          <img className="max-w-96" src={aboutContent?.image ? urlFor(aboutContent.image).url() : "/images/kendra.jpg"} alt={aboutContent?.image?.caption || "About"} />
+          {aboutContent?.image?.caption && (
+            <ParenthesesText className="text-right">{aboutContent.image.caption}</ParenthesesText>
+          )}
         </div>
         <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
           <AboutTextSection 

@@ -275,6 +275,7 @@ export async function getAboutContent(options = {}) {
     column2Text,
     column3Title,
     column3Text,
+    image,
     _createdAt,
     _updatedAt
   }`;

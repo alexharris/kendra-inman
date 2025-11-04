@@ -8,10 +8,10 @@ export default function AboutTextSection({ bioContent, column1Title, column1Text
 
   return (
     <>
-      <div className="lg:w-3/4">
+      <div className="">
         {bioContent}
       </div>
-      <div className="flex text-sm mt-16 founders-grotesk uppercase">
+      <div className="flex flex-col md:flex-row gap-8 text-sm mt-16 founders-grotesk uppercase w-full">
         {hasColumn1 && (
           <div className="w-full md:w-1/5">
             {column1Title && <h3 className="text-xs mb-4">( {column1Title} )</h3>}

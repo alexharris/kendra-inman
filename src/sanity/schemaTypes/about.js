@@ -66,6 +66,23 @@ export default {
       of: [{type: 'block'}],
       description: 'Content for the third column'
     },
+    {
+      name: 'image',
+      title: 'About Page Image',
+      type: 'image',
+      description: 'Image displayed on the about page',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        {
+          name: 'caption',
+          title: 'Caption',
+          type: 'string',
+          description: 'Optional caption for the image'
+        }
+      ]
+    },
 
   ]
 }
