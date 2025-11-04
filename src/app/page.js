@@ -259,7 +259,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 sticky top-0 h-screen flex justify-center items-start md:items-center pointer-events-none pt-24 md:pt-0">
+          <div className="z-10 sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
               {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
             </BigText>
