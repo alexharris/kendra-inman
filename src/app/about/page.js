@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { PortableText } from '@portabletext/react';
 import { getAboutContent } from '../../utils/sanity-queries';
 import { urlFor } from '../../sanity/lib/image';
+import { setPageColors, resetPageColors } from '../../utils/pageColors';
 
 
 
@@ -26,6 +27,19 @@ export default function About() {
       .catch(err => console.error('Error loading about content:', err));
   }, []);
 
+  // Set page colors on mount
+  useEffect(() => {
+    setPageColors({
+      background: 'bg-beige',
+      text: 'text-black',
+      fill: 'fill-black',
+    });
+
+    return () => {
+      resetPageColors();
+    };
+  }, []);
+
   // Custom components to strip p tags
   const components = {
     block: {
@@ -40,7 +54,6 @@ export default function About() {
 
   return (
     <>
-
       <div id="main-scroll" className="bg-beige text-black p-4 md:p-8">
 
         {/* Sections  */}
