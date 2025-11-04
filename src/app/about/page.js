@@ -1,6 +1,7 @@
 'use client';
 
 import BigText from "../components/big-text";
+import AboutTextSection from "../components/AboutTextSection";
 import { useScrollVisibilityToggle } from "../../hooks/useScrollVisibilityToggle";
 import { useEffect, useState } from "react";
 import { PortableText } from '@portabletext/react';
@@ -46,46 +47,16 @@ export default function About() {
           <BigText className="z-10">
             {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
           </BigText>                
-          <div className={`about-text transition-opacity duration-0 ${showTop ? 'opacity-0' : 'opacity-100'}`}>
+          <div className={`about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity md:border md:border-red-400 duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
             <div id="top-about-text"></div>
-            {bioContent}
-            <div className="flex text-sm mt-16 founders-grotesk uppercase">
-              <div className="w-full md:w-1/5">
-                <h3 className="text-xs mb-4">( Expertise )</h3>
-                <ul>
-                  <li>BRAND STRATEGY</li>
-                  <li>BRAND CAMPAIGNS</li>
-                  <li>DIGITAL DESIGN</li>
-                  <li>PACKAGE DESIGN</li>
-                  <li>RETAIL DESIGN</li>
-                  <li>AI DESIGN</li>
-                  <li>BRAND SYSTEMS</li>
-                  <li>ART DIRECTION</li>
-                  <li>COPY DIRECTION</li>
-                </ul>
-
-              </div>
-              <div className="w-full md:w-2/5">
-                <h3 className="text-xs mb-4">( Speaking Engagements )</h3>
-                <ul>
-                  <li>2013 Fuse Brand & Package Design</li>
-                  <li>2019 AMERICAPACK SUMMIT</li>
-                  <li>2024 AMERICAPACK SUMMIT</li>
-                </ul>
-              </div>
-              <div className="w-full md:w-3/5">
-                <h3 className="text-xs mb-4">( Connect With Me )</h3>
-                <a href="mailto:kendrainman@gmail.com">KENDRAINMAN@GMAIL.COM</a>
-              </div>
-            </div>            
+            <AboutTextSection bioContent={bioContent} />
           </div>
         </div>      
-        <div id="about-image" className="z-30 absolute right-24 -bottom-24">
+        <div id="about-image" className="z-30 w-48 md:w-auto absolute right-12 md:right-24 bottom-0 md:-bottom-72">
           <img src="/images/kendra.jpg" />
         </div>
-        <div id="footer-extension" className={`pb-[60vh] about-text transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
-          {bioContent}
-
+        <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-3/4 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
+          <AboutTextSection bioContent={bioContent} />
         </div>      
       </div>
     </>
