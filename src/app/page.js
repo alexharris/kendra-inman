@@ -275,7 +275,7 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-48 w-full relative">
+          <div id="manual-last-section" className="h-96 w-full relative">
             {/* another manual section */}
           </div>
         </div>      

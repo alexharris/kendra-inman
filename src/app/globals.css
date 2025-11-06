@@ -178,6 +178,6 @@ strong, b {
 }
 
 .big-text {
-  font-size: clamp(4.125rem, 2.031rem + 8.375vw, 12.5rem)
+  font-size: clamp(4.125rem, 2.031rem + 9.6vw, 15.1875rem)
 }
 
