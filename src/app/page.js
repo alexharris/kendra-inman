@@ -13,11 +13,11 @@ import { setPageColors, resetPageColors } from '../utils/pageColors';
 const ANIMATION_TIMINGS = {
   // Initial Page Load Animation
   pageLoad: {
-    startShrinking: 50,          // Delay before shrinking starts
-    shrinkingDuration: 1100,     // Logo shrinking duration (ms)
-    startMoving: 1100,     // When shrinking completes and moving begins  
-    movingDuration: 1500, // Overlay slide duration (ms)
-    endAnimation: 3500,    // When entire animation completes    
+    startShrinking: 100,          // Delay before shrinking starts
+    shrinkingDuration: 2000,     // Logo shrinking duration (ms)
+    startMoving: 750,     // When shrinking completes and moving begins  
+    movingDuration: 10000, // Overlay slide duration (ms)
+    endAnimation: 20000,    // When entire animation completes    
   },
   
   // Slideshow Animation
@@ -259,7 +259,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
+          <div className="z-10 max-w-[2000px] mx-auto sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
               {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
             </BigText>
@@ -275,11 +275,11 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-96 w-full relative">
-            {/* another manual section */}
+          <div id="manual-last-section" className="h-12 w-full relative">
+
           </div>
         </div>      
-        <div id="footer-extension" className="min-h-[60vh] w-full max-w-[1600px] mx-auto relative bg-black text-beige p-6 md:p-12">
+        <div id="footer-extension" className="min-h-[60vh] w-full max-w-[2000px] mx-auto relative bg-black text-beige">
           {homepageContent ? (
             <PortableText value={homepageContent} />
 

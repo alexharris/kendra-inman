@@ -17,7 +17,7 @@ export default function Footer() {
 
       <div className="flex flex-col md:flex-row w-full justify-between items-center mt-4 pt-4">
         <div><a className="underline" href="/connect">Let's Work Together</a></div>
-        <div className="flex flex-col md:flex-row space-x-0 md:space-x-4 mt-2 md:mt-0">
+        <div className="flex flex-col md:flex-row space-x-0 md:space-x-6 mt-2 md:mt-0">
           <span className="normal-case">©{new Date().getFullYear()} All rights reserved.</span>
           <a href="#">Linked In</a>
           <a href="#">Pinterest</a>

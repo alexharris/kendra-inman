@@ -138,7 +138,7 @@ export default function ProjectContent({ project }) {
           )}
         </div>
         <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
-          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-2 pb-2 flex-shrink-0">
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-8 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
@@ -148,7 +148,7 @@ export default function ProjectContent({ project }) {
               {project.tagline} <span className="mono-tag">{galleryCount}</span>
             </div>
             <div id="project-information-below" className="hidden lg:block transition-opacity duration-300" style={{ opacity: taglineOpacity }}>
-              <ParenthesesText>scroll for project information</ParenthesesText>
+              <ParenthesesText>scroll down for case study</ParenthesesText>
             </div>
           </div>    
           <div id="bottomText" className="flex flex-col lg:flex-row gap-4 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
