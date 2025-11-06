@@ -83,8 +83,6 @@ export default function Home() {
 
 
 
-
-
   // Page load animation effect
   useEffect(() => {
     // Start the animation sequence after component mounts
@@ -110,6 +108,8 @@ export default function Home() {
     };
   }, []);
 
+  // Scroll event listener to detect current section
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -117,31 +117,29 @@ export default function Home() {
       const manualLastSectionIndex = homepageSections.length + 1; // +1 for manual first section, then the last manual section
       const footerSectionIndex = homepageSections.length + 2; // +2 for both manual sections
       
-      // Check if we're in the manual first section
-      const manualSection = document.querySelector('#manual-first-section');
-      if (manualSection) {
-        const manualRect = manualSection.getBoundingClientRect();
-        const manualTop = scrollY + manualRect.top;
-        const manualBottom = manualTop + manualRect.height;
-        
-        if (scrollY < manualBottom - windowHeight * 0.3) {
+        // Check if we're still at the top (before first section image)
+      const firstSection = sectionRefs.current[0];
+      if (firstSection) {
+        const firstImage = firstSection.querySelector('.section-image');
+        if (firstImage && firstImage.getBoundingClientRect().top > windowHeight) {
           setCurrentSection(0);
           return;
         }
       }
       
+
       // Check if we're in the manual last section
       const manualLastSection = document.querySelector('#manual-last-section');
       if (manualLastSection) {
         const manualLastRect = manualLastSection.getBoundingClientRect();
-        const manualLastTop = scrollY + manualLastRect.top;
-        const manualLastBottom = manualLastTop + manualLastRect.height;
         
-        if (scrollY >= manualLastTop - windowHeight * 0.3 && scrollY < manualLastBottom) {
+        // Switch as soon as the top of the section enters the viewport
+        if (manualLastRect.top <= windowHeight) {
           setCurrentSection(manualLastSectionIndex);
           return;
         }
       }
+
       
       // Check if we're in the footer
       const footer = document.querySelector('#footer-extension');
@@ -154,6 +152,8 @@ export default function Home() {
           return;
         }
       }
+
+      // Check each section's image position
       
       sectionRefs.current.forEach((section, index) => {
         // console.log(`Checking section ${index} at scrollY: ${scrollY}`);
@@ -165,8 +165,8 @@ export default function Home() {
             
             // Check if image is entering the viewport (top of image crosses bottom of viewport)
             // Switch color as soon as any part of the image becomes visible
-            if (imageRect.top <= windowHeight && imageRect.bottom >= 0) {
-              // console.log(`Section ${index} image is visible in viewport`);
+            if (imageRect.top <= windowHeight) {
+              console.log(`Section ${index} image is visible in viewport`);
               setCurrentSection(index + 1); // +1 to account for manual first section
             }
           }
@@ -264,7 +264,7 @@ export default function Home() {
               {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
             </BigText>
           </div>
-          <div id="manual-first-section" className="h-screen w-full relative">
+          <div id="manual-first-section" className="h-48 w-full relative">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (
@@ -275,15 +275,14 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-screen w-full relative">
+          <div id="manual-last-section" className="h-48 w-full relative">
             {/* another manual section */}
           </div>
         </div>      
         <div id="footer-extension" className="min-h-[60vh] w-full max-w-[1600px] mx-auto relative bg-black text-beige p-6 md:p-12">
           {homepageContent ? (
-            <div className="max-w-[1200px] w-full lg:w-11/12 xl:w-2/3 mx-auto">
             <PortableText value={homepageContent} />
-            </div>
+
           ) : (
             "Loading..."
           )}
