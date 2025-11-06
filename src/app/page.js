@@ -259,7 +259,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 max-w-[2000px] mx-auto sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
+          <div className="z-10 max-w-[1500px] mx-auto sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
               {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
             </BigText>
@@ -279,13 +279,15 @@ export default function Home() {
 
           </div>
         </div>      
-        <div id="footer-extension" className="min-h-[60vh] w-full max-w-[2000px] mx-auto relative bg-black text-beige">
+        <div id="footer-extension" className="min-h-[60vh] w-full  p-4 md:p-12 relative bg-black text-beige">
+          <div className="max-w-[1500px] mx-auto">
           {homepageContent ? (
             <PortableText value={homepageContent} />
 
           ) : (
             "Loading..."
           )}
+          </div>
         </div>      
       </div>
     </>

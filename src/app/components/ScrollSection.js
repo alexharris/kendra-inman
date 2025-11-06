@@ -45,9 +45,9 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     // Multiple media items - use slideshow
     return (
       <>
-      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-0 md:right-24 z-20">
+      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-0 z-20">
         <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-3 mr-12">
-          {section.categoryReference?.projectCount !== undefined && `${section.categoryReference.projectCount}`}
+          {section.categoryReference?.projectCount !== undefined && `${String(section.categoryReference.projectCount).padStart(2, '0')}`}
         </div>
         <div className="embla h-full w-full">
           <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
@@ -88,7 +88,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
             </div>
           </div>
         </div>
-        <div className="text-right">
+        <div className="text-right pt-4">
           <ParenthesesText>
             {section.title}
           </ParenthesesText>
@@ -104,7 +104,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   return (
     <div 
       ref={el => sectionRefs.current[index] = el}
-      className={`w-full relative ${className} max-w-[2000px]`}
+      className={`w-full relative ${className} mx-auto max-w-[1500px]`}
       style={{ height: 'calc(100vh + 50vh)' }}
     >
       {children || renderMedia()}
