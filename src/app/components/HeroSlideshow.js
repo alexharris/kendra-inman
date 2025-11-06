@@ -3,12 +3,13 @@
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import Fade from 'embla-carousel-fade';
 
 // Slideshow timing - matches main page configuration
 const SLIDESHOW_AUTO_ADVANCE_INTERVAL = 3000; // milliseconds
 
 export default function HeroSlideshow({ heroSlideshow }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Fade()]);
 
   // Auto-advance slides using centralized timing
   useEffect(() => {

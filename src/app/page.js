@@ -69,8 +69,8 @@ export default function Home() {
       return 'bg-gray-500'; // fallback
     });
     
-    // Add manual first section color (black) at the beginning
-    sectionColors.unshift('bg-black');
+    // Add manual first section color (beige) at the beginning
+    sectionColors.unshift('bg-beige');
     
     // Add manual last section color (black) before footer
     sectionColors.push('bg-black');
