@@ -70,9 +70,9 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
                 <div className="absolute inset-0 bg-gradient-to-t from-beige via-beige to-beige opacity-0 group-hover:opacity-80 transition-opacity duration-300 z-20" />
                 
                 {/* Content that appears on hover */}
-                <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
+                <div className="relative z-30 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
                   {project.workBlurb && (
-                    <div className="text-sm text-black mb-2 px-2">
+                    <div className="text-sm text-black px-2">
                       <PortableText value={project.workBlurb} />
                     </div>
                   )}
