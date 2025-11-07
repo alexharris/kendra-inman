@@ -138,7 +138,7 @@ export default function ProjectContent({ project }) {
           )}
         </div>
         <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
-          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-14 pb-2 flex-shrink-0">
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-8 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
