@@ -259,7 +259,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-64 md:mb-12">
+          <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-32 md:mb-12">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
@@ -275,7 +275,7 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-48 flex flex-row pl-2 w-full relative max-w-[1400px] mx-auto">
+          <div id="manual-last-section" className="h-24 md:h-48 flex flex-row items-center pl-2 w-full relative max-w-[1400px] mx-auto">
             {homepageContent ? (
               <PortableText value={homepageContent} />
 
