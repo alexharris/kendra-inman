@@ -52,12 +52,12 @@ export default function About() {
 
   return (
     <>
-      <div id="main-scroll" className="bg-beige text-black p-4 md:p-8 max-w-[1600px] mx-auto">
+      <div id="main-scroll" className="bg-beige text-black p-4 md:p-8 max-w-[1400px] mx-auto mb-18">
 
         {/* Sections  */}
         
         <div className="sticky top-24">
-          <BigText className="z-10 w-full md:w-2/3 lg:w-7/12">
+          <BigText className="z-10 w-full pt-24">
             {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
           </BigText>                
           <div className={`about-text text-2xl pt-8 md:text-4xl w-full md:w-2/3 lg:w-7/12 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
@@ -73,11 +73,11 @@ export default function About() {
             />
           </div>
         </div>      
-        <div id="about-image" className="z-30 w-56 md:w-96 absolute right-12 md:right-24 bottom-0 md:-bottom-72">
-          <div className="font-mono text-xs text-right pr-8 mb-4">01</div>
+        <div id="about-image" className="z-30 absolute right-12 lg:right-72 xl:right-96 bottom-0 md:-bottom-96">
+          <div className="font-mono text-xs text-right pr-8 mb-3">01</div>
           <img className="w-56 md:w-96" src={aboutContent?.image ? urlFor(aboutContent.image).url() : "/images/kendra.jpg"} alt={aboutContent?.image?.caption || "About"} />
           {aboutContent?.image?.caption && (
-            <ParenthesesText className="text-right">{aboutContent.image.caption}</ParenthesesText>
+            <ParenthesesText className="text-right mt-4">{aboutContent.image.caption}</ParenthesesText>
           )}
         </div>
         <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-2/3 lg:w-7/12 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>

@@ -157,7 +157,7 @@ body {
 .about-text {
   font-family: var(--font-futura-medium);
   font-weight: 500;
-  line-height: 50px;
+  
   letter-spacing: 0%;
 
 
@@ -178,7 +178,7 @@ strong, b {
 }
 
 .big-text {
-  font-size: clamp(4.125rem, 2.031rem + 10.4vw, 16rem);
+  font-size: clamp(4.125rem, 2.031rem + 10.4vw, 14rem);
   line-height: .8em;
 }
 

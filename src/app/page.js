@@ -261,7 +261,7 @@ export default function Home() {
         <div id="scroll-sections" className="p-4 md:p-12 relative">
           <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-64 md:mb-12">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
-              {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
+              {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
           </div>
           <div id="manual-first-section" className="h-48 w-full relative">
