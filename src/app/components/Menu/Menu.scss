@@ -49,6 +49,8 @@ body.menu-open {
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   width: 100vw;
   height: 100vh;
 z-index: 999;
@@ -59,7 +61,7 @@ z-index: 999;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: hidden;
+  overflow: scroll;
   &.open {
     opacity: 1;
     visibility: visible;
@@ -96,11 +98,9 @@ z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-top: 200px;
-  @media (max-width: 768px) {
-    margin-top: 140px;
-  }
+  gap: 2rem;
+  margin-top: min(15vh, 80px);
+  
 }
 
 .menu-list {
@@ -111,15 +111,31 @@ z-index: 999;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
-  width: 50%;
+  width: 40%;
   justify-content: center;
+}
+
+
+@media (max-width: 1000px) {
+  .menu-list {
+    width: 55%;
+  }
 }
 
 @media (max-width: 768px) {
   .menu-list {
-    width: 80%;
+    width: 64%;
   }
 }
+
+@media (max-width: 550px) {
+  .menu-list {
+    width: 85%;
+  }
+}
+
+
+
 
 .menu-title { 
   margin-bottom: 1rem;
