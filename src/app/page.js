@@ -259,7 +259,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 max-w-[1400px] mx-auto sticky top-0 h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0">
+          <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-64 md:mb-12">
             <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
               {bigText ? <PortableText value={bigText} /> : 'Creative Direction that breaks through.'}
             </BigText>
@@ -275,19 +275,17 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-12 w-full relative">
+          <div id="manual-last-section" className="h-48 flex flex-row pl-2 w-full relative max-w-[1400px] mx-auto">
+            {homepageContent ? (
+              <PortableText value={homepageContent} />
 
+            ) : (
+              "Loading..."
+            )}
           </div>
         </div>      
-        <div id="footer-extension" className="min-h-[60vh] w-full  p-4 md:p-12 relative bg-black text-beige">
-          <div className="max-w-[1400px] mx-auto">
-          {homepageContent ? (
-            <PortableText value={homepageContent} />
+        <div id="footer-extension" className="min-h-[20vh] w-full  p-4 md:p-12 relative bg-black text-beige">
 
-          ) : (
-            "Loading..."
-          )}
-          </div>
         </div>      
       </div>
     </>
