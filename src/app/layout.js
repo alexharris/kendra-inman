@@ -1,8 +1,10 @@
 import "./globals.css";
 import ConditionalLayout from "./components/ConditionalLayout";
+import { getGlobalSettings } from "@/utils/sanity-queries";
 
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const globalSettings = await getGlobalSettings();
 
   // Brand colors corresponding to each section
   const brandColors = [
@@ -35,7 +37,7 @@ console.log(backgroundColor);
         <link rel="stylesheet" href="https://use.typekit.net/kwn5tzm.css" />
       </head>
       <body className={`futura-pt ${backgroundColor} ${textColor}`}>
-        <ConditionalLayout>{children}</ConditionalLayout>
+        <ConditionalLayout globalSettings={globalSettings}>{children}</ConditionalLayout>
       </body>
     </html>
   );

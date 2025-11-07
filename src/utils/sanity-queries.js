@@ -284,6 +284,25 @@ export async function getAboutContent(options = {}) {
 }
 
 /**
+ * Fetch global settings
+ * @param {Object} options - Query options
+ * @returns {Promise<Object|null>} - Global settings document or null
+ */
+export async function getGlobalSettings(options = {}) {
+  const query = `*[_type == "global"][0] {
+    _id,
+    email,
+    linkedin,
+    instagram,
+    pinterest,
+    _createdAt,
+    _updatedAt
+  }`;
+  
+  return fetchSanityData(query, {}, options);
+}
+
+/**
  * Fetch a single project by ID
  * @param {string} id - Project ID
  * @param {Object} options - Query options

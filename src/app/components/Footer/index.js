@@ -1,9 +1,6 @@
-'use client';
 import './Footer.scss';
 
-export default function Footer() {
-
-
+export default function Footer({ globalSettings }) {
   return (
     <div id="footer" className="w-full flex flex-col items-center p-4 md:py-12 md:px-4 absolute uppercase">
       {/* <div className="futura-bold uppercase text-center text-[20.1vw]/20 sm:text-[20.1vw]/28 md:text-[12.1vw]/32 pb-8">Kendra Inman</div> */}
@@ -16,12 +13,24 @@ export default function Footer() {
 
 
       <div className="flex flex-col md:flex-row w-full justify-between items-center mt-4 pt-4">
-        <div><a className="underline" href="/connect">Let's Work Together</a></div>
+        <div><a className="underline" href={`mailto:${globalSettings?.email}`}>Let's Work Together</a></div>
         <div className="flex flex-col-reverse text-center md:flex-row space-x-0 md:space-x-6">
           <span className="normal-case text-sm">©{new Date().getFullYear()} All rights reserved.</span>
-          <a href="#">Linked In</a>
-          <a href="#">Pinterest</a>
-          <a href="#">Instagram</a>
+          {globalSettings?.linkedin && (
+            <a href={globalSettings.linkedin} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          )}
+          {globalSettings?.pinterest && (
+            <a href={globalSettings.pinterest} target="_blank" rel="noopener noreferrer">
+              Pinterest
+            </a>
+          )}
+          {globalSettings?.instagram && (
+            <a href={globalSettings.instagram} target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+          )}
         </div>
       </div>
     </div>
