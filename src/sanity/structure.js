@@ -16,9 +16,6 @@ export const structure = (S, context) =>
             // Each will pull one of our new singletons
             .items([
               S.listItem()
-                .title('Global Settings')
-                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
-              S.listItem()
                 .title('Site Colors')
                 .child(S.documentTypeList('siteColors').title('Colors').filter('_type == "siteColors"')),
               orderableDocumentListDeskItem({
@@ -51,5 +48,5 @@ export const structure = (S, context) =>
         context,
         title: 'Projects',
       }),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'siteColors', 'siteCategories', 'siteExpertise', 'homepage', 'about', 'project'].includes(listItem.getId()))
+      ...S.documentTypeListItems().filter(listItem => !['siteColors', 'siteCategories', 'siteExpertise', 'homepage', 'about', 'project'].includes(listItem.getId()))
     ])

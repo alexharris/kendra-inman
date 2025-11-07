@@ -33,14 +33,14 @@ export default defineConfig({
     newDocumentOptions: (prev, {creationContext}) => {
       if (creationContext.type === 'global') {
         return prev.filter(
-          (templateItem) => !['homepage', 'siteSettings'].includes(templateItem.templateId)
+          (templateItem) => !['homepage'].includes(templateItem.templateId)
         )
       }
       return prev
     },
     // Restrict actions for singleton documents
     actions: (prev, {schemaType}) => {
-      const singletonTypes = ['homepage', 'siteSettings']
+      const singletonTypes = ['homepage']
       
       if (singletonTypes.includes(schemaType)) {
         // For singletons, only allow publish and discard changes
