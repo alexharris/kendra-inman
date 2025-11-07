@@ -9,26 +9,57 @@ import { PortableText } from '@portabletext/react';
 import { getHomepageContent } from '../utils/sanity-queries';
 import { setPageColors, resetPageColors } from '../utils/pageColors';
 
-// Animation Timing Configuration - Easy to modify animation speeds
+// ============================================================================
+// ANIMATION TIMING CONFIGURATION
+// ============================================================================
+// This controls the page load animation sequence. All times are in milliseconds.
+//
+// TIMELINE VISUALIZATION:
+// 0ms -----> 100ms -----> 900ms -----> 1400ms -----> 2200ms -----> 2000ms
+//  |          |            |            |             |              |
+//  |          |            |            |             |              └─ Complete (hide loader, enable scrolling)
+//  |          |            |            |             └─ Overlay slide finishes
+//  |          |            |            └─ Overlay starts sliding up
+//  |          |            └─ Logo shrinking finishes
+//  |          └─ Logo starts shrinking
+//  └─ Page loads
+//
+// HOW THE TIMES WORK TOGETHER:
+// 1. startShrinking: Initial delay before anything happens (100ms)
+// 2. shrinkingDuration: How long the logo takes to shrink (800ms = 0.8 seconds)
+// 3. startMoving: Must be >= (startShrinking + shrinkingDuration) to avoid overlap
+//    Current: 100 + 800 = 900ms, but set to 1400ms for a 500ms pause
+// 4. movingDuration: How long the overlay takes to slide up (800ms = 0.8 seconds)
+// 5. endAnimation: Total time from page load to completion (2000ms = 2 seconds)
+//    Note: Overlay finishes at 2200ms (1400 + 800), but loader hides at 2000ms
+//
+// QUICK ADJUSTMENTS:
+// - Want faster logo shrink? Decrease shrinkingDuration AND startMoving by same amount
+// - Want pause between shrink/move? Increase startMoving (keep it > startShrinking + shrinkingDuration)
+// - Want faster overlay slide? Decrease movingDuration only
+// - Want shorter total animation? Decrease endAnimation (must be > startMoving + movingDuration)
+//
 const ANIMATION_TIMINGS = {
   // Initial Page Load Animation
   pageLoad: {
-    startShrinking: 100,          // Delay before shrinking starts
-    shrinkingDuration: 2000,     // Logo shrinking duration (ms)
-    startMoving: 750,     // When shrinking completes and moving begins  
-    movingDuration: 10000, // Overlay slide duration (ms)
-    endAnimation: 20000,    // When entire animation completes    
+    startShrinking: 100,        // [Step 1] Delay before shrinking starts (ms)
+    shrinkingDuration: 800,     // [Step 2] Logo shrinking duration (ms)
+    startMoving: 1400,          // [Step 3] When overlay slide begins (ms from page load)
+                                //         Note: Set to 1400 instead of 900 for 500ms pause after shrinking
+    movingDuration: 800,        // [Step 4] Overlay slide duration (ms)
+    endAnimation: 2000,         // [Step 5] Total animation time from page load (ms)
+                                //         At this point: loader hidden, scrolling enabled
   },
   
-  // Slideshow Animation
+  // Slideshow Animation (plays during the load animation)
   slideshow: {
-    autoAdvanceInterval: 3000, // Time between slide changes (ms)
+    autoAdvanceInterval: 3000,  // Time between automatic slide changes (ms)
   },
   
-  // Background Color Transitions
+  // Background Color Transitions (for scroll sections)
   background: {
-    colorTransition: 500,     // Background color change duration (ms)
-    detectionDelay: 100,      // Delay for initial background detection
+    colorTransition: 500,       // Background color fade duration (ms)
+    detectionDelay: 100,        // Initial background color detection delay (ms)
   },
 };
 
@@ -88,17 +119,18 @@ export default function Home() {
     // Start the animation sequence after component mounts
     const timer1 = setTimeout(() => {
       setAnimationPhase('shrinking');
+      // console.log('Animation phase set to shrinking');
     }, ANIMATION_TIMINGS.pageLoad.startShrinking);
 
     const timer2 = setTimeout(() => {
       setAnimationPhase('moving');
+      // console.log('Animation phase set to moving');
     }, ANIMATION_TIMINGS.pageLoad.startMoving);
 
     const timer3 = setTimeout(() => {
       setAnimationPhase('complete');
       setShowLoader(false);
-      
-
+      // console.log('Animation phase set to complete, loader hidden');
     }, ANIMATION_TIMINGS.pageLoad.endAnimation);
 
     return () => {
@@ -228,21 +260,27 @@ export default function Home() {
       {showLoader && (
         // Moving up
         <div 
-          className={`fixed inset-0 bg-black z-50 transition-all duration-[${ANIMATION_TIMINGS.pageLoad.movingDuration}ms] ease-out ${
+          className={`fixed inset-0 bg-black z-50 transition-all ease-out ${
             animationPhase === 'moving' ? 'translate-y-[-100vh]' : ''
           }`}
+          style={{ 
+            transitionDuration: `${ANIMATION_TIMINGS.pageLoad.movingDuration}ms` 
+          }}
         >
           <div className={`w-full h-full flex items-center justify-center ${
             animationPhase === 'moving' ? 'fixed top-0 left-0' : ''
           }`}>
             {/* Shrinking */}
             <svg 
-              className={`transition-all duration-[${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms] ease-out ${
+              className={`transition-all ease-out ${
                 animationPhase === 'initial' ? 'w-[100vw] px-8' : 
                 animationPhase === 'shrinking' ? 'w-48' : 
                 'w-48'
               }`}
-              style={{ fill: '#F5F5DC' }} 
+              style={{ 
+                fill: '#F5F5DC',
+                transitionDuration: `${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms` 
+              }} 
               viewBox="0 0 1330 124" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +298,10 @@ export default function Home() {
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
           <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-32 md:mb-12">
-            <BigText className={`transition-colors duration-[${ANIMATION_TIMINGS.background.colorTransition}ms] ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}>
+            <BigText 
+              className={`transition-colors ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}
+              style={{ transitionDuration: `${ANIMATION_TIMINGS.background.colorTransition}ms` }}
+            >
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
           </div>
