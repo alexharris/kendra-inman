@@ -106,6 +106,9 @@ body {
   line-height: 100%;
   letter-spacing: 0%;
   font-family: var(--font-apris);
+  @media (max-width: 768px) {
+    font-size: 48px;
+  } 
 }
 
 
@@ -130,6 +133,10 @@ body {
   font-size: 56px;
   line-height: 60px;
   letter-spacing: 0%;
+  @media (max-width: 768px) {
+    font-size: 36px;
+    line-height: 36px;
+  }
 }
 
 .basic-padding {
