@@ -1,13 +1,14 @@
 'use client';
 import { useState, useEffect } from 'react';
 import './Menu.scss';
-import { getAllCategories, getProjectsCount } from '../../../utils/sanity-queries';
+import { getAllCategories, getProjectsCount, getGlobalSettings } from '../../../utils/sanity-queries';
 import HeaderWithTag from "../HeaderWithTag";
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [totalProjectCount, setTotalProjectCount] = useState(0);
+  const [globalConfig, setGlobalConfig] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const toggleMenu = () => {
@@ -18,9 +19,10 @@ export default function Menu() {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const [categoriesData, projectCount] = await Promise.all([
+        const [categoriesData, projectCount, globalSettings] = await Promise.all([
           getAllCategories(),
-          getProjectsCount()
+          getProjectsCount(),
+          getGlobalSettings()
         ]);
         // Filter categories to only include those with projectCount > 0
         const categoriesWithProjects = (categoriesData || []).filter(category => 
@@ -28,10 +30,12 @@ export default function Menu() {
         );
         setCategories(categoriesWithProjects);
         setTotalProjectCount(projectCount || 0);
+        setGlobalConfig(globalSettings);
       } catch (error) {
         console.error('Error fetching categories:', error);
         setCategories([]);
         setTotalProjectCount(0);
+        setGlobalConfig(null);
       } finally {
         setLoading(false);
       }
@@ -107,7 +111,7 @@ export default function Menu() {
           </ul>
           <h2 className="menu-title text-6xl md:text-8xl apris pt-12"><a href="/about">About</a></h2>
         </nav>
-       <a href="/connect" className="pt-12 uppercase underline tracking-wide underline-offset-2">Let's Work Together</a>
+       <a href={`mailto:${globalConfig?.email || ''}`} className="pt-12 uppercase underline tracking-wide underline-offset-2">Let's Work Together</a>
       </div>
     </div>
   );
