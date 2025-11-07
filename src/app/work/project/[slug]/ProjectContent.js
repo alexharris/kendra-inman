@@ -162,7 +162,7 @@ export default function ProjectContent({ project }) {
               <div className="uppercase lg:hidden flex flex-row items-center gap-2">
                 {project.tagline} <span className="mono-tag">{galleryCount}</span>
               </div>
-              <div className="big-paragraph font-serif ">
+              <div className="big-paragraph font-serif max-w-[1200px]">
                 {project.description && (
                   <div>
                     {/* This would need proper rich text rendering for the description array */}
