@@ -73,7 +73,7 @@ export default function About() {
             />
           </div>
         </div>      
-        <div id="about-image" className="z-30 absolute right-4 sm:right-12 lg:right-72 xl:right-96 -bottom-48 md:-bottom-88">
+        <div id="about-image" className="z-30 absolute right-4 sm:right-12 lg:right-72 xl:right-1/3 -bottom-48 md:-bottom-88">
           <div className="font-mono text-xs text-right pr-8 mb-3">01</div>
           <img className="w-56 md:w-96" src={aboutContent?.image ? urlFor(aboutContent.image).url() : "/images/kendra.jpg"} alt={aboutContent?.image?.caption || "About"} />
           {aboutContent?.image?.caption && (
