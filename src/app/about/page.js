@@ -56,11 +56,11 @@ export default function About() {
 
         {/* Sections  */}
         
-        <div className="sticky top-32">
+        <div className="sticky top-40">
           <BigText className="z-10 w-full">
             {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
           </BigText>                
-          <div className={`about-text text-2xl pt-8 md:text-4xl w-full md:w-2/3 lg:w-7/12 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
+          <div className={`about-text text-2xl pt-8 md:text-4xl w-full md:w-9/12 lg:w-9/12 transition-opacity duration-0 ${showTop ? 'opacity-0 h-[130vh] sm:h-auto' : 'opacity-100'}`}>
             <div id="top-about-text"></div>
             <AboutTextSection 
               bioContent={bioContent}

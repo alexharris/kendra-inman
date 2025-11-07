@@ -15,7 +15,7 @@ import { setPageColors, resetPageColors } from '../utils/pageColors';
 // This controls the page load animation sequence. All times are in milliseconds.
 //
 // TIMELINE VISUALIZATION:
-// 0ms -----> 100ms -----> 900ms -----> 1400ms -----> 2200ms -----> 2000ms
+// 0ms -----> 100ms -----> 600ms -----> 1100ms -----> 1600ms -----> 2000ms
 //  |          |            |            |             |              |
 //  |          |            |            |             |              └─ Complete (hide loader, enable scrolling)
 //  |          |            |            |             └─ Overlay slide finishes
@@ -26,12 +26,12 @@ import { setPageColors, resetPageColors } from '../utils/pageColors';
 //
 // HOW THE TIMES WORK TOGETHER:
 // 1. startShrinking: Initial delay before anything happens (100ms)
-// 2. shrinkingDuration: How long the logo takes to shrink (800ms = 0.8 seconds)
+// 2. shrinkingDuration: How long the logo takes to shrink (500ms = 0.5 seconds)
 // 3. startMoving: Must be >= (startShrinking + shrinkingDuration) to avoid overlap
-//    Current: 100 + 800 = 900ms, but set to 1400ms for a 500ms pause
-// 4. movingDuration: How long the overlay takes to slide up (800ms = 0.8 seconds)
+//    Current: 100 + 500 = 600ms, but set to 1100ms for a 500ms pause
+// 4. movingDuration: How long the overlay takes to slide up (500ms = 0.5 seconds)
 // 5. endAnimation: Total time from page load to completion (2000ms = 2 seconds)
-//    Note: Overlay finishes at 2200ms (1400 + 800), but loader hides at 2000ms
+//    Note: Overlay finishes at 1600ms (1100 + 500), with 400ms buffer before loader hides
 //
 // QUICK ADJUSTMENTS:
 // - Want faster logo shrink? Decrease shrinkingDuration AND startMoving by same amount
@@ -43,11 +43,11 @@ const ANIMATION_TIMINGS = {
   // Initial Page Load Animation
   pageLoad: {
     startShrinking: 100,        // [Step 1] Delay before shrinking starts (ms)
-    shrinkingDuration: 800,     // [Step 2] Logo shrinking duration (ms)
-    startMoving: 1400,          // [Step 3] When overlay slide begins (ms from page load)
-                                //         Note: Set to 1400 instead of 900 for 500ms pause after shrinking
-    movingDuration: 800,        // [Step 4] Overlay slide duration (ms)
-    endAnimation: 2000,         // [Step 5] Total animation time from page load (ms)
+    shrinkingDuration: 500,     // [Step 2] Logo shrinking duration (ms)
+    startMoving: 1100,          // [Step 3] When overlay slide begins (ms from page load)
+                                //         Note: Set to 1100 instead of 600 for 500ms pause after shrinking
+    movingDuration: 2000,       // [Step 4] Overlay slide duration (ms)
+    endAnimation: 5000,         // [Step 5] Total animation time from page load (ms)
                                 //         At this point: loader hidden, scrolling enabled
   },
   
@@ -258,19 +258,17 @@ export default function Home() {
     <>
       {/* Page Load Animation Overlay */}
       {showLoader && (
-        // Moving up
+        // Background fades out
         <div 
-          className={`fixed inset-0 bg-black z-50 transition-all ease-out ${
-            animationPhase === 'moving' ? 'translate-y-[-100vh]' : ''
+          className={`fixed inset-0 bg-black z-50 transition-opacity ease-out ${
+            animationPhase === 'moving' ? 'opacity-0' : 'opacity-100'
           }`}
           style={{ 
             transitionDuration: `${ANIMATION_TIMINGS.pageLoad.movingDuration}ms` 
           }}
         >
-          <div className={`w-full h-full flex items-center justify-center ${
-            animationPhase === 'moving' ? 'fixed top-0 left-0' : ''
-          }`}>
-            {/* Shrinking */}
+          <div className="w-full h-full flex items-center justify-center">
+            {/* Shrinking and moving up */}
             <svg 
               className={`transition-all ease-out ${
                 animationPhase === 'initial' ? 'w-[100vw] px-8' : 
@@ -279,7 +277,10 @@ export default function Home() {
               }`}
               style={{ 
                 fill: '#F5F5DC',
-                transitionDuration: `${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms` 
+                transform: animationPhase === 'moving' ? 'translateY(calc(-70vh + 37.5px))' : 'translateY(0)',
+                transitionDuration: animationPhase === 'moving' 
+                  ? `${ANIMATION_TIMINGS.pageLoad.movingDuration}ms`
+                  : `${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms` 
               }} 
               viewBox="0 0 1330 124" 
               fill="none" 

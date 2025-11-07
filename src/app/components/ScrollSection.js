@@ -25,7 +25,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   const renderMedia = () => {
     if (!section?.media?.length) {
       return (
-        <div className="section-image aspect-720/400 w-3/4 md:w-1/2 bg-gray-200 absolute top-24 right-24 z-20">
+        <div className="section-image aspect-720/400 w-3/4 bg-gray-200 absolute top-24 right-24 z-20">
           {section?.title && (
             <div className="p-4 text-black">
               <h3 className="text-lg font-semibold">
@@ -45,7 +45,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     // Multiple media items - use slideshow
     return (
       <>
-      <div className="section-image aspect-720/400 w-3/4 md:w-1/2 absolute top-24 right-0 z-20">
+      <div className="section-image aspect-720/400 w-3/4 absolute top-24 right-0 z-20">
         <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-3 mr-12">
           {section.categoryReference?.projectCount !== undefined && `${String(section.categoryReference.projectCount).padStart(2, '0')}`}
         </div>

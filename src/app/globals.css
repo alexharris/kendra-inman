@@ -164,10 +164,11 @@ body {
 .about-text {
   font-family: var(--font-futura-medium);
   font-weight: 500;
-  
+  line-height: 45px;
   letter-spacing: 0%;
-
-
+  @media (max-width: 768px) {
+    line-height: 32px;
+  }
 }
 
 .gridBlurb {
