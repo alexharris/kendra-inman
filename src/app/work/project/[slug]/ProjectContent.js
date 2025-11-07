@@ -138,7 +138,7 @@ export default function ProjectContent({ project }) {
           )}
         </div>
         <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
-          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-8 pb-2 flex-shrink-0">
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-14 pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
@@ -151,8 +151,8 @@ export default function ProjectContent({ project }) {
               <ParenthesesText>scroll down for case study</ParenthesesText>
             </div>
           </div>    
-          <div id="bottomText" className="flex flex-col lg:flex-row gap-4 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
-            <div className="w-full lg:w-2/3 flex flex-col gap-3 lg:gap-6">
+          <div id="bottomText" className="flex flex-col lg:flex-row gap-4 mt-3 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
+            <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-8">
               <div 
                 id="project-tagline-2" 
                 className="uppercase hidden lg:flex flex-row items-center gap-2"
@@ -169,7 +169,7 @@ export default function ProjectContent({ project }) {
                     {project.description.map((block, index) => {
                       if (block._type === 'block') {
                         return (
-                          <p key={index} className="mb-4">
+                          <p key={index} className="">
                             {block.children?.map(child => child.text).join('')}
                           </p>
                         );
@@ -199,7 +199,7 @@ export default function ProjectContent({ project }) {
               )}
             </div>
 
-            <div className="lg:w-1/4">  
+            <div className="lg:w-1/4 lg:mt-16">  
               <Expertise expertise={project.expertise} />
             </div>            
           </div>
