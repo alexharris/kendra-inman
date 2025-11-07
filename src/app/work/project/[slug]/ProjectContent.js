@@ -151,68 +151,70 @@ export default function ProjectContent({ project }) {
               <ParenthesesText>scroll down for case study</ParenthesesText>
             </div>
           </div>    
-          <div id="bottomText" className="flex flex-col lg:flex-row gap-4 mt-3 justify-between transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
-            <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-8">
-              <div 
-                id="project-tagline-2" 
-                className="uppercase hidden lg:flex flex-row items-center gap-2"
-              >
-                {project.tagline} <span className="mono-tag">{galleryCount}</span>
-              </div>
-              <div className="uppercase lg:hidden flex flex-row items-center gap-2">
-                {project.tagline} <span className="mono-tag">{galleryCount}</span>
-              </div>
-              <div className="big-paragraph font-serif max-w-[1200px]">
-                {project.description && (
-                  <div>
-                    {/* This would need proper rich text rendering for the description array */}
-                    {project.description.map((block, index) => {
-                      if (block._type === 'block') {
-                        return (
-                          <p key={index} className="">
-                            {block.children?.map(child => child.text).join('')}
-                          </p>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
+          <div id="bottomText" className="transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
+            <div className="flex flex-col lg:flex-row gap-4 mt-3 justify-between ">
+              <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-8">
+                <div 
+                  id="project-tagline-2" 
+                  className="uppercase hidden lg:flex flex-row items-center gap-2"
+                >
+                  {project.tagline} <span className="mono-tag">{galleryCount}</span>
+                </div>
+                <div className="uppercase lg:hidden flex flex-row items-center gap-2">
+                  {project.tagline} <span className="mono-tag">{galleryCount}</span>
+                </div>
+                <div className="big-paragraph font-serif max-w-[1200px]">
+                  {project.description && (
+                    <div>
+                      {/* This would need proper rich text rendering for the description array */}
+                      {project.description.map((block, index) => {
+                        if (block._type === 'block') {
+                          return (
+                            <p key={index} className="">
+                              {block.children?.map(child => child.text).join('')}
+                            </p>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  )}
+                </div>
+                {project.projectResults && (
+        
+                    
+                    <div>
+                      <h3 className="sr-only">( Project Results )</h3>
+                      {project.projectResults.map((block, index) => {
+                        if (block._type === 'block') {
+                          return (
+                            <p key={index} className="mb-4">
+                              {block.children?.map(child => child.text).join('')}
+                            </p>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+            
                 )}
               </div>
-              {project.projectResults && (
-      
-                  
-                  <div>
-                    <h3 className="sr-only">( Project Results )</h3>
-                    {project.projectResults.map((block, index) => {
-                      if (block._type === 'block') {
-                        return (
-                          <p key={index} className="mb-4">
-                            {block.children?.map(child => child.text).join('')}
-                          </p>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-          
-              )}
-            </div>
-
-            <div className="lg:w-1/4 lg:mt-16">  
-              <Expertise expertise={project.expertise} />
-            </div>            
+              <div className="lg:w-1/4 lg:mt-16">  
+                <Expertise expertise={project.expertise} />
+              </div>   
+            </div>  
+            {/* Related Projects Section */}
+            {project.relatedProjects && project.relatedProjects.length > 0 && (
+              <RelatedProjects 
+                relatedProjects={project.relatedProjects} 
+              />
+            )}                   
           </div>
           <MobileProjectGallery gallery={project.gallery} />         
         </div>
       </div>
 
-      {/* Related Projects Section */}
-      {project.relatedProjects && project.relatedProjects.length > 0 && (
-        <RelatedProjects 
-          relatedProjects={project.relatedProjects} 
-        />
-      )}
+
 
     </div>
   );
