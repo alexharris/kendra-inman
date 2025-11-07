@@ -38,10 +38,10 @@ export default function About() {
     };
   }, []);
 
-  // Custom components to strip p tags
+  // Custom components to add p tags for paragraph breaks
   const components = {
     block: {
-      normal: ({children}) => <>{children}</>,
+      normal: ({children}) => <p className="mb-4">{children}</p>,
     },
   };
 
@@ -80,7 +80,7 @@ export default function About() {
             <ParenthesesText className="text-right mt-4">{aboutContent.image.caption}</ParenthesesText>
           )}
         </div>
-        <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-2/3 lg:w-7/12 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
+        <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-9/12 lg:w-9/12 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
           <AboutTextSection 
             bioContent={bioContent}
             column1Title={aboutContent?.column1Title}
