@@ -17,6 +17,12 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
+      // Always show header on homepage
+      if (isHomepage) {
+        setIsVisible(true);
+        return;
+      }
+      
       // Show header when at top of page
       if (currentScrollY <= 10) {
         setIsVisible(true);
@@ -35,7 +41,7 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isHomepage]);
 
   // Update visibility class without replacing all classes
   // added so that custom color classes are not removed
