@@ -298,7 +298,7 @@ export default function Home() {
         {/* Sections  */}
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
-          <div className="z-10 max-w-[1400px] mx-auto sticky top-0 md:h-screen flex items-start md:items-center pointer-events-none pt-20 md:pt-0 mb-32 md:mb-12">
+          <div id="big-sticky" className="z-10 max-w-[1400px] mx-auto sticky top-0 flex items-start md:items-center pointer-events-none pt-80 pb-30 mb-32 md:mb-12">
             <BigText 
               className={`transition-colors ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}
               style={{ transitionDuration: `${ANIMATION_TIMINGS.background.colorTransition}ms` }}
@@ -306,7 +306,7 @@ export default function Home() {
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
           </div>
-          <div id="manual-first-section" className="h-48 w-full relative">
+          <div id="manual-first-section" className="h-150 w-full relative">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (
