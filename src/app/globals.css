@@ -190,3 +190,6 @@ strong, b {
   line-height: .8em;
 }
 
+#scroll-sections > div:nth-last-child(2) {
+ margin-bottom: 15vh;
+}

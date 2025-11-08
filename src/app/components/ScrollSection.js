@@ -104,7 +104,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   return (
     <div 
       ref={el => sectionRefs.current[index] = el}
-      className={`w-full relative ${className} mx-auto max-w-[1400px]`}
+      className={`scroll-section w-full relative ${className} mx-auto max-w-[1400px]`}
       style={{ height: 'calc(100vh + 50vh)' }}
     >
       {children || renderMedia()}
