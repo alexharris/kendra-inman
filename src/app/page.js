@@ -68,6 +68,7 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   const [animationPhase, setAnimationPhase] = useState('initial'); // 'initial', 'shrinking', 'moving', 'complete'
   const [isBigTextSticky, setIsBigTextSticky] = useState(true);
+  const [heroScrolledOff, setHeroScrolledOff] = useState(false);
   const sectionRefs = useRef([]);
   
   // Fetch homepage content from Sanity (Portable Text and Sections)
@@ -140,6 +141,7 @@ export default function Home() {
     };
   }, []);
 
+
   // Scroll event listener to detect current section
 
   useEffect(() => {
@@ -149,6 +151,17 @@ export default function Home() {
       const manualLastSectionIndex = homepageSections.length + 1; // +1 for manual first section, then the last manual section
       const footerSectionIndex = homepageSections.length + 2; // +2 for both manual sections
       
+      // Check if #scroll-sections is within 50px of the top of the viewport
+      const scrollSections = document.querySelector('#scroll-sections');
+      if (scrollSections) {
+        const scrollSectionsRect = scrollSections.getBoundingClientRect();
+        if (scrollSectionsRect.top <= 50) {
+          setHeroScrolledOff(true);
+        } else {
+          setHeroScrolledOff(false);
+        }
+      }
+
         // Check if we're still at the top (before first section image)
       const firstSection = sectionRefs.current[0];
       if (firstSection) {
@@ -159,7 +172,6 @@ export default function Home() {
         }
       }
       
-
       // Check if we're in the manual last section
       const manualLastSection = document.querySelector('#manual-last-section');
       if (manualLastSection) {
@@ -172,7 +184,6 @@ export default function Home() {
         }
       }
 
-      
       // Check if we're in the footer
       const footer = document.querySelector('#footer-extension');
       if (footer) {
@@ -186,7 +197,6 @@ export default function Home() {
       }
 
       // Check each section's image position
-      
       sectionRefs.current.forEach((section, index) => {
         // console.log(`Checking section ${index} at scrollY: ${scrollY}`);
         if (section) {
@@ -198,7 +208,6 @@ export default function Home() {
             // Check if image is entering the viewport (top of image crosses bottom of viewport)
             // Switch color as soon as any part of the image becomes visible
             if (imageRect.top <= windowHeight) {
-              console.log(`Section ${index} image is visible in viewport`);
               setCurrentSection(index + 1); // +1 to account for manual first section
             }
           }
@@ -234,8 +243,13 @@ export default function Home() {
     }
   }, [homepageSections]);
 
-  // Update page colors when current section changes
+  // Update page colors when current section changes or hero scrolls off
   useEffect(() => {
+    console.log('Current Section:', currentSection);
+    console.log('Hero Scrolled Off:', heroScrolledOff);
+    
+
+    
     const currentBgColor = brandColors[currentSection];
     
     // Determine text and fill colors based on background
@@ -245,14 +259,47 @@ export default function Home() {
     const fill = (currentBgColor === 'bg-black' || currentBgColor === 'bg-beige') 
       ? 'fill-beige' 
       : 'fill-black';
+
+      const scrollSections = document.querySelector('#scroll-sections');
+
+    // How this bullshit works:
+    // - If we're beyond the first section (currentSection > 0), set colors based on that section
+    // - If we're at the top (currentSection == 0):
+    //    - If hero has scrolled off, set to beige background with black text
+    //    - If still in hero, reset to default colors
+      if (currentSection > 0) {
+
+        scrollSections.classList.remove('bg-beige');
+
+        setPageColors({
+          background: currentBgColor,
+          text,
+          fill,
+          applyToFooter: false, // Don't override footer colors
+        });
+      } else {
+        // Set scroll-sections background to beige when at top
+        
+        
+          scrollSections.classList.add('bg-beige');
+        
+        // If hero has scrolled off, set page to beige with black text
+        if (heroScrolledOff) {
+          setPageColors({
+            background: 'bg-beige',
+            text: 'text-black',
+            fill: 'fill-black',
+            applyToFooter: false,
+          });
+          return;
+        } else {
+          // Reset to default colors when in hero
+          resetPageColors();
+        }
+      }
     
-    setPageColors({
-      background: currentBgColor,
-      text,
-      fill,
-      applyToFooter: false, // Don't override footer colors
-    });
-  }, [currentSection, brandColors]);   
+
+  }, [currentSection, brandColors, heroScrolledOff]);   
 
   return (
     <>
@@ -305,6 +352,9 @@ export default function Home() {
             >
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
+          </div>
+          <div id="preSection" className="h-24 w-full relative">
+            {/* preSection - triggers beige background when hero scrolls off */}
           </div>
           <div id="manual-first-section" className="h-150 w-full relative">
             {/* manual first section */}
