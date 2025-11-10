@@ -46,8 +46,8 @@ const ANIMATION_TIMINGS = {
     shrinkingDuration: 500,     // [Step 2] Logo shrinking duration (ms)
     startMoving: 1100,          // [Step 3] When overlay slide begins (ms from page load)
                                 //         Note: Set to 1100 instead of 600 for 500ms pause after shrinking
-    movingDuration: 2000,       // [Step 4] Overlay slide duration (ms)
-    endAnimation: 5000,         // [Step 5] Total animation time from page load (ms)
+    movingDuration: 950,       // [Step 4] Overlay slide duration (ms)
+    endAnimation: 2000,         // [Step 5] Total animation time from page load (ms)
                                 //         At this point: loader hidden, scrolling enabled
   },
   
@@ -128,6 +128,11 @@ export default function Home() {
       // console.log('Animation phase set to moving');
     }, ANIMATION_TIMINGS.pageLoad.startMoving);
 
+    // Trigger header logo fade in when moving logo passes the header
+    const timer2_5 = setTimeout(() => {
+      window.dispatchEvent(new Event('headerLogoFadeIn'));
+    }, ANIMATION_TIMINGS.pageLoad.startMoving + 800); // Fade in halfway through the move
+
     const timer3 = setTimeout(() => {
       setAnimationPhase('complete');
       setShowLoader(false);
@@ -137,6 +142,7 @@ export default function Home() {
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      clearTimeout(timer2_5);
       clearTimeout(timer3);
     };
   }, []);
@@ -308,7 +314,7 @@ export default function Home() {
         // Background fades out
         <div 
           className={`fixed inset-0 bg-black z-50 transition-opacity ease-out ${
-            animationPhase === 'moving' ? 'opacity-0' : 'opacity-100'
+            animationPhase === 'moving' ? 'opacity-40' : 'opacity-100'
           }`}
           style={{ 
             transitionDuration: `${ANIMATION_TIMINGS.pageLoad.movingDuration}ms` 
@@ -324,7 +330,7 @@ export default function Home() {
               }`}
               style={{ 
                 fill: '#F5F5DC',
-                transform: animationPhase === 'moving' ? 'translateY(calc(-70vh + 37.5px))' : 'translateY(0)',
+                transform: animationPhase === 'moving' ? 'translateY(calc(-50vh))' : 'translateY(0)',
                 transitionDuration: animationPhase === 'moving' 
                   ? `${ANIMATION_TIMINGS.pageLoad.movingDuration}ms`
                   : `${ANIMATION_TIMINGS.pageLoad.shrinkingDuration}ms` 
