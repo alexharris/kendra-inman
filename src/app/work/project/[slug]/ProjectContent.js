@@ -203,14 +203,24 @@ export default function ProjectContent({ project }) {
                 <Expertise expertise={project.expertise} />
               </div>   
             </div>  
+            <div className="hidden lg:block">
+              {/* Related Projects Section */}
+              {project.relatedProjects && project.relatedProjects.length > 0 && (
+                <RelatedProjects 
+                  relatedProjects={project.relatedProjects} 
+                />
+              )}  
+            </div>                 
+          </div>
+          <MobileProjectGallery gallery={project.gallery} />   
+          <div className="lg:hidden">
             {/* Related Projects Section */}
             {project.relatedProjects && project.relatedProjects.length > 0 && (
               <RelatedProjects 
                 relatedProjects={project.relatedProjects} 
               />
-            )}                   
-          </div>
-          <MobileProjectGallery gallery={project.gallery} />         
+            )}  
+          </div>                  
         </div>
       </div>
 

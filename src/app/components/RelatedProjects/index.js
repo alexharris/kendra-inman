@@ -12,7 +12,7 @@ export default function RelatedProjects({ relatedProjects, currentProjectColor }
   }
 
   return (
-    <section className="related-projects" style={{ backgroundColor: currentProjectColor }}>
+    <section className="related-projects pt-4 mb-22" style={{ backgroundColor: currentProjectColor }}>
       <div className="related-projects__container">
         <h2 className="related-projects__title font-mono mb-8">
           <ParenthesesText>
