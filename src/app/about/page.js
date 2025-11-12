@@ -80,7 +80,7 @@ export default function About() {
             <ParenthesesText className="text-right mt-4">{aboutContent.image.caption}</ParenthesesText>
           )}
         </div>
-        <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-9/12 lg:w-9/12 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
+        <div id="footer-extension" className={`pb-[20vh] md:pb-[60vh] about-text text-2xl md:text-4xl w-full md:w-8/12 lg:w-8/12 transition-opacity duration-0 ${showBottom ? 'opacity-0' : 'opacity-100'}`}>
           <AboutTextSection 
             bioContent={bioContent}
             column1Title={aboutContent?.column1Title}
