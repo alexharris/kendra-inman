@@ -255,7 +255,8 @@ export async function getHomepageContent(options = {}) {
     _updatedAt
   }`;
   
-  return fetchSanityData(query, {}, options);
+  // Increase cache time to 24 hours for media-heavy homepage content
+  return fetchSanityData(query, {}, { revalidate: 86400, ...options });
 }
 
 /**

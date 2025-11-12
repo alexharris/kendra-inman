@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { urlFor, getAssetUrl } from '../../../sanity/lib/image'
+import CachedVideo from '../CachedVideo'
 import './Slideshow.scss'
 
 export default function Slideshow({ gallery = [] }) {
@@ -57,22 +58,19 @@ export default function Slideshow({ gallery = [] }) {
                 // Handle video files
                 return (
                   <div key={index} className="embla__slide">
-                    <video 
+                    <CachedVideo
+                      src={item.asset.url}
+                      alt={`Gallery video ${index + 1}`}
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="metadata"
-                      src={`${item.asset.url}#t=0.1`}
                       style={{ 
                         height: '100%',
                         objectFit: 'cover',
                         width: '100%'
                       }}
-                    >
-                      <source src={item.asset.url} type={item.asset.mimeType} />
-                      Your browser does not support the video tag.
-                    </video>
+                    />
                   </div>
                 );
               }

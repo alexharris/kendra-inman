@@ -5,6 +5,7 @@ import { useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Fade from 'embla-carousel-fade';
 import ParenthesesText from './ParenthesesText';
+import CachedVideo from './CachedVideo';
 
 // Slideshow timing - matches main page configuration
 const SLIDESHOW_AUTO_ADVANCE_INTERVAL = 3000; // milliseconds
@@ -67,19 +68,15 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
                 } else if ((mediaItem._type === 'file' || mediaItem._type === 'video') && mediaItem.asset?.url) {
                   return (
                     <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative flex items-center justify-center">
-                      <video
+                      <CachedVideo
+                        src={mediaItem.asset.url}
+                        alt={mediaItem.alt || `Section ${index + 1} video ${mediaIndex + 1}`}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        preload="metadata"
-                        src={`${mediaItem.asset.url}#t=0.1`}
                         className="max-w-full max-h-full object-cover"
-                        aria-label={mediaItem.alt || `Section ${index + 1} video ${mediaIndex + 1}`}
-                      >
-                        <source src={mediaItem.asset.url} type={mediaItem.asset.mimeType || 'video/mp4'} />
-                        Your browser does not support the video tag.
-                      </video>
+                      />
                     </div>
                   );
                 }
