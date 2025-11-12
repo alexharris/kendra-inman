@@ -365,7 +365,8 @@ export default function Home() {
           <div id="manual-first-section" className="h-150 w-full relative">
             {/* manual first section */}
           </div>
-          {homepageSections.map((section, index) => (
+          {homepageSections.map((section, index) => (     
+            console.log('Rendering section:', index, section),       
             <ScrollSection 
               key={index}
               index={index} 
@@ -373,7 +374,7 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-24 md:h-48 flex flex-col items-start pl-2 w-full relative max-w-[1400px] mx-auto">
+          <div id="manual-last-section" className="h-24 md:h-48 pt-20 flex flex-col items-start pl-2 w-full relative max-w-[1400px] mx-auto">
             {homepageContent ? (
               <PortableText value={homepageContent} />
 
