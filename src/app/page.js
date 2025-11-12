@@ -361,6 +361,12 @@ export default function Home() {
           </div>
           <div id="preSection" className="h-24 w-full relative">
             {/* preSection - triggers beige background when hero scrolls off */}
+            {homepageContent ? (
+              <PortableText value={homepageContent} />
+
+            ) : (
+              "Loading..."
+            )}            
           </div>
           <div id="manual-first-section" className="h-150 w-full relative">
             {/* manual first section */}
@@ -375,12 +381,7 @@ export default function Home() {
             />
           ))}
           <div id="manual-last-section" className="h-24 md:h-48 pt-20 flex flex-col items-start pl-2 w-full relative max-w-[1400px] mx-auto">
-            {homepageContent ? (
-              <PortableText value={homepageContent} />
-
-            ) : (
-              "Loading..."
-            )}
+            {/* manual last section */}
           </div>
         </div>      
         <div id="footer-extension" className="min-h-[20vh] w-full  p-4 md:p-12 relative bg-black text-beige">
