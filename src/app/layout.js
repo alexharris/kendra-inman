@@ -34,7 +34,7 @@ console.log(backgroundColor);
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://use.typekit.net/kwn5tzm.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/yiy0lvp.css" />
       </head>
       <body className={`futura-pt ${backgroundColor} ${textColor}`}>
         <ConditionalLayout globalSettings={globalSettings}>{children}</ConditionalLayout>

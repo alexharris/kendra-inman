@@ -114,7 +114,7 @@ export default function CachedVideo({ src, alt, className, style, ...props }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#000'
+          backgroundColor: 'transparent'
         }}
       >
         <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
