@@ -191,5 +191,5 @@ strong, b {
 }
 
 #scroll-sections > div:nth-last-child(2) {
- margin-bottom: 15vh;
+ margin-bottom: 100px;
 }
