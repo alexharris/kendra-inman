@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback, useEffect } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Fade from 'embla-carousel-fade';
@@ -24,8 +25,12 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
   }, [emblaApi]);
 
   const renderMedia = () => {
+    // Get the category slug for linking
+    const categorySlug = section?.categoryReference?.slug?.current;
+    const categoryLink = categorySlug ? `/work/${categorySlug}` : null;
+
     if (!section?.media?.length) {
-      return (
+      const content = (
         <div className="section-image aspect-720/400 w-3/4 bg-gray-200 absolute top-24 right-24 z-20">
           {section?.title && (
             <div className="p-4 text-black">
@@ -41,61 +46,66 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
           )}
         </div>
       );
+
+      return categoryLink ? <Link href={categoryLink}>{content}</Link> : content;
     }
 
     // Multiple media items - use slideshow
-    return (
+    const slideshowContent = (
       <>
-      <div className="section-image aspect-720/400 w-3/4 absolute top-24 right-0 z-20">
-        <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-3 mr-12">
-          {section.categoryReference?.projectCount !== undefined && `${String(section.categoryReference.projectCount).padStart(2, '0')}`}
-        </div>
-        <div className="embla h-full w-full">
-          <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
-            <div className="embla__container h-full flex">
-              {section.media.map((mediaItem, mediaIndex) => {
-                if (mediaItem._type === 'image' && mediaItem.asset?.url) {
-                  return (
-                    <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative">
-                      <Image
-                        src={mediaItem.asset.url}
-                        alt={mediaItem.alt || `Section ${index + 1} image ${mediaIndex + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  );
-                } else if ((mediaItem._type === 'file' || mediaItem._type === 'video') && mediaItem.asset?.url) {
-                  return (
-                    <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative flex items-center justify-center">
-                      <CachedVideo
-                        src={mediaItem.asset.url}
-                        alt={mediaItem.alt || `Section ${index + 1} video ${mediaIndex + 1}`}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="max-w-full max-h-full object-cover"
-                      />
-                    </div>
-                  );
-                }
-                return null;
-              })}
+        <div className="section-image aspect-720/400 w-3/4 absolute top-24 right-0 z-20">
+          <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-3 mr-12">
+            {section.categoryReference?.projectCount !== undefined && `${String(section.categoryReference.projectCount).padStart(2, '0')}`}
+          </div>
+          <div className="embla h-full w-full ">
+            <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
+              <div className="embla__container h-full flex">
+                {section.media.map((mediaItem, mediaIndex) => {
+                  if (mediaItem._type === 'image' && mediaItem.asset?.url) {
+                    return (
+                      <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative">
+                        <Image
+                          src={mediaItem.asset.url}
+                          alt={mediaItem.alt || `Section ${index + 1} image ${mediaIndex + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    );
+                  } else if ((mediaItem._type === 'file' || mediaItem._type === 'video') && mediaItem.asset?.url) {
+                    return (
+                      <div key={mediaIndex} className="embla__slide flex-[0_0_100%] min-w-0 h-full relative flex items-center justify-center">
+                        <CachedVideo
+                          src={mediaItem.asset.url}
+                          alt={mediaItem.alt || `Section ${index + 1} video ${mediaIndex + 1}`}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="max-w-full max-h-full object-cover"
+                        />
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
             </div>
           </div>
+          <div className="text-right pt-4">
+            <ParenthesesText>
+              {section.title}
+            </ParenthesesText>
+          </div>
         </div>
-        <div className="text-right pt-4">
-          <ParenthesesText>
-            {section.title}
-          </ParenthesesText>
-        </div>
-
-        </div>
-   
-      
       </>
     );
+
+    return categoryLink ? (
+      <Link href={categoryLink} className="block cursor-pointer">
+        {slideshowContent}
+      </Link>
+    ) : slideshowContent;
   };
 
   return (
