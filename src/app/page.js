@@ -367,7 +367,8 @@ export default function Home() {
                 hover:px-8
                 absolute
                 -left-4 md:-left-12 xl:left-0
-                -bottom-36
+                -bottom-[40vh]
+                md:-bottom-[12vh]
                 text-lg uppercase tracking-wider
                 font-sans font-light
                 transition-all duration-300
