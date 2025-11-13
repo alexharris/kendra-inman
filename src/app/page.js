@@ -69,6 +69,10 @@ export default function Home() {
   const [animationPhase, setAnimationPhase] = useState('initial'); // 'initial', 'shrinking', 'moving', 'complete'
   const [isBigTextSticky, setIsBigTextSticky] = useState(true);
   const [heroScrolledOff, setHeroScrolledOff] = useState(false);
+  const [bigStickyAtTop, setBigStickyAtTop] = useState(false);
+  const [bigStickyBottom, setBigStickyBottom] = useState(0);
+  const [bigStickyLeft, setBigStickyLeft] = useState(0);
+  const [preSectionOpacity, setPreSectionOpacity] = useState(1);
   const sectionRefs = useRef([]);
   
   // Fetch homepage content from Sanity (Portable Text and Sections)
@@ -168,6 +172,36 @@ export default function Home() {
         }
       }
 
+      // Check if big-sticky has reached the top of the viewport
+      const bigSticky = document.querySelector('#big-sticky');
+      if (bigSticky) {
+        const bigStickyRect = bigSticky.getBoundingClientRect();
+        // When sticky element hits top:0, it stays at position 0
+        if (bigStickyRect.top <= 0) {
+          setBigStickyAtTop(true);
+          setBigStickyBottom(bigStickyRect.bottom);
+          setBigStickyLeft(bigStickyRect.left);
+        } else {
+          setBigStickyAtTop(false);
+          setBigStickyBottom(0);
+          setBigStickyLeft(0);
+        }
+      }
+
+      // Check if manual-first-section is halfway up the screen to fade out preSection
+      const manualFirstSection = document.querySelector('#manual-first-section');
+      if (manualFirstSection) {
+        const manualFirstRect = manualFirstSection.getBoundingClientRect();
+        const hidePoint = windowHeight / 1.5;
+        
+        // When the top of manual-first-section reaches halfway up the screen, start fading
+        if (manualFirstRect.top <= hidePoint) {
+          setPreSectionOpacity(0);
+        } else {
+          setPreSectionOpacity(1);
+        }
+      }
+
         // Check if we're still at the top (before first section image)
       const firstSection = sectionRefs.current[0];
       if (firstSection) {
@@ -221,14 +255,28 @@ export default function Home() {
       });
     };
 
+    const handleResize = () => {
+      // Recalculate big-sticky position on resize if it's at the top
+      if (bigStickyAtTop) {
+        const bigSticky = document.querySelector('#big-sticky');
+        if (bigSticky) {
+          const bigStickyRect = bigSticky.getBoundingClientRect();
+          setBigStickyBottom(bigStickyRect.bottom);
+          setBigStickyLeft(bigStickyRect.left);
+        }
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
     handleScroll(); // Initial check
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
       resetPageColors(); // Clean up page colors on unmount
     };
-  }, [homepageSections.length]); // Add dependency on sections length
+  }, [homepageSections.length, bigStickyAtTop]); // Add dependency on bigStickyAtTop
 
   useEffect(() => {
     getHomepageContent()
@@ -384,7 +432,15 @@ export default function Home() {
             </a>            
           </div>
 
-          <div id="preSection" className="h-24 w-full relative max-w-[1400px] mx-auto text-black">
+          <div 
+            id="preSection" 
+            className={`h-24 w-full max-w-[1400px] mx-auto text-black transition-opacity duration-500 ${bigStickyAtTop ? 'fixed' : 'relative'}`}
+            style={bigStickyAtTop ? { 
+              top: `${bigStickyBottom - 10}px`, 
+              left: `${bigStickyLeft}px`,
+              opacity: preSectionOpacity
+            } : { opacity: preSectionOpacity }}
+          >
             {/* preSection - triggers beige background when hero scrolls off */}
             {homepageContent ? (
               <PortableText value={homepageContent} />
@@ -393,7 +449,7 @@ export default function Home() {
               "Loading..."
             )}            
           </div>
-          <div id="manual-first-section" className="h-150 border border-red-500 w-full relative top-24">
+          <div id="manual-first-section" className="h-200 w-full relative top-48">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (     
