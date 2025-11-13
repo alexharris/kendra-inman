@@ -366,7 +366,7 @@ export default function Home() {
                 px-5 py-3 
                 hover:px-8
                 absolute
-                -left-4 md:-left-12
+                -left-4 md:-left-12 xl:left-0
                 -bottom-36
                 text-lg uppercase tracking-wider
                 font-sans font-light
