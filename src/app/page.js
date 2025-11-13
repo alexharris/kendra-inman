@@ -67,12 +67,7 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
   const [animationPhase, setAnimationPhase] = useState('initial'); // 'initial', 'shrinking', 'moving', 'complete'
-  const [isBigTextSticky, setIsBigTextSticky] = useState(true);
   const [heroScrolledOff, setHeroScrolledOff] = useState(false);
-  const [bigStickyAtTop, setBigStickyAtTop] = useState(false);
-  const [bigStickyBottom, setBigStickyBottom] = useState(0);
-  const [bigStickyLeft, setBigStickyLeft] = useState(0);
-  const [preSectionOpacity, setPreSectionOpacity] = useState(1);
   const sectionRefs = useRef([]);
   
   // Fetch homepage content from Sanity (Portable Text and Sections)
@@ -172,35 +167,6 @@ export default function Home() {
         }
       }
 
-      // Check if big-sticky has reached the top of the viewport
-      const bigSticky = document.querySelector('#big-sticky');
-      if (bigSticky) {
-        const bigStickyRect = bigSticky.getBoundingClientRect();
-        // When sticky element hits top:0, it stays at position 0
-        if (bigStickyRect.top <= 0) {
-          setBigStickyAtTop(true);
-          setBigStickyBottom(bigStickyRect.bottom);
-          setBigStickyLeft(bigStickyRect.left);
-        } else {
-          setBigStickyAtTop(false);
-          setBigStickyBottom(0);
-          setBigStickyLeft(0);
-        }
-      }
-
-      // Check if manual-first-section is halfway up the screen to fade out preSection
-      const manualFirstSection = document.querySelector('#manual-first-section');
-      if (manualFirstSection) {
-        const manualFirstRect = manualFirstSection.getBoundingClientRect();
-        const hidePoint = windowHeight / 1.5;
-        
-        // When the top of manual-first-section reaches halfway up the screen, start fading
-        if (manualFirstRect.top <= hidePoint) {
-          setPreSectionOpacity(0);
-        } else {
-          setPreSectionOpacity(1);
-        }
-      }
 
         // Check if we're still at the top (before first section image)
       const firstSection = sectionRefs.current[0];
@@ -255,28 +221,14 @@ export default function Home() {
       });
     };
 
-    const handleResize = () => {
-      // Recalculate big-sticky position on resize if it's at the top
-      if (bigStickyAtTop) {
-        const bigSticky = document.querySelector('#big-sticky');
-        if (bigSticky) {
-          const bigStickyRect = bigSticky.getBoundingClientRect();
-          setBigStickyBottom(bigStickyRect.bottom);
-          setBigStickyLeft(bigStickyRect.left);
-        }
-      }
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
     handleScroll(); // Initial check
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
       resetPageColors(); // Clean up page colors on unmount
     };
-  }, [homepageSections.length, bigStickyAtTop]); // Add dependency on bigStickyAtTop
+  }, [homepageSections.length]); // Add dependency on bigStickyAtTop
 
   useEffect(() => {
     getHomepageContent()
@@ -401,13 +353,20 @@ export default function Home() {
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
 
-          <div id="big-sticky" className="z-10 max-w-[1400px] mx-auto sticky top-0 flex items-start md:items-center pointer-events-none pt-[13vh] pb-12">
+          <div id="big-sticky" className="z-10 max-w-[1400px] mx-auto justify-start sticky top-0 flex flex-col items-start gap-12 pointer-events-none pt-[13vh] pb-12">
             <BigText 
               className={`transition-colors ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}
               style={{ transitionDuration: `${ANIMATION_TIMINGS.background.colorTransition}ms` }}
             >
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
+            {/* preSection - triggers beige background when hero scrolls off */}
+            {homepageContent ? (
+              <PortableText value={homepageContent} />
+
+            ) : (
+              "Loading..."
+            )}               
             <a 
             href="/work"
               className={`
@@ -415,7 +374,7 @@ export default function Home() {
                 hover:px-8
                 absolute
                 -left-4 md:-left-12 xl:left-0
-                -bottom-[40vh]
+                -bottom-[30vh]
                 md:-bottom-[10vh]
                 text-lg uppercase tracking-wider
                 font-sans font-light
@@ -432,23 +391,12 @@ export default function Home() {
             </a>            
           </div>
 
-          <div 
+          {/* <div 
             id="preSection" 
-            className={`h-24 w-full max-w-[1400px] mx-auto text-black transition-opacity duration-500 ${bigStickyAtTop ? 'fixed' : 'relative'}`}
-            style={bigStickyAtTop ? { 
-              top: `${bigStickyBottom - 10}px`, 
-              left: `${bigStickyLeft}px`,
-              opacity: preSectionOpacity
-            } : { opacity: preSectionOpacity }}
+            className="h-24 w-full max-w-[1400px] mx-auto text-black transition-opacity duration-500"
           >
-            {/* preSection - triggers beige background when hero scrolls off */}
-            {homepageContent ? (
-              <PortableText value={homepageContent} />
-
-            ) : (
-              "Loading..."
-            )}            
-          </div>
+         
+          </div> */}
           <div id="manual-first-section" className="h-200 w-full relative top-48">
             {/* manual first section */}
           </div>
