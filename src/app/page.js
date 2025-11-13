@@ -368,7 +368,7 @@ export default function Home() {
                 absolute
                 -left-4 md:-left-12 xl:left-0
                 -bottom-[40vh]
-                md:-bottom-[14vh]
+                md:-bottom-[10vh]
                 text-lg uppercase tracking-wider
                 font-sans font-light
                 transition-all duration-300
@@ -393,7 +393,7 @@ export default function Home() {
               "Loading..."
             )}            
           </div>
-          <div id="manual-first-section" className="h-150 w-full relative top-24">
+          <div id="manual-first-section" className="h-150 border border-red-500 w-full relative top-24">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (     
