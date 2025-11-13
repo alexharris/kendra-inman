@@ -368,7 +368,7 @@ export default function Home() {
                 absolute
                 -left-4 md:-left-12 xl:left-0
                 -bottom-[40vh]
-                md:-bottom-[12vh]
+                md:-bottom-[14vh]
                 text-lg uppercase tracking-wider
                 font-sans font-light
                 transition-all duration-300
