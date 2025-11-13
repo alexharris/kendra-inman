@@ -53,7 +53,7 @@ export default function ScrollSection({ index, sectionRefs, section, children, c
     // Multiple media items - use slideshow
     const slideshowContent = (
       <>
-        <div className="section-image aspect-720/400 w-3/4 absolute top-24 right-0 z-20">
+        <div className="section-image aspect-720/400 w-4/5 md:w-3/4 absolute top-24 right-0 z-20">
           <div className="founders-grotesk relative text-right font-thin pt-2 uppercase text-sm mb-3 mr-12">
             {section.categoryReference?.projectCount !== undefined && `${String(section.categoryReference.projectCount).padStart(2, '0')}`}
           </div>
