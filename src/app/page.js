@@ -344,6 +344,28 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Sticky Tab on Left Side */}
+      <div className="fixed left-0 top-3/4 -translate-y-1/2 z-40">
+        <a 
+        href="/work"
+          className={`
+            px-5 py-3 
+            hover:px-8
+            text-lg uppercase tracking-wider
+            font-sans font-light
+            transition-all duration-300
+            ${brandColors[currentSection] === 'bg-black' ? 'bg-beige text-black' : 'bg-black text-beige'}
+          `}
+          style={{ 
+            // writingMode: 'vertical-rl',
+            textOrientation: 'mixed',
+          }}
+        >
+          See The Work
+        </a>
+      </div>
+
       <div id="main-scroll">
         {/* Hero Slideshow */}
         <HeroSlideshow heroSlideshow={heroSlideshow} />
@@ -359,7 +381,8 @@ export default function Home() {
               {bigText ? <PortableText value={bigText} /> : ''}
             </BigText>
           </div>
-          <div id="preSection" className="h-24 w-full relative max-w-[1400px] mx-auto text-black">
+
+          <div id="preSection" className="h-24 border border-red-400 w-full relative max-w-[1400px] mx-auto text-black">
             {/* preSection - triggers beige background when hero scrolls off */}
             {homepageContent ? (
               <PortableText value={homepageContent} />
@@ -368,7 +391,7 @@ export default function Home() {
               "Loading..."
             )}            
           </div>
-          <div id="manual-first-section" className="h-150 w-full relative">
+          <div id="manual-first-section" className="h-150 w-full relative top-24 border border-blue-400">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (     
