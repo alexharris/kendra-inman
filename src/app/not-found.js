@@ -28,12 +28,12 @@ export default function NotFound() {
             </BigText>        
         
         {/* Error message */}
-        <h1 className="uppercase mt-8 mb-8">
+        <h1 className="uppercase text-sm mt-8 mb-8">
           MIES VAN DER WOHE
         </h1>
         
         {/* Description */}
-        <p className="text-lg md:text-4xl max-w-2xl mx-auto">
+        <p className="text-2xl md:text-4xl max-w-2xl mx-auto">
           Even the 404. But you came for <a className="underline" href="/">this</a>.
         </p>
         
