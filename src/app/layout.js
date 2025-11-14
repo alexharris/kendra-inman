@@ -2,6 +2,10 @@ import "./globals.css";
 import ConditionalLayout from "./components/ConditionalLayout";
 import { getGlobalSettings } from "@/utils/sanity-queries";
 
+export const metadata = {
+  title: "Kendra Inman",
+  description: "Portfolio of Kendra Inman",
+};
 
 export default async function RootLayout({ children }) {
   const globalSettings = await getGlobalSettings();
