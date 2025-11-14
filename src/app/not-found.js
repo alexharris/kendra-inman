@@ -18,8 +18,8 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center p-4 md:p-12 bg-black text-beige">
-      <div className="max-w-[1400px] mx-auto text-center">
+    <div className="min-h-[66vh] flex flex-col items-center justify-center p-4 md:p-12 bg-black text-beige">
+      <div className="max-w-[1400px] mx-auto text-center mt-6">
         {/* Large 404 */}
             <BigText 
               className=""
