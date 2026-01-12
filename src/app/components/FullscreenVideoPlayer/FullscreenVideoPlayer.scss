@@ -1,0 +1,62 @@
+.fullscreen-video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.fullscreen-video-container {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-video {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.fullscreen-video-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 10000;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 0.7;
+  }
+  
+  &:focus {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullscreen-video-close {
+    top: -2.5rem;
+    font-size: 2.5rem;
+  }
+}

@@ -56,6 +56,21 @@ export async function getAllProjects(options = {}) {
           mimeType,
           originalFilename
         }
+      },
+      _type == "bigVideo" => {
+        image{
+          asset->
+        },
+        video{
+          asset->{
+            _id,
+            url,
+            mimeType,
+            originalFilename
+          }
+        },
+        alt,
+        caption
       }
     },
     expertise[]->{
@@ -119,6 +134,21 @@ export async function getProjectBySlug(slug, options = {}) {
           mimeType,
           originalFilename
         }
+      },
+      _type == "bigVideo" => {
+        image{
+          asset->
+        },
+        video{
+          asset->{
+            _id,
+            url,
+            mimeType,
+            originalFilename
+          }
+        },
+        alt,
+        caption
       }
     },
     expertise[]->{

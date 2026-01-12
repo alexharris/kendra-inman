@@ -4,12 +4,14 @@ import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { urlFor, getAssetUrl } from '../../../sanity/lib/image'
 import CachedVideo from '../CachedVideo'
+import FullscreenVideoPlayer from '../FullscreenVideoPlayer'
 import './Slideshow.scss'
 
 export default function Slideshow({ gallery = [] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel()
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false)
+  const [fullscreenVideo, setFullscreenVideo] = useState(null)
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -38,6 +40,7 @@ export default function Slideshow({ gallery = [] }) {
         <div className="embla__container text-black">
           {gallery.length > 0 ? (
             gallery.map((item, index) => {
+              console.log('Gallery item:', item); // Debug log to check item structure
               if (!item) return null; // Skip if item is null/undefined
               
               if (item._type === 'image') {
@@ -73,6 +76,27 @@ export default function Slideshow({ gallery = [] }) {
                     />
                   </div>
                 );
+              } else if (item._type === 'bigVideo' && item.video && item.image) {
+                console.log('Big video item:', item); // Debug log for bigVideo structure
+                return (
+                  <div 
+                    key={index} 
+                    className="embla__slide embla__slide--clickable"
+                    onClick={() => setFullscreenVideo({ url: item.video.asset.url, alt: item.alt })}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <img 
+                      src={urlFor(item.image).auto('format').url()} 
+                      alt={item.alt || `Gallery image ${index + 1}`}
+                      style={{ 
+                        height: '100%',
+                        objectFit: 'cover',
+                        width: '100%'
+                      }}
+                    />
+                    <div className="embla__slide-play-icon">▶</div>
+                  </div>
+                );
               }
               return null;
             })
@@ -100,6 +124,14 @@ export default function Slideshow({ gallery = [] }) {
         className={`embla__nav-area embla__nav-area--next ${nextBtnDisabled ? 'embla__nav-area--disabled' : ''}`} 
         onClick={scrollNext}
       ></div>
+      
+      {fullscreenVideo && (
+        <FullscreenVideoPlayer
+          videoUrl={fullscreenVideo.url}
+          alt={fullscreenVideo.alt}
+          onClose={() => setFullscreenVideo(null)}
+        />
+      )}
     </div>
   )
 }

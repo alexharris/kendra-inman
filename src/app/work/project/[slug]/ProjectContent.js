@@ -13,20 +13,6 @@ export default function ProjectContent({ project }) {
   const [taglineOpacity, setTaglineOpacity] = useState(1);
   const [tagline2Opacity, setTagline2Opacity] = useState(0);
 
-  // Helper function to get gallery images (filter out videos for now)
-  const getGalleryImages = () => {
-    if (!project.gallery) return [];
-    return project.gallery.filter(item => item._type === 'image');
-  };
-
-  // Helper function to get gallery videos
-  const getGalleryVideos = () => {
-    if (!project.gallery) return [];
-    return project.gallery.filter(item => item._type === 'file' && item.asset);
-  };
-
-  const galleryImages = getGalleryImages();
-  const galleryVideos = getGalleryVideos();
   const allGalleryItems = project.gallery || [];
   
   // Format gallery count with leading zero for single digits
@@ -128,6 +114,12 @@ export default function ProjectContent({ project }) {
                 muted
                 loop
                 playsInline
+                className="w-full h-auto object-contain"
+              />
+            ) : project.gallery[0]._type === 'bigVideo' && project.gallery[0].image ? (
+              <img
+                src={urlFor(project.gallery[0].image).url()}
+                alt={project.gallery[0].alt || 'Project image'}
                 className="w-full h-auto object-contain"
               />
             ) : null

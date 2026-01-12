@@ -82,6 +82,49 @@ export default {
             accept: 'video/*',
           },
         },
+        {
+          type: 'object',
+          name: 'bigVideo',
+          title: 'Image with Video',
+          fields: [
+            {
+              name: 'image',
+              title: 'Thumbnail Image',
+              type: 'image',
+              validation: Rule => Rule.required(),
+              description: 'Image shown in gallery slideshow'
+            },
+            {
+              name: 'video',
+              title: 'Fullscreen Video',
+              type: 'file',
+              options: {
+                accept: 'video/*'
+              },
+              validation: Rule => Rule.required(),
+              description: 'Video that plays fullscreen when image is clicked'
+            },
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for accessibility'
+            },
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              description: 'Optional caption'
+            }
+          ],
+          preview: {
+            select: {
+              title: 'caption',
+              subtitle: 'alt',
+              media: 'image'
+            }
+          }
+        }        
       ],
     },
     {
