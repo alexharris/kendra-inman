@@ -59,16 +59,15 @@
 
 .embla__slide-play-icon {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4rem;
-  color: white;
-  opacity: 0.7;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 33px;
+  height: 34px;
+  opacity: 0.85;
   transition: opacity 0.3s;
   z-index: 20;
   pointer-events: none;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
 .embla__slide:last-child {

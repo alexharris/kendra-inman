@@ -58,8 +58,19 @@ export async function getAllProjects(options = {}) {
         }
       },
       _type == "bigVideo" => {
-        image{
-          asset->
+        thumbnail[0]{
+          _type,
+          _type == "image" => {
+            asset->
+          },
+          _type == "file" => {
+            asset->{
+              _id,
+              url,
+              mimeType,
+              originalFilename
+            }
+          }
         },
         video{
           asset->{
@@ -136,8 +147,19 @@ export async function getProjectBySlug(slug, options = {}) {
         }
       },
       _type == "bigVideo" => {
-        image{
-          asset->
+        thumbnail[0]{
+          _type,
+          _type == "image" => {
+            asset->
+          },
+          _type == "file" => {
+            asset->{
+              _id,
+              url,
+              mimeType,
+              originalFilename
+            }
+          }
         },
         video{
           asset->{

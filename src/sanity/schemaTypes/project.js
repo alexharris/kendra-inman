@@ -88,11 +88,24 @@ export default {
           title: 'Image with Video',
           fields: [
             {
-              name: 'image',
-              title: 'Thumbnail Image',
-              type: 'image',
-              validation: Rule => Rule.required(),
-              description: 'Image shown in gallery slideshow'
+              name: 'thumbnail',
+              title: 'Thumbnail (Image or Video)',
+              type: 'array',
+              of: [
+                {
+                  type: 'image',
+                  title: 'Image'
+                },
+                {
+                  type: 'file',
+                  title: 'Video',
+                  options: {
+                    accept: 'video/*'
+                  }
+                }
+              ],
+              validation: Rule => Rule.required().max(1),
+              description: 'Image or video shown in gallery slideshow'
             },
             {
               name: 'video',
@@ -102,7 +115,7 @@ export default {
                 accept: 'video/*'
               },
               validation: Rule => Rule.required(),
-              description: 'Video that plays fullscreen when image is clicked'
+              description: 'Video that plays fullscreen when thumbnail is clicked'
             },
             {
               name: 'alt',
@@ -121,7 +134,7 @@ export default {
             select: {
               title: 'caption',
               subtitle: 'alt',
-              media: 'image'
+              media: 'thumbnail.0'
             }
           }
         }        

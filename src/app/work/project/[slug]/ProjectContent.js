@@ -90,7 +90,7 @@ export default function ProjectContent({ project }) {
   return (
     <div>
       <div className="project-container flex flex-col px-4">
-        <div id="project-slideshow" className="hidden lg:block w-full z-10">
+        <div id="project-slideshow" className="hidden lg:block w-full">
           {allGalleryItems.length > 0 ? (
             <Slideshow gallery={project.gallery} />
           ) : (
@@ -116,12 +116,23 @@ export default function ProjectContent({ project }) {
                 playsInline
                 className="w-full h-auto object-contain"
               />
-            ) : project.gallery[0]._type === 'bigVideo' && project.gallery[0].image ? (
-              <img
-                src={urlFor(project.gallery[0].image).url()}
-                alt={project.gallery[0].alt || 'Project image'}
-                className="w-full h-auto object-contain"
-              />
+            ) : project.gallery[0]._type === 'bigVideo' && project.gallery[0].thumbnail ? (
+              project.gallery[0].thumbnail._type === 'file' ? (
+                <video
+                  src={project.gallery[0].thumbnail.asset.url}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-auto object-contain"
+                />
+              ) : (
+                <img
+                  src={urlFor(project.gallery[0].thumbnail).url()}
+                  alt={project.gallery[0].alt || 'Project image'}
+                  className="w-full h-auto object-contain"
+                />
+              )
             ) : null
           ) : (
             <div className="w-full h-64 flex items-center justify-center">
