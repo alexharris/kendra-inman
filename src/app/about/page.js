@@ -55,14 +55,14 @@ export default function About() {
         {/* BigText is sticky from the start. Image is in flow below it,
             pushed down so it starts half-visible at the bottom of the viewport.
             When the wrapper ends, BigText releases and the text meets it. */}
-        <div className="min-h-screen">
+        <div className="min-h-[100dvh]">
           <div className="sticky top-40 z-10">
             <BigText className="w-full">
               {bigText ? <PortableText value={bigText} components={components} /> : 'Kendra is a Creative Director based in NYC'}
             </BigText>
           </div>
 
-          <div className="h-[45vh]"></div>
+          <div className="h-[45dvh]"></div>
 
           <div id="about-image" className="ml-auto w-fit pr-4 sm:pr-12 lg:pr-72 xl:pr-[33%]">
             <div className="font-mono text-xs text-right pr-8 mb-3">01</div>
@@ -74,7 +74,7 @@ export default function About() {
 
           {/* Extra scroll distance so the image fully exits the viewport
               before the wrapper ends and the about text appears */}
-          <div className="h-screen"></div>
+          <div className="h-[100dvh]"></div>
         </div>
 
         <div className="about-text text-2xl pt-8 md:text-4xl w-full md:w-9/12 lg:w-9/12 pb-[20vh] md:pb-[60vh]">
