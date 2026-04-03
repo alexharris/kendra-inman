@@ -1,3 +1,5 @@
+import { PlayIcon } from '@sanity/icons'
+
 export default {
   name: 'project',
   title: 'Projects',
@@ -86,7 +88,14 @@ export default {
           type: 'object',
           name: 'bigVideo',
           title: 'Image with Video',
+          icon: PlayIcon,
           fields: [
+            {
+              name: 'blockTitle',
+              title: 'Title',
+              type: 'string',
+              description: 'Label for this block in the Studio (not shown on site)'
+            },
             {
               name: 'thumbnail',
               title: 'Thumbnail (Image or Video)',
@@ -108,14 +117,20 @@ export default {
               description: 'Image or video shown in gallery slideshow'
             },
             {
+              name: 'vimeoUrl',
+              title: 'Fullscreen Video (Vimeo URL)',
+              type: 'url',
+              description: 'Paste a Vimeo URL (e.g. https://vimeo.com/123456789). If provided, this takes priority over the uploaded video.',
+              validation: Rule => Rule.uri({ scheme: ['https', 'http'] })
+            },
+            {
               name: 'video',
-              title: 'Fullscreen Video',
+              title: 'Fullscreen Video (Upload)',
               type: 'file',
               options: {
                 accept: 'video/*'
               },
-              validation: Rule => Rule.required(),
-              description: 'Video that plays fullscreen when thumbnail is clicked'
+              description: 'Video file that plays fullscreen when thumbnail is clicked'
             },
             {
               name: 'alt',
@@ -132,8 +147,8 @@ export default {
           ],
           preview: {
             select: {
-              title: 'caption',
-              subtitle: 'alt',
+              title: 'blockTitle',
+              subtitle: 'caption',
               media: 'thumbnail.0'
             }
           }

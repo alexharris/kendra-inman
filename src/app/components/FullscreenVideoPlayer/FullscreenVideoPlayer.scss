@@ -24,36 +24,35 @@
   height: auto;
   max-height: 90vh;
   object-fit: contain;
+
+  &[src*="player.vimeo.com"] {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: none;
+  }
 }
 
 .fullscreen-video-close {
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 100000;
   transition: opacity 0.2s;
-  
+
   svg {
     width: 24px;
     height: 24px;
   }
-  
+
   &:hover {
     opacity: 0.7;
   }
-  
+
   &:focus {
     outline: 2px solid white;
     outline-offset: 4px;
-  }
-}
-
-@media (max-width: 768px) {
-  .fullscreen-video-close {
-    top: 1rem;
-    right: 1rem;
   }
 }

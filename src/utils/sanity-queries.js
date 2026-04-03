@@ -80,6 +80,7 @@ export async function getAllProjects(options = {}) {
             originalFilename
           }
         },
+        vimeoUrl,
         alt,
         caption
       }
@@ -169,6 +170,7 @@ export async function getProjectBySlug(slug, options = {}) {
             originalFilename
           }
         },
+        vimeoUrl,
         alt,
         caption
       }

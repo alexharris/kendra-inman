@@ -36,10 +36,10 @@ export default function MobileProjectGallery({ gallery }) {
                 >
                   Your browser does not support the video tag.
                 </video>
-              ) : item._type === 'bigVideo' && item.video && item.thumbnail ? (
-                <div 
+              ) : item._type === 'bigVideo' && (item.video || item.vimeoUrl) && item.thumbnail ? (
+                <div
                   className="relative cursor-pointer"
-                  onClick={() => setFullscreenVideo({ url: item.video.asset.url, alt: item.alt })}
+                  onClick={() => setFullscreenVideo({ url: item.video?.asset?.url, vimeoUrl: item.vimeoUrl, alt: item.alt })}
                 >
                   {item.thumbnail._type === 'file' ? (
                     <video
@@ -81,6 +81,7 @@ export default function MobileProjectGallery({ gallery }) {
       {fullscreenVideo && (
         <FullscreenVideoPlayer
           videoUrl={fullscreenVideo.url}
+          vimeoUrl={fullscreenVideo.vimeoUrl}
           alt={fullscreenVideo.alt}
           onClose={() => setFullscreenVideo(null)}
         />

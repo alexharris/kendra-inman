@@ -76,7 +76,7 @@ export default function Slideshow({ gallery = [] }) {
                     />
                   </div>
                 );
-              } else if (item._type === 'bigVideo' && item.video && item.thumbnail) {
+              } else if (item._type === 'bigVideo' && (item.video || item.vimeoUrl) && item.thumbnail) {
                 const thumbnail = item.thumbnail;
                 const isThumbnailVideo = thumbnail._type === 'file';
                 
@@ -84,7 +84,7 @@ export default function Slideshow({ gallery = [] }) {
                   <div 
                     key={index} 
                     className="embla__slide embla__slide--clickable"
-                    onClick={() => setFullscreenVideo({ url: item.video.asset.url, alt: item.alt })}
+                    onClick={() => setFullscreenVideo({ url: item.video?.asset?.url, vimeoUrl: item.vimeoUrl, alt: item.alt })}
                     style={{ cursor: 'pointer' }}
                   >
                     {isThumbnailVideo ? (
@@ -153,6 +153,7 @@ export default function Slideshow({ gallery = [] }) {
       {fullscreenVideo && (
         <FullscreenVideoPlayer
           videoUrl={fullscreenVideo.url}
+          vimeoUrl={fullscreenVideo.vimeoUrl}
           alt={fullscreenVideo.alt}
           onClose={() => setFullscreenVideo(null)}
         />
