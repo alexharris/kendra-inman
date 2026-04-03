@@ -1,16 +1,12 @@
 import { PlayIcon } from '@sanity/icons'
+import { orderRankField } from '@sanity/orderable-document-list'
 
 export default {
   name: 'project',
   title: 'Projects',
   type: 'document',
   fields: [
-    {
-      name: 'orderRank',
-      title: 'Order Rank',
-      type: 'string',
-      hidden: true,
-    },
+    orderRankField({ type: 'project', newItemPosition: 'before' }),
     {
       name: 'title',
       title: 'Title',
