@@ -73,6 +73,10 @@
   transition: opacity 0.3s;
   z-index: 40;
   pointer-events: none;
+
+  @media (max-width: 640px) {
+    pointer-events: auto;
+  }
 }
 
 .embla__slide-play-label {
@@ -93,8 +97,7 @@
 .embla__nav-area {
   position: absolute;
   top: 0;
-  width: 33.333%; // One third of the slideshow width
-  height: calc(100% - 70px); // Leave bottom strip free for play icon
+  height: 100%;
   z-index: 30;
   background: transparent;
 }
@@ -120,9 +123,3 @@
 }
 
 
-// Responsive adjustments for mobile
-@media (max-width: 640px) {
-  .embla__nav-area {
-    width: 25%; // Slightly smaller clickable areas on mobile
-  }
-}
