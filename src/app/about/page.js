@@ -64,7 +64,7 @@ export default function About() {
 
           <div className="h-[45dvh]"></div>
 
-          <div id="about-image" className="ml-auto w-fit pr-4 sm:pr-12 lg:pr-72 xl:pr-[33%]">
+          <div id="about-image" className="relative z-20 ml-auto w-fit pr-4 sm:pr-12 lg:pr-72 xl:pr-[33%]">
             <div className="font-mono text-xs text-right pr-8 mb-3">01</div>
             <img className="w-56 md:w-96" src={aboutContent?.image ? urlFor(aboutContent.image).url() : "/images/kendra.jpg"} alt={aboutContent?.image?.caption || "About"} />
             {aboutContent?.image?.caption && (
@@ -77,7 +77,7 @@ export default function About() {
           <div className="h-[100dvh]"></div>
         </div>
 
-        <div className="about-text text-2xl pt-8 md:text-4xl w-full md:w-9/12 lg:w-9/12 pb-[20vh] md:pb-[60vh]">
+        <div className="about-text text-2xl pt-8 md:text-4xl w-full md:w-9/12 lg:w-9/12 pb-8 md:pb-16">
           <AboutTextSection
             bioContent={bioContent}
             column1Title={aboutContent?.column1Title}
