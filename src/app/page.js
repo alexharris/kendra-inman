@@ -399,7 +399,7 @@ export default function Home() {
           >
          
           </div> */}
-          <div id="manual-first-section" className="h-200 w-full relative top-48">
+          <div id="manual-first-section" className="h-[30vh] w-full">
             {/* manual first section */}
           </div>
           {homepageSections.map((section, index) => (     
@@ -410,7 +410,7 @@ export default function Home() {
               section={section}
             />
           ))}
-          <div id="manual-last-section" className="h-24 md:h-48 pt-20 flex flex-col items-start pl-2 w-full relative max-w-[1400px] mx-auto">
+          <div id="manual-last-section" className="h-[50vh] md:h-[60vh] pt-20 flex flex-col items-start pl-2 w-full relative max-w-[1400px] mx-auto">
             {/* manual last section */}
           </div>
         </div>      
