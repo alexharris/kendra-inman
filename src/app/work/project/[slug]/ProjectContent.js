@@ -141,7 +141,7 @@ export default function ProjectContent({ project }) {
           )}
         </div>
         <div className="z-20" style={{ backgroundColor: project.color?.hex || '#1f1d1d' }}>
-          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-8 pb-2 flex-shrink-0">
+          <div id="project-intro" className="z-20 flex flex-col lg:flex-row lg:items-center justify-between pt-8 pb-0 lg:pb-2 flex-shrink-0">
             <h1 id="project-title" className="serif-header">{project.title}</h1>
             <div 
               id="project-tagline-1" 
@@ -153,18 +153,58 @@ export default function ProjectContent({ project }) {
             <div id="project-information-below" className="hidden lg:block transition-opacity duration-300" style={{ opacity: taglineOpacity }}>
               <ParenthesesText>scroll down for case study</ParenthesesText>
             </div>
-          </div>    
+          </div>
           <div id="bottomText" className="transition-opacity duration-300" style={{ opacity: tagline2Opacity }}>
-            <div className="flex flex-col lg:flex-row gap-4 mt-3 justify-between ">
+            <div className="flex flex-col lg:flex-row gap-4 mt-0 lg:mt-3 justify-between ">
               <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:gap-8">
-                <div 
-                  id="project-tagline-2" 
+                <div
+                  id="project-tagline-2"
                   className="uppercase hidden lg:flex flex-row items-center gap-2"
                 >
                   {project.tagline} <span className="mono-tag">{galleryCount}</span>
                 </div>
                 <div className="uppercase lg:hidden flex flex-row items-center gap-2">
                   {project.tagline} <span className="mono-tag">{galleryCount}</span>
+                </div>
+                {/* gallery[1] + gallery[2] — mobile only, just above description */}
+                <div className="lg:hidden flex flex-col gap-4">
+                  {allGalleryItems.slice(1, 3).map((item, index) => (
+                    <div key={index} className="overflow-hidden">
+                      {item._type === 'image' ? (
+                        <img
+                          src={urlFor(item).url()}
+                          alt={item.alt || `Gallery image ${index + 2}`}
+                          className="w-full h-auto object-cover"
+                        />
+                      ) : item._type === 'file' && item.asset ? (
+                        <video
+                          src={item.asset.url}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full h-auto object-cover"
+                        />
+                      ) : item._type === 'bigVideo' && item.thumbnail ? (
+                        item.thumbnail._type === 'file' ? (
+                          <video
+                            src={item.thumbnail.asset.url}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full h-auto object-cover"
+                          />
+                        ) : (
+                          <img
+                            src={urlFor(item.thumbnail).url()}
+                            alt={item.alt || `Gallery image ${index + 2}`}
+                            className="w-full h-auto object-cover"
+                          />
+                        )
+                      ) : null}
+                    </div>
+                  ))}
                 </div>
                 <div className="big-paragraph font-serif max-w-[1200px]">
                   {project.description && (
@@ -202,7 +242,7 @@ export default function ProjectContent({ project }) {
             
                 )}
               </div>
-              <div className="lg:w-1/4 lg:mt-16">  
+              <div className="hidden lg:block lg:w-1/4 lg:mt-16">
                 <Expertise expertise={project.expertise} />
               </div>   
             </div>  
@@ -215,14 +255,17 @@ export default function ProjectContent({ project }) {
               )}  
             </div>                 
           </div>
-          <MobileProjectGallery gallery={project.gallery} />   
+          <MobileProjectGallery gallery={allGalleryItems.slice(3)} />
+          <div className="lg:hidden mb-8">
+            <Expertise expertise={project.expertise} />
+          </div>
           <div className="lg:hidden">
             {/* Related Projects Section */}
             {project.relatedProjects && project.relatedProjects.length > 0 && (
-              <RelatedProjects 
-                relatedProjects={project.relatedProjects} 
+              <RelatedProjects
+                relatedProjects={project.relatedProjects}
               />
-            )}  
+            )}
           </div>                  
         </div>
       </div>
