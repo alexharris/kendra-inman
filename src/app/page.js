@@ -353,7 +353,7 @@ export default function Home() {
 
         <div id="scroll-sections" className="p-4 md:p-12 relative">
 
-          <div id="big-sticky" className="z-10 max-w-[1400px] mx-auto justify-start sticky top-0 flex flex-col items-start gap-7 md:gap-12 pointer-events-none pt-[13vh] pb-12">
+          <div id="big-sticky" className="z-10 max-w-[1400px] mx-auto justify-start sticky top-0 flex flex-col items-start gap-7 md:gap-12 pointer-events-none pt-[20vh] pb-12">
             <BigText 
               className={`transition-colors ${brandColors[currentSection] === 'bg-black' ? 'text-beige' : 'text-black'}`}
               style={{ transitionDuration: `${ANIMATION_TIMINGS.background.colorTransition}ms` }}
@@ -362,7 +362,7 @@ export default function Home() {
             </BigText>
             {/* preSection - triggers beige background when hero scrolls off */}
             {homepageContent ? (
-              <div className="w-2/3 md:w-6/12 md:text-[20px]">
+              <div className="w-2/3 md:w-6/12 md:text-[20px] leading-snug">
               <PortableText value={homepageContent} />
               </div>
             ) : (
@@ -371,15 +371,15 @@ export default function Home() {
             <a 
             href="/work"
               className={`
-                px-5 py-3 
-                hover:px-8
+                px-3 py-2
+                hover:px-5
                 absolute
                 -left-4 md:-left-12 xl:left-0
                 -bottom-[15vh]
                 md:-bottom-[10vh]
                 lg:-bottom-[5vh]
-                text-lg uppercase tracking-wider
-                font-sans font-light
+                text-sm uppercase tracking-wider
+                futura-medium
                 transition-all duration-300
                 pointer-events-auto
                 ${brandColors[currentSection] === 'bg-black' ? 'bg-beige text-black' : 'bg-black text-beige'}

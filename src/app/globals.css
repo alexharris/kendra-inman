@@ -186,7 +186,7 @@ strong, b {
 }
 
 .big-text {
-  font-size: clamp(4.125rem, 2.031rem + 10.4vw, 14rem);
+  font-size: clamp(5rem, 2.5rem + 11vw, 16rem);
   line-height: .8em;
 }
 
