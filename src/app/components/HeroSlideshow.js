@@ -33,7 +33,7 @@ export default function HeroSlideshow({ heroSlideshow }) {
   }
 
   return (
-    <div id="heroSlideshow" className="h-screen w-full relative overflow-hidden">
+    <a href="/work" id="heroSlideshow" className="h-screen w-full relative overflow-hidden block">
       <div className="embla h-full w-full">
         <div className="embla__viewport h-full w-full overflow-hidden" ref={emblaRef}>
           <div className="embla__container h-full flex">
@@ -71,6 +71,6 @@ export default function HeroSlideshow({ heroSlideshow }) {
         </div>
       </div>
       
-    </div>
+    </a>
   );
 }
