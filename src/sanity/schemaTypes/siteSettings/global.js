@@ -45,6 +45,13 @@ export default {
         scheme: ['http', 'https']
       }),
     },
+    {
+      name: 'showWorkButton',
+      title: 'Show "See The Work" Button',
+      type: 'boolean',
+      description: 'Toggle the "See The Work" button on the homepage hero section',
+      initialValue: true,
+    },
   ],
   preview: {
     select: {

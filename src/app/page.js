@@ -6,7 +6,7 @@ import ScrollSection from "./components/ScrollSection";
 import HeroSlideshow from "./components/HeroSlideshow";
 import { useEffect, useState, useRef } from "react";
 import { PortableText } from '@portabletext/react';
-import { getHomepageContent } from '../utils/sanity-queries';
+import { getHomepageContent, getGlobalSettings } from '../utils/sanity-queries';
 import { setPageColors, resetPageColors } from '../utils/pageColors';
 
 // ============================================================================
@@ -76,6 +76,7 @@ export default function Home() {
   const [bigText, setBigText] = useState(null);
   const [homepageSections, setHomepageSections] = useState([]);
   const [heroSlideshow, setHeroSlideshow] = useState(null);
+  const [showWorkButton, setShowWorkButton] = useState(true);
   const [brandColors, setBrandColors] = useState([
     'bg-red', 'bg-beige', 'bg-purple', 'bg-blue', 'bg-yellow',
     'bg-taupe', 'bg-green', 'bg-black', 'bg-red', 'bg-black'
@@ -240,6 +241,11 @@ export default function Home() {
         setHeroSlideshow(data?.heroSlideshow);
       })
       .catch(console.error);
+    getGlobalSettings()
+      .then((data) => {
+        setShowWorkButton(data?.showWorkButton ?? true);
+      })
+      .catch(console.error);
   }, []);
 
   // Update brand colors when sections change
@@ -368,7 +374,8 @@ export default function Home() {
             ) : (
               "Loading..."
             )}               
-            <a 
+            {showWorkButton && (
+            <a
             href="/work"
               className={`
                 px-3 py-2
@@ -384,13 +391,14 @@ export default function Home() {
                 pointer-events-auto
                 ${brandColors[currentSection] === 'bg-black' ? 'bg-beige text-black' : 'bg-black text-beige'}
               `}
-              style={{ 
+              style={{
                 // writingMode: 'vertical-rl',
                 textOrientation: 'mixed',
               }}
             >
               See The Work
-            </a>            
+            </a>
+            )}            
           </div>
 
           {/* <div 

@@ -9,9 +9,11 @@ import { client } from '../sanity/lib/client';
  */
 export async function fetchSanityData(query, params = {}, options = {}) {
   try {
+    const { useCdn, revalidate, ...rest } = options;
     const result = await client.fetch(query, params, {
-      next: { revalidate: options.revalidate || 3600 }, // Default 1 hour cache
-      ...options
+      next: { revalidate: revalidate ?? 3600 }, // Default 1 hour cache
+      ...(useCdn !== undefined ? { useCdn } : {}),
+      ...rest
     });
     return result;
   } catch (error) {
@@ -350,11 +352,12 @@ export async function getGlobalSettings(options = {}) {
     linkedin,
     instagram,
     pinterest,
+    showWorkButton,
     _createdAt,
     _updatedAt
   }`;
-  
-  return fetchSanityData(query, {}, options);
+
+  return fetchSanityData(query, {}, { useCdn: false, revalidate: 0, ...options });
 }
 
 /**

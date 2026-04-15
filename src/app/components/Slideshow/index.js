@@ -73,8 +73,7 @@ export default function Slideshow({ gallery = [] }) {
         <div className="embla__container text-black">
           {gallery.length > 0 ? (
             gallery.map((item, index) => {
-              console.log('Gallery item:', item); // Debug log to check item structure
-              if (!item) return null; // Skip if item is null/undefined
+              if (!item) return null;
               
               if (item._type === 'image') {
                 return (
