@@ -6,12 +6,14 @@ import MobileProjectGallery from '../../../components/MobileProjectGallery';
 import RelatedProjects from '../../../components/RelatedProjects';
 import Expertise from '../../../components/Expertise';
 import ParenthesesText from '../../../components/ParenthesesText';
+import FullscreenVideoPlayer from '../../../components/FullscreenVideoPlayer';
 import { urlFor, getAssetUrl } from '../../../../sanity/lib/image';
 import { setPageColorsFromProject, resetPageColors } from '../../../../utils/pageColors';
 
 export default function ProjectContent({ project }) {
   const [taglineOpacity, setTaglineOpacity] = useState(1);
   const [tagline2Opacity, setTagline2Opacity] = useState(0);
+  const [fullscreenVideo, setFullscreenVideo] = useState(null);
 
   const allGalleryItems = project.gallery || [];
   
@@ -116,23 +118,34 @@ export default function ProjectContent({ project }) {
                 playsInline
                 className="w-full h-auto object-contain"
               />
-            ) : project.gallery[0]._type === 'bigVideo' && project.gallery[0].thumbnail ? (
-              project.gallery[0].thumbnail._type === 'file' ? (
-                <video
-                  src={project.gallery[0].thumbnail.asset.url}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-auto object-contain"
-                />
-              ) : (
-                <img
-                  src={urlFor(project.gallery[0].thumbnail).url()}
-                  alt={project.gallery[0].alt || 'Project image'}
-                  className="w-full h-auto object-contain"
-                />
-              )
+            ) : project.gallery[0]._type === 'bigVideo' && (project.gallery[0].video || project.gallery[0].vimeoUrl) && project.gallery[0].thumbnail ? (
+              <div
+                className="relative cursor-pointer"
+                onClick={() => setFullscreenVideo({ url: project.gallery[0].video?.asset?.url, vimeoUrl: project.gallery[0].vimeoUrl, alt: project.gallery[0].alt })}
+              >
+                {project.gallery[0].thumbnail._type === 'file' ? (
+                  <video
+                    src={project.gallery[0].thumbnail.asset.url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-auto object-contain"
+                  />
+                ) : (
+                  <img
+                    src={urlFor(project.gallery[0].thumbnail).url()}
+                    alt={project.gallery[0].alt || 'Project image'}
+                    className="w-full h-auto object-contain"
+                  />
+                )}
+                <div className="absolute bottom-4 right-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: '#000', width: '89px', height: '25px', opacity: 0.85 }}>
+                  <span style={{ color: '#EFEADB', fontFamily: "'futura-pt', Futura, sans-serif", fontWeight: 500, fontSize: '11px', lineHeight: 1, letterSpacing: 0, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Full Video</span>
+                  <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.3106 5.2812L1.44716 0.128989C1.14636 -0.045257 0.778726 -0.0418409 0.481273 0.132405C0.183819 0.306651 0 0.634643 0 0.986552V11.9846C0 12.3467 0.193846 12.6815 0.504668 12.8524C0.648381 12.9344 0.808805 12.9719 0.969229 12.9719C1.15305 12.9719 1.33353 12.9173 1.49395 12.8148L10.3574 6.96558C10.6415 6.77767 10.8086 6.45309 10.7985 6.1046C10.7885 5.75953 10.6047 5.44178 10.3106 5.27437V5.2812Z" fill="#EFEADB"/>
+                  </svg>
+                </div>
+              </div>
             ) : null
           ) : (
             <div className="w-full h-64 flex items-center justify-center">
@@ -185,23 +198,34 @@ export default function ProjectContent({ project }) {
                           playsInline
                           className="w-full h-auto object-cover"
                         />
-                      ) : item._type === 'bigVideo' && item.thumbnail ? (
-                        item.thumbnail._type === 'file' ? (
-                          <video
-                            src={item.thumbnail.asset.url}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            className="w-full h-auto object-cover"
-                          />
-                        ) : (
-                          <img
-                            src={urlFor(item.thumbnail).url()}
-                            alt={item.alt || `Gallery image ${index + 2}`}
-                            className="w-full h-auto object-cover"
-                          />
-                        )
+                      ) : item._type === 'bigVideo' && (item.video || item.vimeoUrl) && item.thumbnail ? (
+                        <div
+                          className="relative cursor-pointer"
+                          onClick={() => setFullscreenVideo({ url: item.video?.asset?.url, vimeoUrl: item.vimeoUrl, alt: item.alt })}
+                        >
+                          {item.thumbnail._type === 'file' ? (
+                            <video
+                              src={item.thumbnail.asset.url}
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              className="w-full h-auto object-cover"
+                            />
+                          ) : (
+                            <img
+                              src={urlFor(item.thumbnail).url()}
+                              alt={item.alt || `Gallery image ${index + 2}`}
+                              className="w-full h-auto object-cover"
+                            />
+                          )}
+                          <div className="absolute bottom-4 right-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: '#000', width: '89px', height: '25px', opacity: 0.85 }}>
+                            <span style={{ color: '#EFEADB', fontFamily: "'futura-pt', Futura, sans-serif", fontWeight: 500, fontSize: '11px', lineHeight: 1, letterSpacing: 0, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Full Video</span>
+                            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10.3106 5.2812L1.44716 0.128989C1.14636 -0.045257 0.778726 -0.0418409 0.481273 0.132405C0.183819 0.306651 0 0.634643 0 0.986552V11.9846C0 12.3467 0.193846 12.6815 0.504668 12.8524C0.648381 12.9344 0.808805 12.9719 0.969229 12.9719C1.15305 12.9719 1.33353 12.9173 1.49395 12.8148L10.3574 6.96558C10.6415 6.77767 10.8086 6.45309 10.7985 6.1046C10.7885 5.75953 10.6047 5.44178 10.3106 5.27437V5.2812Z" fill="#EFEADB"/>
+                            </svg>
+                          </div>
+                        </div>
                       ) : null}
                     </div>
                   ))}
@@ -270,7 +294,14 @@ export default function ProjectContent({ project }) {
         </div>
       </div>
 
-
+      {fullscreenVideo && (
+        <FullscreenVideoPlayer
+          videoUrl={fullscreenVideo.url}
+          vimeoUrl={fullscreenVideo.vimeoUrl}
+          alt={fullscreenVideo.alt}
+          onClose={() => setFullscreenVideo(null)}
+        />
+      )}
 
     </div>
   );
