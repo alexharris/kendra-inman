@@ -52,6 +52,10 @@
   }
 }
 
+html {
+  background-color: #EFEBD9; /* beige — matches default body bg-beige to prevent white flash on overscroll */
+}
+
 body {
   /* font-family: var(--font-futura-medium); */
   margin: 0;

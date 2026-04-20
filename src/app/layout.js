@@ -36,7 +36,7 @@ console.log(backgroundColor);
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={backgroundColor}>
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/yiy0lvp.css" />
       </head>

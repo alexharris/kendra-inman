@@ -68,17 +68,20 @@ export function setPageColors(options = {}) {
   } = options;
 
   // Get elements
+  const html = document.documentElement;
   const body = document.body;
   const header = document.querySelector('#site-header');
   const footer = document.querySelector('#footer');
 
   if (!body) return;
 
-  // Remove all existing color classes from body
+  // Remove all existing color classes from body and html
   body.classList.remove(...ALL_BG_COLORS, ...ALL_TEXT_COLORS, ...ALL_FILL_COLORS);
-  
-  // Add new color classes to body
+  html.classList.remove(...ALL_BG_COLORS);
+
+  // Add new color classes to body and html (html needs bg for overscroll areas on mobile)
   body.classList.add(background, text, fill);
+  html.classList.add(background);
 
   // Apply to header if it exists and if requested
   if (header && applyToHeader) {
